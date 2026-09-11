@@ -1,6 +1,6 @@
 # Integrate Crosstalk into a web application
 
-Crosstalk adds conversation and voice control to a web application through a small application contract: a description, a current state snapshot, and executable tools. Your application keeps control of its UI and business logic. GPT-Live-1 handles conversation, GPT-6 Astra reasons about application requests, and Crosstalk validates and routes actions to your browser code.
+Crosstalk adds conversation and voice control to a web application through a small application contract: a description, a current state snapshot, and executable tools. Your application keeps control of its UI and business logic. [GPT-Live-1](https://openai.com/index/introducing-gpt-live/) handles conversation, GPT-6 Astra reasons about application requests, and Crosstalk validates and routes actions to your browser code.
 
 This guide follows the working [Edificio Europa integration](../edificio-europa/README.md). The supplied server runs on Bun; the browser client can be used with any web UI that can bundle its TypeScript dependencies. Start with the [illustrated conversation-to-action walkthrough](./README.md#from-natural-conversation-to-application-action) for the overall flow.
 

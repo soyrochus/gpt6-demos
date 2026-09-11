@@ -40,7 +40,7 @@ Browser saves are specific to each address and port. Export existing projects or
 
 ## Crosstalk — Conversational application control
 
-Crosstalk adds a spoken interface to Bun web applications. GPT-Live-1 handles speech and conversation, while GPT-6 Astra uses the application's description, current state, and registered tools to answer questions and carry out requests. Each application supplies its own knowledge and actions through an adapter. The service works with those explicit capabilities and state updates; it does not inspect the screen.
+Crosstalk adds a spoken interface to Bun web applications. [GPT-Live-1](https://openai.com/index/introducing-gpt-live/) handles speech and conversation, while GPT-6 Astra uses the application's description, current state, and registered tools to answer questions and carry out requests. Each application supplies its own knowledge and actions through an adapter. The service works with those explicit capabilities and state updates; it does not inspect the screen.
 
 In Edificio Europa, press **Crosstalk**, allow microphone access, and try “What am I looking at?”, “Show it at sunset”, “Show me around”, or “Save this view”. Tools control camera perspectives, building and compass sides, relative orbit, lighting, automatic rotation, zoom, view reset, and 4K image downloads. Voice actions and manual controls share the same controller, keeping the scene, buttons, and AI state synchronized.
 
