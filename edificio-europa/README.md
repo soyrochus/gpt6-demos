@@ -37,6 +37,8 @@ Europa supplies its description, current scene state, and registered tools to Cr
 
 See [how Crosstalk works: diagram and walkthrough](../cross-talk/README.md#from-natural-conversation-to-application-action) for the illustrated flow and each component's role.
 
+To integrate Crosstalk into your own web application, follow the [integration guide](../cross-talk/INTEGRATION.md), which uses Europa as the canonical example for server setup, application state, tools, and browser lifecycle.
+
 ## Validate and build
 
 ```sh

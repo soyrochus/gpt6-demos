@@ -50,7 +50,7 @@ Europa also shares live camera orientation with the AI. Its entrance is the fron
 
 The service includes validated tool arguments, interruption of camera navigation, and confirmation for downloads that were not directly requested. The OpenAI API key stays on the server, and browser audio connects to OpenAI over WebRTC. Use **End conversation** to stop the microphone and voice session.
 
-[How Crosstalk works: diagram and walkthrough](./cross-talk/README.md#from-natural-conversation-to-application-action) · [Source, setup, and integration guide](./cross-talk/README.md) · [Service specification](./cross-talk/specs/cross-talk.md)
+[How Crosstalk works: diagram and walkthrough](./cross-talk/README.md#from-natural-conversation-to-application-action) · [Integration guide](./cross-talk/INTEGRATION.md) · [Source and setup](./cross-talk/README.md) · [Service specification](./cross-talk/specs/cross-talk.md)
 
 ## Current demos
 

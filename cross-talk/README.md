@@ -4,6 +4,8 @@ Reusable conversational control for Bun web applications. GPT-Live-1 owns speech
 
 The first integration is [Edificio Europa](../edificio-europa/README.md). Its nine tools use the same controller as the visible buttons and keyboard controls. The fullscreen tool is retained as an example of browser restrictions on tool execution, rather than a dependable way to enter fullscreen by voice.
 
+To add Crosstalk to another web application, follow the [integration guide](./INTEGRATION.md), using Europa as the canonical example for server setup, application state, tools, and browser lifecycle.
+
 Europa's adapter also exposes live spatial state and `show_side` / `orbit_view` tools. Its user-supplied geographic reference defines the entrance as front, facing 010°. The AI receives camera side, compass position, looking direction, elevation, distance and focus offset, including after mouse navigation and during auto-rotation. This is an application-specific extension of the existing state/tool contract; other apps can supply their own spatial model. See the [spatial navigation specification](./specs/europa-spatial-navigation.md).
 
 ## From natural conversation to application action
