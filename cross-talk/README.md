@@ -6,6 +6,23 @@ The first integration is [Edificio Europa](../edificio-europa/README.md). Its ni
 
 Europa's adapter also exposes live spatial state and `show_side` / `orbit_view` tools. Its user-supplied geographic reference defines the entrance as front, facing 010°. The AI receives camera side, compass position, looking direction, elevation, distance and focus offset, including after mouse navigation and during auto-rotation. This is an application-specific extension of the existing state/tool contract; other apps can supply their own spatial model. See the [spatial navigation specification](./specs/europa-spatial-navigation.md).
 
+## From natural conversation to application action
+
+Crosstalk is a reusable conversational layer for interactive applications. The diagram below shows how a spoken request becomes an action in Edificio Europa, and how the result feeds back into the conversation.
+
+![Crosstalk in Edificio Europa: a spoken request passes through GPT-Live-1, Crosstalk's application context, GPT-6 Astra reasoning, validation and permissions, and Europa's tools; updated state and results return to GPT-Live-1.](./images/crosstalk-working.png)
+
+1. **The user speaks.** A request such as “Show me around” starts with natural conversation.
+2. **GPT-Live-1 handles the conversation.** It manages speech, turn-taking, and interruptions, and delegates requests that need application knowledge or actions.
+3. **Crosstalk supplies application context.** It brings together the application's description, fresh semantic state, and available tools so the reasoning model knows what the application can do and what is happening now.
+4. **GPT-6 Astra reasons about the request.** It interprets the user's intent and chooses actions using the supplied context—for example, planning a short tour using Europa's available perspectives.
+5. **Crosstalk validates the actions and checks permissions.** It checks tool arguments and confirmation requirements before dispatching an action to the application.
+6. **Europa executes the action.** Its registered tools can show a perspective, change lighting, zoom, rotate, or capture an image. Tool results and refreshed state feed back through Crosstalk so GPT-Live-1 can explain the outcome and continue the conversation.
+
+For example, “Show me around” asks Astra to build a small tour using Europa's available perspectives. “Show it at sunset” maps to `set_lighting({ lighting: 'golden' })`, and Europa updates the scene.
+
+The application supplies its description, state, and safe semantic actions through an adapter. Crosstalk provides the conversation and reasoning infrastructure, so each application can add conversational control without implementing its own speech or agent logic.
+
 ## Browser capabilities limit tools
 
 Exposing an application action as an AI tool does not bypass browser permissions, supported APIs, or user activation requirements. Europa's `set_fullscreen` demonstrates this boundary: native fullscreen entry requires user activation, such as a recent click, which a voice request alone does not provide. A valid tool call can therefore be refused by the browser.

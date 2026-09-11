@@ -31,6 +31,12 @@ Open http://localhost:3000. The startup command loads the server key and model c
 
 Drag to orbit; right-drag to pan; scroll or pinch to zoom. Focus the canvas and use arrow keys to pan, +/− to zoom, and R to reset.
 
+## Crosstalk: from conversation to action
+
+Europa supplies its description, current scene state, and registered tools to Crosstalk. GPT-Live-1 handles speech and conversation; GPT-6 Astra uses that context to choose actions. Crosstalk validates the actions and checks permissions, Europa executes them, and the results feed back into the conversation. Try “Show me around” for a tour of the available perspectives or “Show it at sunset” to change the lighting.
+
+See [how Crosstalk works: diagram and walkthrough](../cross-talk/README.md#from-natural-conversation-to-application-action) for the illustrated flow and each component's role.
+
 ## Validate and build
 
 ```sh
