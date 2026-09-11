@@ -7,13 +7,15 @@ set -m
 ROOT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 command -v bun >/dev/null 2>&1 || { echo 'Bun is required: https://bun.sh' >&2; exit 1; }
 DEMOS=(edificio-europa infinicave tonada tarot-spead orbital-mechanics-laboratory digital-logic-laboratory flip-slop codexcanvas)
+# Europa imports shared Crosstalk source, whose dependencies live in cross-talk/.
+INSTALL_PROJECTS=(cross-talk "${DEMOS[@]}")
 PORTS=(3001 3002 3003 3004 3005 3006 3007 3008)
 PORTAL_PORT=3000
 SERVICES=("${DEMOS[@]}" portal)
 SERVICE_PORTS=("${PORTS[@]}" "$PORTAL_PORT")
-for demo in "${DEMOS[@]}"; do
-  if [[ ! -f "$ROOT_DIR/$demo/package.json" ]]; then
-    echo "Missing project: $ROOT_DIR/$demo" >&2
+for project in "${INSTALL_PROJECTS[@]}"; do
+  if [[ ! -f "$ROOT_DIR/$project/package.json" ]]; then
+    echo "Missing project: $ROOT_DIR/$project" >&2
     exit 1
   fi
 done
@@ -27,10 +29,10 @@ done
 
 # Let Bun check the dependency tree, including partially installed node_modules.
 # Complete every install before starting any servers; keep checked-in versions.
-for demo in "${DEMOS[@]}"; do
-  printf '[%s] Checking/installing dependencies…\n' "$demo"
-  if ! (cd -- "$ROOT_DIR/$demo" && bun install --frozen-lockfile); then
-    printf '[%s] Dependency installation failed; no servers started.\n' "$demo" >&2
+for project in "${INSTALL_PROJECTS[@]}"; do
+  printf '[%s] Checking/installing dependencies…\n' "$project"
+  if ! (cd -- "$ROOT_DIR/$project" && bun install --frozen-lockfile); then
+    printf '[%s] Dependency installation failed; no servers started.\n' "$project" >&2
     exit 1
   fi
 done

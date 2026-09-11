@@ -20,13 +20,15 @@ With [Bun](https://bun.sh/) installed, run from the repository root:
 ./run-all.sh
 ```
 
+Before starting any servers, the launcher runs `bun install --frozen-lockfile` in `cross-talk/` and every demo to install missing dependencies while preserving the checked-in versions. If an installation fails, no servers are started.
+
 The launcher starts Edificio Europa on [port 3001](http://localhost:3001), InfiniCave on [port 3002](http://localhost:3002), Tonada on [port 3003](http://localhost:3003), Tarot Spread on [port 3004](http://localhost:3004), Orbital on [port 3005](http://localhost:3005), Digital Logic Laboratory on [port 3006](http://localhost:3006), Flip-slop on [port 3007](http://localhost:3007), and Codex Canvas on [port 3008](http://localhost:3008). A separate portal process runs on [port 3000](http://localhost:3000). Logs are labelled by service. Press **Ctrl+C** to stop all eight demos and the portal; if any process exits, the launcher stops the others too. The assigned ports must be free.
 
 Before starting Flip-slop, follow its [environment setup](./flip-slop/README.md#run): copy `flip-slop/example.env` to `flip-slop/.env` and set the OpenAI API key only in `.env`. The launcher assigns port 3007, overriding the standalone default.
 
 For Codex Canvas, follow its [setup instructions](./codexcanvas/README.md#run). The launcher assigns port 3008, overriding the standalone default of 3030.
 
-For Crosstalk voice control in Europa, first run `bun install` in `cross-talk/` and configure `cross-talk/.env` using its [setup instructions](./cross-talk/README.md#run-europa-with-voice). Europa loads that file and hosts the service itself, so the launcher needs no additional Crosstalk process. Without an API key, the architectural explorer remains usable through its normal controls.
+For Crosstalk voice control in Europa, configure `cross-talk/.env` using its [setup instructions](./cross-talk/README.md#run-europa-with-voice). The launcher installs Crosstalk's dependencies automatically. Europa loads that file and hosts the service itself, so the launcher needs no additional Crosstalk process. Without an API key, the architectural explorer remains usable through its normal controls.
 
 ### Demo portal
 
@@ -60,9 +62,9 @@ An interactive, photo-based reconstruction of Edificio Europa in Valencia. Explo
 
 Its integrated [Crosstalk voice controls](#crosstalk--conversational-application-control) let you ask about the building, request a guided tour, and operate the explorer conversationally.
 
-[![Edificio Europa — 3D demo](https://i.ytimg.com/vi/YwKfrL4P3N4/hqdefault.jpg)](https://youtu.be/YwKfrL4P3N4)
+[![Edificio Europa — 3D demo](https://i.ytimg.com/vi/Jj22gWplYZY/hqdefault.jpg)](https://youtu.be/Jj22gWplYZY)
 
-[Edificio Europa — 3D demo](https://youtu.be/YwKfrL4P3N4)
+[Edificio Europa — 3D demo](https://youtu.be/Jj22gWplYZY)
 
 [Source and setup](./edificio-europa/README.md)
 
