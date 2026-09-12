@@ -1,0 +1,46 @@
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -16,6 +16,10 @@
+ # should never enable devtools, as it grants full DOM/JS inspection access.
+ wry = { version = "0.54.3", features = ["devtools", "protocol"] }
+ http = "1"
++
++[target.'cfg(target_os = "linux")'.dependencies]
++webkit2gtk = { version = "2.0.2", features = ["v2_38"] }
++glib = "0.18"
+ 
+ # Windows-only: kept for runtime.rs (WebView2 detection/install)
+ [target.'cfg(target_os = "windows")'.dependencies]
+--- a/src/platform/unified.rs
++++ b/src/platform/unified.rs
+@@ -823,6 +823,30 @@
+                 .map_err(|e| napi::Error::from_reason(format!("Failed to create webview: {}", e)))?;
+ 
+             // Store the window + webview
++            #[cfg(target_os = "linux")]
++            {
++                use wry::WebViewExtUnix;
++                use webkit2gtk::{WebViewExt, SettingsExt, PermissionRequestExt, UserMediaPermissionRequestExt};
++                use glib::Cast;
++                let native_view = webview.webview();
++                if let Some(settings) = native_view.settings() {
++                    settings.set_enable_webrtc(perms.allow_microphone);
++                    eprintln!("[europa-probe] WebRTC setting reads back: {}", settings.enables_webrtc());
++                }
++                native_view.connect_permission_request(move |view, request| {
++                    if let Some(media) = request.downcast_ref::<webkit2gtk::UserMediaPermissionRequest>() {
++                        let trusted = view.uri().map(|uri| is_origin_trusted(id, uri.as_str())).unwrap_or(false);
++                        if trusted && perms.allow_microphone && media.is_for_audio_device() && !media.is_for_video_device() {
++                            request.allow();
++                        } else {
++                            request.deny();
++                        }
++                        return true;
++                    }
++                    false
++                });
++            }
++
+             let tao_window_id = window.id();
+             self.window_id_map.insert(tao_window_id, id);
+             self.windows.insert(id, WindowEntry {

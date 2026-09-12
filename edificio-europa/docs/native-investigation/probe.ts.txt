@@ -1,0 +1,31 @@
+const { NativeWindow, loadHtmlOrigin } = require('/tmp/europa-native-investigation/native-window.node');
+process.env.GDK_BACKEND = 'wayland';
+const window = new NativeWindow({title:'Europa native capability check',width:500,height:220,incognito:true,devtools:false,allowMicrophone:true,trustedOrigins:[loadHtmlOrigin(),'http://127.0.0.1:3189']});
+const timer = setTimeout(() => { console.error('Native probe timed out'); window.close(); process.exit(1); }, 12000);
+window.onMessage((raw: string) => {console.log(raw); clearTimeout(timer); window.close(); setTimeout(() => process.exit(0), 100);});
+const html = `<!doctype html><html><body><p>Checking Europa desktop prerequisites…</p><script>
+(async () => {
+ const result = {origin:location.origin,secure:isSecureContext,webgl2:!!document.createElement('canvas').getContext('webgl2'),rtc:typeof RTCPeerConnection,media:!!navigator.mediaDevices?.getUserMedia};
+ try { const peer = new RTCPeerConnection(); peer.createDataChannel('probe'); const offer=await peer.createOffer(); result.rtcOffer=!!offer.sdp; peer.close(); } catch(e) {result.rtcError=e.name+': '+e.message;}
+ // No recording or network transmission: any successfully acquired track is stopped immediately.
+ try {
+   const stream = await navigator.mediaDevices.getUserMedia({audio:true}); result.microphone='granted';
+   try {
+     const ctx=new AudioContext(); await ctx.resume(); result.audioContext=ctx.state; result.sampleRate=ctx.sampleRate;
+     const code="class Probe extends AudioWorkletProcessor { process(inputs){ if(inputs[0]?.[0]) this.port.postMessage(inputs[0][0].length); return true; } } registerProcessor('probe',Probe);";
+     const url=URL.createObjectURL(new Blob([code],{type:'text/javascript'}));
+     await ctx.audioWorklet.addModule(url);URL.revokeObjectURL(url);
+     const node=new AudioWorkletNode(ctx,'probe');let samples=0;node.port.onmessage=e=>{samples+=e.data;};
+     const source=ctx.createMediaStreamSource(stream);source.connect(node);node.connect(ctx.destination);
+     await new Promise(r=>setTimeout(r,350));result.workletSamples=samples;
+     source.disconnect();node.disconnect();await ctx.close();
+   }catch(e){result.audioError=e.name+': '+e.message;}
+   stream.getTracks().forEach(t=>t.stop());
+ } catch(e) {result.microphone=e.name+': '+e.message;}
+ window.ipc.postMessage(JSON.stringify(result));
+})();
+</script></body></html>`;
+if (process.argv.includes('--http')) {
+  Bun.serve({hostname:'127.0.0.1',port:3189,fetch:()=>new Response(html,{headers:{'Content-Type':'text/html'}})});
+  window.loadUrl('http://127.0.0.1:3189/');
+} else window.loadHtml(html);

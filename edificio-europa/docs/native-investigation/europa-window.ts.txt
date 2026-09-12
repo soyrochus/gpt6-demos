@@ -1,0 +1,36 @@
+import html from './europa-page.html' with {type:'text'};
+import { CrosstalkServer, type CrosstalkSocketData } from '/home/iwk/src/gpt6-demos/cross-talk/src/server/index.ts';
+import { ToolRouter } from '/home/iwk/src/gpt6-demos/cross-talk/src/server/ToolRouter.ts';
+import type { RegisteredApplication } from '/home/iwk/src/gpt6-demos/cross-talk/src/server/ApplicationRegistry.ts';
+const {NativeWindow}=require('/tmp/europa-native-investigation/native-window.node');
+process.env.GDK_BACKEND='wayland';
+const crosstalk=new CrosstalkServer({openAIKey:'',logger:()=>{}});
+let app:RegisteredApplication|undefined;
+const server=Bun.serve<CrosstalkSocketData>({hostname:'127.0.0.1',port:0,development:false,websocket:{...crosstalk.websocket,message(ws,raw){crosstalk.websocket.message(ws,raw);if(ws.data.app)app=ws.data.app;}},fetch(req,s){return new URL(req.url).pathname==='/'?new Response(html,{headers:{'Content-Type':'text/html'}}):crosstalk.handler(req,s);}});
+const origin=`http://127.0.0.1:${server.port}`;
+const window=new NativeWindow({title:'Europa native window investigation',width:1280,height:920,incognito:true,devtools:false,allowMicrophone:true,trustedOrigins:[origin],allowedHosts:['127.0.0.1']});
+let closing=false;
+async function close(code=0){if(closing)return;closing=true;clearTimeout(timeout);await crosstalk.dispose();server.stop(true);window.close();setTimeout(()=>process.exit(code),100);}
+const timeout=setTimeout(()=>{console.error('Europa native test timed out');void close(1);},30000);
+window.onClose(()=>void close());
+window.onMessage((raw:string)=>{void (async()=>{
+ const m=JSON.parse(raw);if(m.error)throw new Error(m.error);
+ if(m.kind==='ready'){
+   const registrationDeadline=Date.now()+5000;
+   while(!app&&Date.now()<registrationDeadline)await new Promise(r=>setTimeout(r,50));
+   if(!app)throw new Error('Crosstalk registration missing');
+   console.log('native Europa ready',m);
+   const router=new ToolRouter();
+   for(const [name,args] of [['set_lighting',{lighting:'golden'}],['show_side',{side:'back'}]] as const){
+     const result=await router.invoke(app,crypto.randomUUID(),name,args,true,new AbortController().signal);
+     console.log('native tool',name,JSON.stringify(result));if(!result.ok)throw new Error(name+' failed');
+   }
+   console.log('native state',JSON.stringify(await app.requestState()));
+   window.evaluateJs(`requestAnimationFrame(()=>window.ipc.postMessage(JSON.stringify({kind:'capture',png:document.querySelector('#canvas-host canvas').toDataURL('image/png')})))`);
+ }else if(m.kind==='capture'){
+   await Bun.write('/tmp/europa-native-investigation/europa-native.png',Buffer.from(m.png.split(',')[1],'base64'));
+   console.log('Canvas capture saved');await close();
+ }
+})().catch(e=>{console.error(e);void close(1);});});
+window.onPageLoad((event:string)=>{if(event==='finished')window.evaluateJs(`(function check(){if(!document.querySelector('#loading.loaded')){setTimeout(check,100);return;}const c=document.querySelector('#canvas-host canvas');window.ipc.postMessage(JSON.stringify({kind:'ready',width:c.width,height:c.height,photos:document.images.length}));})()`);});
+window.loadUrl(origin+'/');
