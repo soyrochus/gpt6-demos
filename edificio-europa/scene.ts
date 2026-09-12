@@ -1,3 +1,4 @@
+import { savePng, type ExportContext } from './desktop/platform';
 import * as THREE from 'three';
 import { buildEuropa } from './architecture';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
@@ -296,14 +297,17 @@ export function createExplorer(host: HTMLElement) {
       const themes={day:{top:'#75a6d3',bottom:'#e8ece4',sun:'#fff1d3',sky:'#c4e1ff',ground:'#b6b393',fog:'#dce5de',power:3.3,ambient:2.1,exposure:1.12,pos:[-65,100,65],glow:.08},golden:{top:'#89acc7',bottom:'#f9d0a0',sun:'#ffbe72',sky:'#d5d1d7',ground:'#b6986b',fog:'#e5cbb2',power:3.5,ambient:1.65,exposure:1.05,pos:[-95,24,48],glow:.7},blue:{top:'#1c365e',bottom:'#8a9dab',sun:'#b1c5f8',sky:'#7797ce',ground:'#4c5c68',fog:'#758a9c',power:.7,ambient:1.25,exposure:1.03,pos:[-45,60,-50],glow:3}};
       const t=themes[mode];skyUniforms.top.value.set(t.top);skyUniforms.bottom.value.set(t.bottom);sun.color.set(t.sun);sun.intensity=t.power;sun.position.set(...t.pos as [number,number,number]);ambient.color.set(t.sky);ambient.groundColor.set(t.ground);ambient.intensity=t.ambient;(scene.fog as THREE.Fog).color.set(t.fog);renderer.toneMappingExposure=t.exposure;glow.emissiveIntensity=t.glow;lampGlow.emissiveIntensity=t.glow;glassMaterials.forEach((m,i)=>{m.emissive.set(mode==='blue'&&i%3===0?'#b79755':'#000000');m.emissiveIntensity=mode==='blue'?.18:0});updateEnvironment();
     },
-    capture(){
+    async capture(context: ExportContext = { id: crypto.randomUUID() }){
+      context.signal?.throwIfAborted(); let png: Promise<Blob>;
       const pixelRatio=renderer.getPixelRatio();const oldAspect=camera.aspect;const oldView=camera.view?{...camera.view}:null;
       try{
         renderer.setPixelRatio(1);renderer.setSize(3840,2160,false);camera.aspect=3840/2160;camera.clearViewOffset();camera.updateProjectionMatrix();renderer.render(scene,camera);
-        const link=document.createElement('a');link.download=`edificio-europa-${currentView}-4k.png`;link.href=renderer.domElement.toDataURL('image/png');link.click();
+        // toBlob snapshots the bitmap before asynchronous encoding, so rendering can resume immediately.
+        png=new Promise((resolve,reject)=>renderer.domElement.toBlob(blob=>blob?resolve(blob):reject(new Error('Image encoding failed.')),'image/png'));
       } finally {
         renderer.setPixelRatio(pixelRatio);camera.aspect=oldAspect;if(oldView?.enabled)camera.setViewOffset(oldView.fullWidth,oldView.fullHeight,oldView.offsetX,oldView.offsetY,oldView.width,oldView.height);resize();renderer.render(scene,camera);
       }
+      return savePng(await png!,`edificio-europa-${currentView}-4k.png`,context);
     },
   };
 }

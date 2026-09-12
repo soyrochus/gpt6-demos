@@ -7,7 +7,7 @@ export interface EuropaExplorer {
   setLighting(mode: LightMode): void;
   setAutoRotate(value: boolean): void;
   adjustZoom(factor: number): void;
-  capture(): void;
+  capture(context?: { id: string; signal?: AbortSignal }): unknown;
   getZoomLevel(): EuropaState['zoomLevel'];
   getSpatialState?(): SpatialState;
   showSide?(side: SpatialDestination, signal?: AbortSignal): Promise<void>;
@@ -73,5 +73,5 @@ export class EuropaController {
     await this.display.setFullscreen(enabled);
     this.changed('fullscreen.changed');
   }
-  capture() { this.explorer.capture(); return { width: 3840, height: 2160, format: 'png', downloaded: true }; }
+  async capture(id: string = crypto.randomUUID(), signal?: AbortSignal) { signal?.throwIfAborted(); return await this.explorer.capture({ id, signal }) ?? { width: 3840, height: 2160, format: 'png', downloaded: true }; }
 }

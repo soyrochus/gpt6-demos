@@ -58,7 +58,7 @@ export type ClientMessage =
   | { type: 'confirmation.result'; requestId: string; approved: boolean }
   | { type: 'session.end' };
 export type ServerMessage =
-  | { type: 'server.hello'; protocolVersion: '1.0'; sessionId: string; token: string; status: 'ready' }
+  | { type: 'server.hello'; protocolVersion: '1.0'; sessionId: string; token: string; status: 'ready'; capabilities?: string[] }
   | { type: 'application.registered' }
   | { type: 'state.request'; requestId: string }
   | ToolInvocation

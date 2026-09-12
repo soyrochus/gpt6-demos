@@ -19,6 +19,13 @@
     "dev": "bun --env-file=../cross-talk/.env --hot index.ts",
     "build": "bun build.ts",
     "typecheck": "tsc --noEmit",
-    "start": "bun --env-file=../cross-talk/.env index.ts"
-  }
+    "start": "bun --env-file=../cross-talk/.env index.ts",
+    "dev:desktop": "bun --env-file=../cross-talk/.env scripts/build-desktop.ts --dev",
+    "build:desktop": "bun scripts/build-desktop.ts",
+    "test:desktop": "bun test tests/desktop",
+    "test:desktop:live": "bun --env-file=../cross-talk/.env scripts/test-desktop-live.ts",
+    "test:desktop:native": "bun scripts/test-desktop-native.ts",
+    "test:desktop:package": "bun scripts/test-desktop-package.ts"
+  },
+  "packageManager": "bun@1.4.0"
 }

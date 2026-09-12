@@ -22,7 +22,8 @@ const definitionSchema = objectSchema({ name: { type: 'string', pattern: '^[a-z]
   effect: { enum: ['read', 'navigation', 'mutation', 'external'] }, confirmation: { enum: ['never', 'always', 'when-not-explicit'] },
   interruptible: { type: 'boolean' }, expectedDurationMs: { type: 'number', minimum: 0, maximum: 30000 },
 }, ['name', 'title', 'description', 'inputSchema', 'effect', 'confirmation', 'interruptible']);
-const registrationCheck = ajv.compile(objectSchema({ manifest: manifestSchema, tools: { type: 'array', maxItems: 64, items: definitionSchema }, state: {} }));
+export const registrationSchema = objectSchema({ manifest: manifestSchema, tools: { type: 'array', maxItems: 64, items: definitionSchema }, state: {} });
+const registrationCheck = ajv.compile(registrationSchema);
 // Only local, self-contained schemas: no network refs or executable custom keywords.
 function checkSchema(schema: JsonSchema, input = false) {
   if (JSON.stringify(schema).includes('"$async"')) throw new CrosstalkError('INVALID_SCHEMA', 'Async schemas are not supported.');
@@ -46,8 +47,9 @@ export function validateRegistration(value: unknown): asserts value is Registrat
   }
   validate(registration.manifest.stateSchema, registration.state);
 }
+export const resultSchema = objectSchema({ ok: { type: 'boolean' }, data: {}, stateChanged: { type: 'boolean' }, error: objectSchema({ code: string, message: string, retryable: { type: 'boolean' } }) }, ['ok']);
 export function validateResult(value: unknown) {
-  validate(objectSchema({ ok: { type: 'boolean' }, data: {}, stateChanged: { type: 'boolean' }, error: objectSchema({ code: string, message: string, retryable: { type: 'boolean' } }) }, ['ok']), value);
+  validate(resultSchema, value);
   const r = value as Record<string, unknown>;
   if (r.ok ? !Object.hasOwn(r, 'data') || Object.hasOwn(r, 'error') : !r.error || Object.hasOwn(r, 'data')) throw new CrosstalkError('INVALID_RESULT', 'Invalid tool result envelope.');
 }
@@ -72,6 +74,7 @@ export function normalizeArguments(tool: CrosstalkToolDefinition, args: unknown)
   return Object.fromEntries(Object.entries(args).filter(([k, v]) => v !== null || required.has(k)));
 }
 
+export const invocationSchema = objectSchema({ type: { const: 'tool.invoke' }, invocationId: { type: 'string', minLength: 1, maxLength: 256 }, sessionId: { type: 'string', minLength: 1, maxLength: 256 }, delegationId: { type: 'string', minLength: 1, maxLength: 256 }, tool: { type: 'string', minLength: 1, maxLength: 64 }, arguments: {}, explicitUserRequest: { type: 'boolean' }, confirmed: { type: 'boolean' }, expiresAt: { type: 'number', minimum: 0 } });
 export function validateInvocation(value: unknown) {
-  validate(objectSchema({ type: { const: 'tool.invoke' }, invocationId: { type: 'string', minLength: 1, maxLength: 256 }, sessionId: { type: 'string', minLength: 1, maxLength: 256 }, delegationId: { type: 'string', minLength: 1, maxLength: 256 }, tool: { type: 'string', minLength: 1, maxLength: 64 }, arguments: {}, explicitUserRequest: { type: 'boolean' }, confirmed: { type: 'boolean' }, expiresAt: { type: 'number', minimum: 0 } }), value);
+  validate(invocationSchema, value);
 }

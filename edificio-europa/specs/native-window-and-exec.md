@@ -1,6 +1,6 @@
 # Edificio Europa: native window and standalone executable
 
-Status: implementation specification; not a claim that the complete release exists.
+Status: implementation specification. A Linux implementation and executable now exist; see [implementation and verification notes](../docs/native-desktop.md) for completed checks and remaining release gates. The requirements below remain the acceptance contract.
 
 Date: 2026-09-12.
 

@@ -1,6 +1,6 @@
 # Edificio Europa architectural explorer
 
-A Bun + Three.js interactive reconstruction of Edificio Europa in Valencia, based on the reference photographs in `stock-images/`.
+A Bun + Three.js interactive reconstruction of Edificio Europa in Valencia, available in the browser and as a Linux native desktop executable with Crosstalk voice control. Reference photographs in `stock-images/` informed the model; the desktop build renders the building procedurally and does not include those photographs.
 
 ## Run
 
@@ -13,7 +13,69 @@ bun install
 bun run dev
 ```
 
-Open http://localhost:3000. The startup command loads the server key and model configuration from `../cross-talk/.env`.
+Open http://localhost:3000. These commands run the browser version and load the server key and model configuration from `../cross-talk/.env`.
+
+## Native executable (Linux)
+
+### Compile
+
+From the repository root, install both sibling projects' dependencies and compile:
+
+```sh
+cd cross-talk
+bun install --frozen-lockfile
+cd ../edificio-europa
+bun install --frozen-lockfile
+bun run build:desktop
+```
+
+The output is `edificio-europa/dist/edificio-europa-linux-x64`. After source changes, run `bun run build:desktop` again; it replaces the executable without launching it.
+
+### Configure and launch
+
+After compiling, launch with the existing Crosstalk `.env` configuration:
+
+```sh
+cd ../cross-talk
+../edificio-europa/dist/edificio-europa-linux-x64
+```
+
+Alternatively, initialize shared local-app settings from that `.env`. From `cross-talk/`, run once:
+
+```sh
+mkdir -p "$HOME/.conf/crosstalk"
+(umask 077; cp -n .env "$HOME/.conf/crosstalk/crosstalk.cfg")
+chmod 600 "$HOME/.conf/crosstalk/crosstalk.cfg"
+```
+
+This preserves an existing shared file. Edit that file if you need to change it. It uses dotenv assignments such as `OPENAI_API_KEY=your-key`, with the full settings documented in the [configuration reference](docs/native-desktop.md#configuration). Then launch from the application directory:
+
+```sh
+cd ../edificio-europa
+./dist/edificio-europa-linux-x64
+```
+
+Click **CROSSTALK** in the window to start voice. Without an API key, the manual Three.js explorer still works. The compiled application loads `.env` from its working directory; it does not automatically look in the sibling `cross-talk` directory. Existing environment and `.env` values take priority over the shared configuration. Restart after changing settings.
+
+Building requires Bun 1.4.0, Rust/Cargo, a C toolchain, pkg-config, patch/tar, and GTK3/WebKitGTK 4.1 development libraries. These are installed on the reference machine. The first build downloads and compiles the native binding; later builds reuse its cache. See the [complete setup and build walkthrough](docs/native-desktop.md#build-and-launch) for a fresh machine.
+
+The executable contains the Three.js explorer, Crosstalk service, and Bun runtime, and opens a native Wayland window. You do not start a separate Crosstalk server or need Bun installed to run the compiled file. The target computer still needs compatible GTK/WebKitGTK and audio libraries; voice requires network access. Photographs and remote fonts are omitted.
+
+### Desktop behavior and troubleshooting
+
+Voice and manual controls operate the same scene. Fullscreen uses the native window and can be requested by voice; Escape exits fullscreen. Saving a 4K PNG opens a system save dialog, and the location link opens the external browser. **End conversation** stops the microphone and voice session; closing the window also stops the embedded service.
+
+If the panel says **Voice unavailable**, check configuration from the same directory where you launch the application:
+
+```sh
+./dist/edificio-europa-linux-x64 --diagnostics
+```
+
+Expect `voiceEnabled: true` and API-key provenance of `shared` or `environment/.env`. A missing key produces `voiceEnabled: false`; create the shared config above or launch from `cross-talk/`. Diagnostics print no key values. If configuration is enabled but voice still fails, check microphone access and network connectivity; detailed verification commands are in the [native guide](docs/native-desktop.md#verification-commands).
+
+For development, `bun run dev:desktop` builds and runs the source host using `../cross-talk/.env`. For local checks use `bun run test:desktop`; native window and package checks use `bun run test:desktop:native` and `bun run test:desktop:package`. `--licenses` prints the notices bundled in the executable without opening a window.
+
+See [native build, configuration, tests, and release status](docs/native-desktop.md). This is a Linux release candidate with remaining manual acceptance checks; macOS is not yet supported.
 
 ## Features
 
@@ -47,7 +109,7 @@ bun run typecheck
 bun run build
 ```
 
-The static output is written to `dist/`. Voice requires the Bun server (or a reverse proxy forwarding `/crosstalk/*` to it); a standalone static host only serves the explorer. The development server uses Bun HTML imports directly, without Vite.
+These are browser build commands. Static output is written to `dist/`; browser voice requires the Bun server (or a reverse proxy forwarding `/crosstalk/*` to it). A standalone static host only serves the explorer. The development server uses Bun HTML imports directly, without Vite. Use `bun run build:desktop` for the executable with its embedded service.
 
 ## Accuracy and verification
 
@@ -61,6 +123,6 @@ Use the Front / Left / Back / Right buttons, or ask “Show me the back”, “S
 
 The AI's `spatial` state is computed from the actual camera, including after orbiting, panning and auto-rotation. Camera location bearing and looking direction are separate: a view **from north** looks roughly **south**. State describes geometry, not guaranteed feature visibility. Coordinates and orientation are user-supplied; distances remain approximate model units, and lighting presets are artistic rather than a geographic sun simulation. See the [spatial navigation specification](../cross-talk/specs/europa-spatial-navigation.md).
 
-**Fullscreen is retained as an example of browser limits on AI tools.** `set_fullscreen({ enabled: true | false })` requests fullscreen or a return to normal view, but entering fullscreen by voice is not reliable: the browser requires user activation, such as a recent click, which a voice request alone does not provide. Exposing the action as a tool cannot bypass that requirement. When blocked for lack of activation, the tool returns `USER_ACTIVATION_REQUIRED` and a toast directs the user to the fullscreen button. Exiting fullscreen needs no click. Native fullscreen changes (including the button and Escape) update the AI's `fullscreen` state, and Crosstalk remains accessible inside fullscreen.
+**In browser mode, fullscreen is an example of browser limits on AI tools.** `set_fullscreen({ enabled: true | false })` requests fullscreen or a return to normal view, but entering fullscreen by voice is not reliable: the browser requires user activation, such as a recent click. When blocked, the tool returns `USER_ACTIVATION_REQUIRED` and a toast directs the user to the fullscreen button. Exiting fullscreen needs no click. In the desktop executable, the same tool operates the native window without that browser activation requirement. Both modes report the actual fullscreen state and keep Crosstalk accessible inside fullscreen.
 
 See [Crosstalk's README](../cross-talk/README.md) for protocol details, configuration, offline/browser tests, and opt-in live API checks. The previous one-off WebMCP bridge has been replaced by this application contract.

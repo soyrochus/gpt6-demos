@@ -1,0 +1,227 @@
+--- a/packages/webview/Cargo.toml
++++ b/packages/webview/Cargo.toml
+@@ -16,6 +16,12 @@
+ # should never enable devtools, as it grants full DOM/JS inspection access.
+ wry = { version = "0.54.3", features = ["devtools", "protocol"] }
+ http = "1"
++
++[target.'cfg(target_os = "linux")'.dependencies]
++webkit2gtk = { version = "2.0.2", features = ["v2_38"] }
++glib = "0.18"
++gtk = "0.18"
++gdk = "0.18"
+ 
+ # Windows-only: kept for runtime.rs (WebView2 detection/install)
+ [target.'cfg(target_os = "windows")'.dependencies]
+--- a/packages/webview/Cargo.lock
++++ b/packages/webview/Cargo.lock
+@@ -1324,6 +1324,10 @@
+ name = "native-window"
+ version = "0.1.0"
+ dependencies = [
++ "webkit2gtk",
++ "gtk",
++ "glib",
++ "gdk",
+  "http",
+  "image",
+  "napi",
+--- a/packages/webview/src/platform/unified.rs
++++ b/packages/webview/src/platform/unified.rs
+@@ -100,6 +100,8 @@
+ /// Unified platform state backed by tao + wry.
+ pub struct Platform {
+     windows: HashMap<u32, WindowEntry>,
++    #[cfg(target_os = "linux")]
++    save_dialogs: HashMap<u32, gtk::FileChooserDialog>,
+     /// Reverse map: tao WindowId → our u32 window ID.
+     window_id_map: HashMap<tao::window::WindowId, u32>,
+     /// macOS only: tracks whether we promoted the app to Regular activation
+@@ -126,12 +128,21 @@
+ 
+         Ok(Self {
+             windows: HashMap::new(),
++            #[cfg(target_os = "linux")]
++            save_dialogs: HashMap::new(),
+             window_id_map: HashMap::new(),
+             #[cfg(target_os = "macos")]
+             dock_visible: false,
+         })
+     }
+ 
++    pub fn is_fullscreen(&self, id: u32) -> bool {
++        #[cfg(target_os = "linux")]
++        { use gtk::prelude::*; use tao::platform::unix::WindowExtUnix;
++          return self.windows.get(&id).and_then(|e| e.window.gtk_window().window()).map(|w| w.state().contains(gdk::WindowState::FULLSCREEN)).unwrap_or(false); }
++        #[cfg(not(target_os = "linux"))]
++        { self.windows.get(&id).map(|e| e.window.fullscreen().is_some()).unwrap_or(false) }
++    }
+     // ── Command processing ─────────────────────────────────────
+ 
+     /// Process a single command from the command queue.
+@@ -141,6 +152,36 @@
+         _event_handlers: &mut HashMap<u32, WindowEventHandlers>,
+     ) -> napi::Result<()> {
+         match cmd {
++            #[cfg(target_os = "linux")]
++            Command::CancelSaveFile { id } => {
++                use gtk::prelude::*;
++                if let Some(dialog) = self.save_dialogs.remove(&id) { dialog.response(gtk::ResponseType::Cancel); }
++            }
++            Command::SetFullscreen { id, enabled } => {
++                if let Some(entry) = self.windows.get(&id) {
++                    entry.window.set_fullscreen(if enabled { Some(tao::window::Fullscreen::Borderless(None)) } else { None });
++                }
++            }
++            #[cfg(target_os = "linux")]
++            Command::ChooseSaveFile { id, name, callback } => {
++                use gtk::prelude::*;
++                use tao::platform::unix::WindowExtUnix;
++                if let Some(entry) = self.windows.get(&id) {
++                    let dialog = gtk::FileChooserDialog::new(Some("Save 4K perspective"), Some(entry.window.gtk_window()), gtk::FileChooserAction::Save);
++                    dialog.add_buttons(&[("Cancel", gtk::ResponseType::Cancel), ("Save", gtk::ResponseType::Accept)]);
++                    dialog.set_current_name(&name);
++                    dialog.set_do_overwrite_confirmation(true);
++                    dialog.set_modal(true);
++                    dialog.set_destroy_with_parent(true);
++                    dialog.connect_response(move |dialog, response| {
++                        let path = if response == gtk::ResponseType::Accept { dialog.filename().map(|p| p.to_string_lossy().into_owned()).unwrap_or_default() } else { String::new() };
++                        callback.call(path, napi::threadsafe_function::ThreadsafeFunctionCallMode::NonBlocking);
++                        dialog.close();
++                    });
++                    self.save_dialogs.insert(id, dialog.clone());
++                    dialog.show_all();
++                } else { callback.call(String::new(), napi::threadsafe_function::ThreadsafeFunctionCallMode::NonBlocking); }
++            }
+             Command::CreateWindow { id, options } => {
+                 self.create_window(id, &options)?;
+             }
+@@ -688,6 +729,7 @@
+ 
+             // Navigation handler — block dangerous schemes + enforce allowedHosts
+             wv_builder = wv_builder.with_navigation_handler(move |url: String| {
++                if !is_origin_trusted(window_id, &url) { return false; }
+                 let lower = url.to_lowercase();
+                 // Always allow our custom protocol for HTML content.
+                 // macOS: nativewindow://localhost/, Windows: https://nativewindow.localhost/
+@@ -773,31 +815,7 @@
+                 wv_builder = wv_builder.with_initialization_script(&csp_script);
+             }
+ 
+-            // Permission flags — wry does not expose permission delegates, so
+-            // camera/mic/filesystem flags cannot be enforced. Log a warning if
+-            // the user explicitly set any of these to make them aware.
+             let perms = crate::window_manager::get_permissions(id);
+-            if perms.allow_camera {
+-                eprintln!(
+-                    "[native-window] Window {}: allowCamera is set but not enforced by the wry backend. \
+-                     The OS default (user prompt) applies.",
+-                    id
+-                );
+-            }
+-            if perms.allow_microphone {
+-                eprintln!(
+-                    "[native-window] Window {}: allowMicrophone is set but not enforced by the wry backend. \
+-                     The OS default (user prompt) applies.",
+-                    id
+-                );
+-            }
+-            if perms.allow_file_system {
+-                eprintln!(
+-                    "[native-window] Window {}: allowFileSystem is set but not enforced by the wry backend. \
+-                     The OS default applies.",
+-                    id
+-                );
+-            }
+ 
+             // On Windows, map the custom protocol to https:// for secure context.
+             // This makes nativewindow://localhost/ → https://nativewindow.localhost/
+@@ -811,8 +829,10 @@
+             #[cfg(target_os = "linux")]
+             let webview = {
+                 use tao::platform::unix::WindowExtUnix;
+-                let gtk_window = window.gtk_window();
+-                wv_builder.build_gtk(gtk_window)
++                let gtk_container = window.default_vbox().ok_or_else(|| {
++                    napi::Error::from_reason("Tao GTK container is unavailable")
++                })?;
++                wv_builder.build_gtk(gtk_container)
+                     .map_err(|e| napi::Error::from_reason(format!("Failed to create webview: {}", e)))?
+             };
+ 
+@@ -821,6 +841,27 @@
+                 .map_err(|e| napi::Error::from_reason(format!("Failed to create webview: {}", e)))?;
+ 
+             // Store the window + webview
++            #[cfg(target_os = "linux")]
++            {
++                use wry::WebViewExtUnix;
++                use webkit2gtk::{WebViewExt, PermissionRequestExt, UserMediaPermissionRequestExt};
++                use glib::Cast;
++                let native_view = webview.webview();
++                native_view.connect_permission_request(move |view, request| {
++                    if let Some(media) = request.downcast_ref::<webkit2gtk::UserMediaPermissionRequest>() {
++                        let trusted = view.uri().map(|uri| is_origin_trusted(id, uri.as_str())).unwrap_or(false);
++                        if trusted && perms.allow_microphone && media.is_for_audio_device() && !media.is_for_video_device() {
++                            request.allow();
++                        } else {
++                            request.deny();
++                        }
++                        return true;
++                    }
++                    request.deny();
++                    true
++                });
++            }
++
+             let tao_window_id = window.id();
+             self.window_id_map.insert(tao_window_id, id);
+             self.windows.insert(id, WindowEntry {
+--- a/packages/webview/src/window.rs
++++ b/packages/webview/src/window.rs
+@@ -20,6 +20,31 @@
+ 
+ #[napi]
+ impl NativeWindow {
++    #[cfg(target_os = "linux")]
++    #[napi]
++    pub fn cancel_save_file(&self) -> Result<()> {
++        with_manager(|mgr| { mgr.push_command(Command::CancelSaveFile { id: self.id }); });
++        Ok(())
++    }
++
++    #[napi]
++    pub fn set_fullscreen(&self, enabled: bool) -> Result<()> {
++        self.ensure_open()?;
++        with_manager(|mgr| { mgr.push_command(Command::SetFullscreen { id: self.id, enabled }); });
++        Ok(())
++    }
++    #[napi]
++    pub fn is_fullscreen(&self) -> bool {
++        with_manager(|mgr| mgr.platform.as_ref().map(|p| p.is_fullscreen(self.id)).unwrap_or(false))
++    }
++    #[cfg(target_os = "linux")]
++    #[napi]
++    pub fn choose_save_file(&self, name: String, callback: TitleChangedCallback) -> Result<()> {
++        self.ensure_open()?;
++        with_manager(|mgr| { mgr.push_command(Command::ChooseSaveFile { id: self.id, name, callback }); });
++        Ok(())
++    }
++
+     /// Create a new native window with the given options.
+     ///
+     /// Automatically initializes the native subsystem on first call and
+--- a/packages/webview/src/window_manager.rs
++++ b/packages/webview/src/window_manager.rs
+@@ -33,6 +33,11 @@
+ 
+ /// Commands that can be sent to the window manager for execution during pump.
+ pub enum Command {
++    #[cfg(target_os = "linux")]
++    CancelSaveFile { id: u32 },
++    SetFullscreen { id: u32, enabled: bool },
++    #[cfg(target_os = "linux")]
++    ChooseSaveFile { id: u32, name: String, callback: crate::events::TitleChangedCallback },
+     CreateWindow {
+         id: u32,
+         options: Box<WindowOptions>,

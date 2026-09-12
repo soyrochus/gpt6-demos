@@ -1,3 +1,4 @@
+import { DesktopTransport } from '../desktop/DesktopTransport';
 import type { ClientMessage, CrosstalkApplication, ServerMessage, Status } from '../protocol';
 import { ApplicationBridge } from './ApplicationBridge';
 import { ToolExecutor } from './ToolExecutor';
@@ -9,7 +10,9 @@ export class CrosstalkClient {
   private bridge?: ApplicationBridge;
   private executor?: ToolExecutor;
   private panel?: CrosstalkPanel;
-  private live?: LiveTransport;
+  private live?: LiveTransport | DesktopTransport;
+  private sessionId?: string;
+  private capabilities: string[] = [];
   private ending?: Promise<void>;
   private token?: string;
   private disposed = false;
@@ -20,7 +23,7 @@ export class CrosstalkClient {
   private status: Status = 'idle';
   private message?: string;
   private endpoint: URL;
-  constructor(options: { endpoint: string }) { this.endpoint = new URL(options.endpoint.replace(/\/$/, '') + '/', location.href); }
+  constructor(private options: { endpoint: string; desktopWorklet?: string }) { this.endpoint = new URL(options.endpoint.replace(/\/$/, '') + '/', location.href); }
   private send = (message: ClientMessage) => { if (this.socket?.readyState === WebSocket.OPEN) this.socket.send(JSON.stringify(message)); };
   async register(application: CrosstalkApplication) {
     if (this.bridge) throw new Error('An application is already registered.');
@@ -40,7 +43,7 @@ export class CrosstalkClient {
         try {
           const message = JSON.parse(data) as ServerMessage;
           if (message.type === 'server.hello') {
-            this.token = message.token; this.executor?.dispose(); this.executor = new ToolExecutor(this.bridge!.application, message.sessionId);
+            this.token = message.token; this.sessionId = message.sessionId; this.capabilities = message.capabilities ?? []; this.executor?.dispose(); this.executor = new ToolExecutor(this.bridge!.application, message.sessionId);
             this.send({ type: 'application.register', ...await this.bridge!.registration() });
           } else if (message.type === 'application.registered') { clearTimeout(timer); this.connected = true; resolve(); }
           else await this.receive(message);
@@ -97,13 +100,18 @@ export class CrosstalkClient {
     if (!this.panel) this.mountButton();
     const generation = ++this.generation;
     this.setStatus('connecting');
-    const live = this.live = new LiveTransport(this.panel!.audio, (state, message) => {
+    const onState = (state: Status, message?: string) => {
       if (generation !== this.generation) return;
       this.setStatus(state, message);
       if (state === 'idle' || state === 'error') { live.dispose(); this.live = undefined; this.send({ type: 'session.end' }); }
-    });
+    };
+    if (this.options.desktopWorklet && !this.capabilities.includes('desktop-audio/1')) { this.setStatus('error', 'Desktop voice transport is unavailable.'); return; }
+    const live = this.live = this.options.desktopWorklet
+      ? new DesktopTransport({ endpoint: this.endpoint, instanceId: this.instanceId, sessionId: this.sessionId!, token: this.token, worklet: this.options.desktopWorklet }, onState)
+      : new LiveTransport(this.panel!.audio, onState);
     try {
-      await live.start(async (sdp, signal) => {
+      if (live instanceof DesktopTransport) await live.start();
+      else await live.start(async (sdp, signal) => {
         const response = await fetch(new URL('live/session', this.endpoint), { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${this.token}` }, body: JSON.stringify({ applicationInstanceId: this.instanceId, sdp }), signal });
         const result = await response.json(); if (!response.ok) throw new Error(result.error ?? 'Voice is unavailable.'); return result.sdp;
       });

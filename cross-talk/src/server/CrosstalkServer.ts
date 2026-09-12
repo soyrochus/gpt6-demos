@@ -1,4 +1,5 @@
 import OpenAI from 'openai';
+import type { PcmAdapter } from '../desktop/OpenAIPcmAdapter';
 import type { Server, ServerWebSocket, WebSocketHandler } from 'bun';
 import { ApplicationRegistry, type RegisteredApplication } from './ApplicationRegistry';
 import { SessionManager } from './SessionManager';
@@ -10,8 +11,8 @@ import type { Logger } from './ToolRouter';
 export interface CrosstalkServerOptions {
   openAIKey?: string; endpoint?: string; liveModel?: string; reasoningModel?: string; reasoningEffort?: 'low' | 'medium' | 'high'; voice?: string;
   allowedOrigins?: string[]; authorize?: (request: Request) => boolean | Promise<boolean>;
-  maxConnections?: number; maxToolCalls?: number; delegationTimeoutMs?: number; logTranscripts?: boolean; logger?: Logger;
-  liveAdapter?: LiveAdapter; astraAgent?: ReasoningAgent;
+  debug?: boolean; maxConnections?: number; maxToolCalls?: number; delegationTimeoutMs?: number; logTranscripts?: boolean; logger?: Logger;
+  desktopAudio?: boolean; liveAdapter?: LiveAdapter; astraAgent?: ReasoningAgent;
 }
 export interface CrosstalkSocketData { sessionId: string; token: string; instanceId?: string; identity?: { id: string; version: string }; app?: RegisteredApplication; count: number; windowAt: number; handshakeTimer?: ReturnType<typeof setTimeout> }
 const str = { type: 'string', minLength: 1, maxLength: 256 };
@@ -59,7 +60,7 @@ export class CrosstalkServer {
         } catch (error) {
           const code = error instanceof CrosstalkError ? error.code : 'INVALID_MESSAGE';
           ws.send(JSON.stringify({ type: 'error', code, message: 'Invalid Crosstalk request.' }));
-          this.log('protocol.error', { sessionId: ws.data.sessionId, code, ...(process.env.CROSSTALK_DEBUG === 'true' && error instanceof Error ? { detail: error.message } : {}) });
+          this.log('protocol.error', { sessionId: ws.data.sessionId, code, ...((this.options.debug ?? process.env.CROSSTALK_DEBUG === 'true') ? { phase: ws.data.app ? 'registered' : 'handshake' } : {}) });
         }
       },
       close: ws => {
@@ -79,7 +80,7 @@ export class CrosstalkServer {
     if (message.type === 'client.hello') {
       if (ws.data.instanceId) throw new Error('Already initialized');
       ws.data.instanceId = message.instanceId; ws.data.identity = message.application;
-      send({ type: 'server.hello', protocolVersion: '1.0', sessionId: ws.data.sessionId, token: ws.data.token, status: 'ready' }); return;
+      send({ type: 'server.hello', protocolVersion: '1.0', sessionId: ws.data.sessionId, token: ws.data.token, status: 'ready', ...(this.options.desktopAudio ? { capabilities: ['desktop-audio/1'] } : {}) }); return;
     }
     if (!ws.data.instanceId) throw new Error('Hello required');
     if (message.type === 'application.register') {
@@ -121,8 +122,8 @@ export class CrosstalkServer {
         const socket = [...this.sockets].find(ws => ws.data.app === app);
         if (!socket || req.headers.get('authorization') !== `Bearer ${socket.data.token}`) return new Response('Forbidden', { status: 403 });
         if (!this.sessions) return Response.json({ error: 'Set OPENAI_API_KEY on the server to enable voice.' }, { status: 503 });
-        const answer = await this.sessions.start(app, body.sdp);
-        return Response.json(answer, { status: 201, headers: { 'Cache-Control': 'no-store' } });
+        const answer = await this.sessions.start(app, { kind: 'webrtc', sdp: body.sdp });
+        return Response.json({ sdp: answer.sdp }, { status: 201, headers: { 'Cache-Control': 'no-store' } });
       } catch (error) {
         this.log('session.error', { code: error instanceof CrosstalkError ? error.code : 'SESSION_FAILED' });
         return Response.json({ error: 'Could not start voice. Check server configuration and model access, then retry.' }, { status: 400 });
@@ -130,5 +131,14 @@ export class CrosstalkServer {
     }
     return new Response('Not found', { status: 404 });
   };
+  /** Audio ownership is validated against the live registered control socket, never an app ID alone. */
+  audioOwner(instanceId: string, sessionId: string, token: string) {
+    return [...this.sockets].find(ws => ws.data.instanceId === instanceId && ws.data.sessionId === sessionId && ws.data.token === token && ws.readyState === 1)?.data.app;
+  }
+  startAudio(app: RegisteredApplication, adapter: PcmAdapter, onAudio: (pcm: Uint8Array) => void, onEnd: () => void) {
+    if (!this.sessions) throw new Error('VOICE_NOT_CONFIGURED');
+    return this.sessions.start(app, { kind: 'pcm-websocket', adapter, onAudio, onEnd });
+  }
+  endAudio(sessionId: string) { return this.sessions?.end(sessionId) ?? Promise.resolve(); }
   async dispose() { await this.sessions?.dispose(); for (const ws of this.sockets) ws.close(1001, 'Server closing'); }
 }

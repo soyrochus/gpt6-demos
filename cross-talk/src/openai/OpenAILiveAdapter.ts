@@ -16,7 +16,7 @@ export function normalizeLiveEvent(event: ServerEvent): LiveEvent | undefined {
   if (event.type === 'error') return { type: 'error', code: event.error.code };
 }
 export interface LiveConnection {
-  id: string; sdp: string;
+  id: string; sdp?: string;
   commentary(delegationId: string | null, text: string): void;
   close(): Promise<void>;
 }

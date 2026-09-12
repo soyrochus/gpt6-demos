@@ -1,8 +1,8 @@
 # Crosstalk
 
-Reusable conversational control for Bun web applications.[ GPT-Live-1](https://openai.com/index/introducing-gpt-live/) owns speech and turn-taking; GPT-6 Astra reasons over an application's manifest, fresh semantic state and registered tools. Browser audio travels directly to OpenAI over WebRTC. A server sideband receives Live transcripts and delegations; the application WebSocket carries validated state and tool messages.
+Reusable conversational control for Bun web applications and the Edificio Europa native desktop host. [GPT-Live-1](https://openai.com/index/introducing-gpt-live/) owns speech and turn-taking; GPT-6 Astra reasons over an application's manifest, fresh semantic state and registered tools. Browser mode uses direct WebRTC audio and a server sideband. Desktop mode uses PCM audio through the embedded host's primary Live WebSocket. Both share the application state, tool validation, permissions, and reasoning flow.
 
-The first integration is [Edificio Europa](../edificio-europa/README.md). Its nine tools use the same controller as the visible buttons and keyboard controls. The fullscreen tool is retained as an example of browser restrictions on tool execution, rather than a dependable way to enter fullscreen by voice.
+The first integration is [Edificio Europa](../edificio-europa/README.md). Its nine tools use the same controller as the visible buttons and keyboard controls. Browser fullscreen remains subject to user activation; the desktop version uses native window operations for fullscreen and a system dialog for image saves.
 
 To add Crosstalk to another web application, follow the [integration guide](./INTEGRATION.md), using Europa as the canonical example for server setup, application state, tools, and browser lifecycle.
 
@@ -27,7 +27,7 @@ The application supplies its description, state, and safe semantic actions throu
 
 ## Browser capabilities limit tools
 
-Exposing an application action as an AI tool does not bypass browser permissions, supported APIs, or user activation requirements. Europa's `set_fullscreen` demonstrates this boundary: native fullscreen entry requires user activation, such as a recent click, which a voice request alone does not provide. A valid tool call can therefore be refused by the browser.
+In browser mode, exposing an application action as an AI tool does not bypass browser permissions, supported APIs, or user activation requirements. Europa's `set_fullscreen` demonstrates this boundary: browser fullscreen entry requires user activation, such as a recent click, which a voice request alone does not provide. A valid tool call can therefore be refused by the browser.
 
 The integration is deliberately kept as a working example of handling that refusal. When entry is blocked for lack of activation, it returns `USER_ACTIVATION_REQUIRED`, shows a message pointing to the fullscreen button, and leaves the reported state consistent with the actual display. The AI must explain the limitation instead of claiming success. Exiting fullscreen does not require a click, and Crosstalk remains accessible while the viewer is fullscreen.
 
@@ -59,6 +59,30 @@ CROSSTALK_DEBUG=false
 ```
 
 The key must have access to both models. A missing key leaves the explorer usable and reports a voice configuration error when starting a conversation. Microphone access requires localhost or HTTPS. The supplied server binds to `127.0.0.1` by default.
+
+## Native desktop integration
+
+Europa's Linux executable embeds Crosstalk in the same process as the native window host. It does not launch the standalone Crosstalk server. The current target is Linux x64 with native Wayland and GTK3/WebKitGTK 4.1; platform requirements and remaining release acceptance are tracked in the [native build guide](../edificio-europa/docs/native-desktop.md).
+
+| Concern | Browser | Native desktop |
+| --- | --- | --- |
+| Audio | WebRTC from page to OpenAI, plus server sideband | AudioWorklet → authenticated local PCM WebSocket → host's primary Live WebSocket |
+| Application control | Crosstalk protocol 1.0 | Same protocol, with optional `desktop-audio/1` capability |
+| Credentials | Bun server environment | Embedded host environment and shared config; no key in the page |
+| Fullscreen / export | Browser fullscreen API / download | Native window state / GTK save dialog |
+| Host lifetime | Development or deployed server | Owned by the native application; closes with its window |
+
+The desktop client authenticates `/crosstalk/audio` against its existing control session, instance, and token. It converts microphone input to mono PCM16LE at 24 kHz and handles playback in an AudioWorklet with bounded queues. The host uses the same `SessionManager`, tool router, permission checks, state contract, and Astra reasoning as browser mode. Ending a conversation or losing its control connection releases the microphone and closes the upstream session; voice restarts require an explicit user action.
+
+The reference wiring lives in [Europa's desktop host](../edificio-europa/desktop/host.ts). Transport, configuration, and audio processing live in [`src/desktop/`](./src/desktop/). Enabling `desktopAudio` on the server advertises the capability; an integrating host must also serve the worklet, route the audio socket, enforce local access/origin checks, and own shutdown. Europa's build precompiles its finite application schemas to satisfy the native page's CSP. Adding another desktop application requires adapting that host and build integration, alongside registering its manifest and tools.
+
+### Desktop configuration
+
+`loadDesktopConfig` reads `$HOME/.conf/crosstalk/crosstalk.cfg` using the same dotenv assignment format and model settings shown above. The precedence is inherited environment/Bun-loaded `.env`, then the shared file, then defaults. An explicitly empty API key disables voice. An invalid shared file also disables voice while leaving manual exploration available. Configuration is read at startup; restart after changes.
+
+The shared file is not created automatically. The compiled executable loads `.env` from its working directory and does not automatically search the sibling `cross-talk` directory. Follow Europa's [configuration and launch steps](../edificio-europa/README.md#native-executable-linux), including copying an existing `.env` to the shared path. Its `--diagnostics` command reports configuration sources and `voiceEnabled` without printing values.
+
+This shared-file loader is part of the desktop host. Existing browser `dev`/`start` commands continue to load `../cross-talk/.env`; a custom server must explicitly load any additional configuration it wants to support.
 
 ## Embed the server
 
@@ -147,6 +171,16 @@ bun run test:live
 
 The Astra smoke check verifies sunset, entrance and state-question routing. The Live browser checks establish real WebRTC and sideband connections, then inject a short synthetic spoken sunset request to verify the complete Live → Astra → browser action path. `browser/fixtures/sunset.wav` is synthetic speech saying “Show me the building at sunset.” No human microphone recording is used in the tests.
 
+Desktop verification runs from `edificio-europa/`:
+
+```sh
+bun run test:desktop          # local protocol, configuration, worklet and fake-upstream tests
+bun run test:desktop:native   # real Wayland window, microphone, tools and GTK dialog
+bun run test:desktop:package  # executable relocation and configuration loading
+```
+
+`CROSSTALK_DESKTOP_LIVE=1 bun run test:desktop:live` opts into one billable native session using the same synthetic speech fixture. See the [native verification record and open acceptance checks](../edificio-europa/docs/native-desktop.md#recorded-results-2026-09-12) for the distinction between automated playback checks and human listening, device, and sustained-conversation acceptance.
+
 ## OpenAI protocol references
 
-The implementation uses the current [GPT-Live WebRTC session API](https://developers.openai.com/api/docs/guides/voice-webrtc?api=live), [client delegation and transcript events](https://developers.openai.com/api/docs/guides/live-delegation), and [server sideband controls](https://developers.openai.com/api/docs/guides/voice-server-controls?api=live). Live session creation uses `POST /v1/live/sessions`, not the older Realtime SDP endpoint referenced in the initial specification. Provider setup, event normalization and commentary encoding are isolated in `src/openai/OpenAILiveAdapter.ts`.
+The browser implementation uses the [GPT-Live WebRTC session API](https://developers.openai.com/api/docs/guides/voice-webrtc?api=live), [client delegation and transcript events](https://developers.openai.com/api/docs/guides/live-delegation), and [server sideband controls](https://developers.openai.com/api/docs/guides/voice-server-controls?api=live). Browser session creation uses `POST /v1/live/sessions`, not the older Realtime SDP endpoint referenced in the initial specification. Its provider adapter is `src/openai/OpenAILiveAdapter.ts`. Desktop uses `src/desktop/OpenAIPcmAdapter.ts` for the primary Live WebSocket, sharing event normalization and delegation handling with browser mode.
