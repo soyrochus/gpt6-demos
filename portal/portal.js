@@ -38,26 +38,18 @@ function playVideo(demo) {
   }, 12000);
 }
 
-function openPreview(index, trigger) {
-  const demo = demos[index];
-  opener = trigger;
-  stopVideo();
-  document.querySelector('#dialog-category').textContent = demo.category;
-  const title = document.querySelector('#demo-title-link');
-  title.querySelector('span').textContent = demo.name;
-  title.href = demo.url;
-  title.setAttribute('aria-label', `${demo.name} (opens in a new tab)`);
-  const launch = document.querySelector('#demo-link');
-  launch.href = demo.url;
-  document.querySelector('#demo-link-label').textContent = demo.launchLabel || 'Open demo';
-  launch.setAttribute('aria-label', `${demo.launchLabel || 'Open'} ${demo.name} (opens in a new tab)`);
-  document.querySelector('#youtube-link').href = `https://www.youtube.com/watch?v=${demo.video}`;
-  const description = document.querySelector('#dialog-description');
-  description.replaceChildren(...demo.description.split('\n\n').map(text => {
-    const paragraph = document.createElement('p');
-    paragraph.textContent = text;
-    return paragraph;
-  }));
+function showPreviewMedia(demo) {
+  const youtubeLink = document.querySelector('#youtube-link');
+  youtubeLink.hidden = !demo.video;
+  if (!demo.video) {
+    youtubeLink.removeAttribute('href');
+    const screenshot = document.createElement('img');
+    screenshot.src = demo.image;
+    screenshot.alt = demo.imageAlt;
+    video.append(screenshot);
+    return;
+  }
+  youtubeLink.href = `https://www.youtube.com/watch?v=${demo.video}`;
   const poster = document.createElement('button');
   poster.type = 'button';
   poster.className = 'video-poster';
@@ -76,11 +68,36 @@ function openPreview(index, trigger) {
   poster.append(thumbnail, label);
   poster.addEventListener('click', () => playVideo(demo), { once: true });
   video.append(poster);
-  document.querySelector('#dialog-note').textContent = demo.note
-    ? demo.note + (location.protocol === 'file:' ? ' Serve the portal over HTTP for embedded video, or use Watch on YouTube.' : '')
-    : location.protocol === 'file:'
-    ? 'For embedded YouTube playback, serve this page with bun run portal-server.ts and open localhost:3000/portal/. Start the apps with ./run-all.sh.'
-    : `The demo runs locally. Start the apps with ./run-all.sh ${location.port || (location.protocol === 'https:' ? '443' : '80')} before opening.`;
+}
+
+function openPreview(index, trigger) {
+  const demo = demos[index];
+  opener = trigger;
+  stopVideo();
+  document.querySelector('#dialog-category').textContent = demo.category;
+  const title = document.querySelector('#demo-title-link');
+  title.querySelector('span').textContent = demo.name;
+  title.href = demo.url;
+  title.setAttribute('aria-label', `${demo.name} (opens in a new tab)`);
+  const launch = document.querySelector('#demo-link');
+  launch.href = demo.url;
+  document.querySelector('#demo-link-label').textContent = demo.launchLabel || 'Open demo';
+  launch.setAttribute('aria-label', `${demo.launchLabel || 'Open'} ${demo.name} (opens in a new tab)`);
+  const description = document.querySelector('#dialog-description');
+  description.replaceChildren(...demo.description.split('\n\n').map(text => {
+    const paragraph = document.createElement('p');
+    paragraph.textContent = text;
+    return paragraph;
+  }));
+  showPreviewMedia(demo);
+  const fileMode = location.protocol === 'file:';
+  const basePort = location.port || (location.protocol === 'https:' ? '443' : '80');
+  const launchCommand = fileMode ? './run-all.sh' : `./run-all.sh ${basePort}`;
+  let note = demo.note || `Start the browser demos with ${launchCommand} before opening.`;
+  if (fileMode && demo.video) {
+    note += ' Serve the portal over HTTP for embedded video, or use Watch on YouTube.';
+  }
+  document.querySelector('#dialog-note').textContent = note;
   dialog.showModal();
   dialog.scrollTop = 0;
   closeButton.focus({ preventScroll: true });

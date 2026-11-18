@@ -5,7 +5,7 @@ set -euo pipefail
 set -m
 
 ROOT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-DEMOS=(edificio-europa infinicave tonada tarot-spead orbital-mechanics-laboratory digital-logic-laboratory flip-slop codexcanvas assemblavatar one-more-match tracework)
+DEMOS=(edificio-europa infinicave tonada tarot-spead orbital-mechanics-laboratory digital-logic-laboratory flip-slop codexcanvas assemblavatar one-more-match tracework dmt-experience)
 # Europa imports shared Crosstalk source, whose dependencies live in cross-talk/.
 INSTALL_PROJECTS=(cross-talk "${DEMOS[@]}")
 usage() {

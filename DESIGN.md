@@ -1,6 +1,6 @@
 ---
 name: GPT6 Demos Gallery
-description: A light screenshot gallery and in-page walkthrough portal for eleven interactive demos.
+description: A light screenshot gallery and in-page walkthrough portal for the interactive demos.
 colors:
   primary: "#2457d6"
   primary-hover: "#1944ae"
@@ -120,7 +120,7 @@ components:
 
 The gallery is a light, minimalist frame for real application screenshots. White space, dark system sans text, quiet gray supporting copy, and a single blue interaction accent preserve the identity established by the root index.html. Screenshots supply the variety and color.
 
-This system governs the root gallery and its portal/ extension only. It does not govern the eleven independent demo applications. The root retains its compact direct-launch grid; the portal extends that language with larger images and an in-page video preview.
+This system governs the root gallery and its portal/ extension only. It does not govern the independent demo applications. The root retains its compact direct-launch grid; the portal extends that language with larger images and an in-page video preview.
 
 **Key Characteristics:**
 
@@ -200,9 +200,9 @@ The white `preview-action` pill sits 14px from the image’s bottom and right ed
 
 ### Preview dialog and player
 
-A native dialog opens with the category and a 44px circular close control above the player. Its poster uses the corresponding YouTube maximum-resolution thumbnail, falling back to the existing application screenshot when the remote image fails or is a tiny placeholder. The poster is shown at 0.78 opacity over dark ink, with a centered play disc and explicit label. The disc becomes 56px on mobile.
+A native dialog opens with the category and a 44px circular close control above the player. For entries with walkthroughs, the poster uses the corresponding YouTube maximum-resolution thumbnail, falling back to the existing application screenshot when the remote image fails or is a tiny placeholder. The poster is shown at 0.78 opacity over dark ink, with a centered play disc and explicit label. The disc becomes 56px on mobile.
 
-The iframe is created only after Play. Closing by Escape, the close control, or a backdrop click removes the player and restores focus to the originating entry. Modal arrival lasts 260ms using `cubic-bezier(.16, 1, .3, 1)`, translating from 14px below and releasing a small clipping inset. Reduced-motion preference disables that animation. The poster’s focus ring is inset by 6px to stay visible within the player.
+Screenshot-only previews show the application capture at full opacity with a launch link. The iframe is created only after Play. Closing by Escape, the close control, or a backdrop click removes the player and restores focus to the originating entry. Modal arrival lasts 260ms using `cubic-bezier(.16, 1, .3, 1)`, translating from 14px below and releasing a small clipping inset. Reduced-motion preference disables that animation. The poster’s focus ring is inset by 6px to stay visible within the player.
 
 The gallery reuses the repository’s screenshots unchanged. YouTube poster images are externally sourced from the README video IDs. Review captures and asset provenance are recorded under `.impeccable/review/`; they are evidence, not shipping gallery artwork.
 
@@ -218,7 +218,7 @@ The gallery reuses the repository’s screenshots unchanged. YouTube poster imag
 
 ### Don't:
 
-- Don’t apply this gallery system to the eleven independent applications.
+- Don’t apply this gallery system to the independent applications.
 - Don’t wrap the screenshot and caption together in a raised panel.
 - Don’t autoplay walkthroughs when a preview opens.
 - Don’t replace the actual screenshots with decorative imagery.

@@ -22,10 +22,11 @@ const assets = new Map([
     "one-more-match.png",
     "not-a-virus.png",
     "tracework.png",
+    "dmt-experience.png",
   ].map((name) => [`/images/${name}`, `images/${name}`]),
 ]);
 
-const demoCount = 11;
+const demoCount = 12;
 export function validateBasePort(port: number): number {
   if (!Number.isInteger(port) || port < 1 || port > 65535 - demoCount) {
     throw new Error(`Base port must be an integer between 1 and ${65535 - demoCount}`);

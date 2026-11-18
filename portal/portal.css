@@ -59,6 +59,7 @@ dialog[open] { animation: preview-arrive 260ms var(--ease-out); }
 .close-button { display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; background: transparent; cursor: pointer; }
 .close-button:hover { background: var(--surface); color: var(--ink); }
 .video { position: relative; aspect-ratio: 16 / 9; background: #17191e; }
+.video > img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .video iframe, .video-poster { display: block; width: 100%; height: 100%; border: 0; }
 .video-poster { position: absolute; inset: 0; padding: 0; cursor: pointer; background: #17191e; }
 .video-poster img { display: block; width: 100%; height: 100%; object-fit: cover; opacity: .78; }
@@ -80,6 +81,7 @@ dialog[open] { animation: preview-arrive 260ms var(--ease-out); }
 .launch { display: inline-flex; align-items: center; gap: 20px; background: var(--accent); color: #fff; border-radius: 8px; padding: 12px 18px; text-decoration: none; font-size: .875rem; font-weight: 600; }
 .launch:hover { background: #1944ae; }
 .youtube-link { display: inline-flex; align-items: center; gap: 5px; font-size: .8125rem; color: var(--muted); }
+.youtube-link[hidden] { display: none; }
 .youtube-link svg { width: 18px; height: 18px; }
 .dialog-note { font-size: .75rem; color: var(--muted); line-height: 1.6; margin: 18px 0 0; }
 @media (max-width: 900px) {
