@@ -5,9 +5,9 @@ import { join, resolve } from "node:path";
 import { servePortal, validateBasePort } from "../portal-server";
 
 const root = resolve(import.meta.dir, "..");
-const demos = ["edificio-europa", "infinicave", "tonada", "tarot-spead", "orbital-mechanics-laboratory", "digital-logic-laboratory", "flip-slop", "codexcanvas", "assemblavatar", "one-more-match", "tracework", "dmt-experience"];
+const demos = ["edificio-europa", "infinicave", "tonada", "tarot-spead", "orbital-mechanics-laboratory", "digital-logic-laboratory", "flip-slop", "codexcanvas", "assemblavatar", "one-more-match", "tracework", "dmt-experience", "fuel-left"];
 
-for (const base of [3000, 30000, 65523]) {
+for (const base of [3000, 30000, 65522]) {
   test(`both portals link all demos at base ${base}`, async () => {
     const expected = demos.map((_, i) => `http://localhost:${base + i + 1}/`);
     const plain = await (await servePortal(new Request("http://localhost/"), base)).text();
@@ -34,10 +34,10 @@ test("portal routing retains redirect, HEAD, and source-file protection", async 
   expect(redirect.headers.get("Location")).toBe("/portal/");
   expect(await (await get("/portal/", "HEAD")).text()).toBe("");
   expect((await get("/run-all.sh")).status).toBe(404);
-  for (const name of ["not-a-virus", "tracework", "dmt-experience"]) expect((await get(`/images/${name}.png`)).status).toBe(200);
+  for (const name of ["not-a-virus", "tracework", "dmt-experience", "fuel-left"]) expect((await get(`/images/${name}.png`)).status).toBe(200);
   expect((await get("/%zz")).status).toBe(400);
   expect((await get("/", "POST")).status).toBe(405);
-  for (const value of [0, -1, 65524, 3000.5, NaN]) expect(() => validateBasePort(value)).toThrow();
+  for (const value of [0, -1, 65523, 3000.5, NaN]) expect(() => validateBasePort(value)).toThrow();
 });
 
 // Fake Bun commands exercise the actual launcher and its process groups without
@@ -74,7 +74,7 @@ exec sleep 60
   return { dir, calls, start, remove: () => rmSync(dir, { recursive: true, force: true }) };
 }
 
-for (const args of [[], ["30000"], ["65523"], ["03000"]]) {
+for (const args of [[], ["30000"], ["65522"], ["03000"]]) {
   test(`launcher ports and cleanup: ${args[0] ?? "default"}`, async () => {
     const f = await fixture();
     const proc = f.start(args);
@@ -111,7 +111,7 @@ for (const args of [[], ["30000"], ["65523"], ["03000"]]) {
 test("invalid arguments fail before installs; help succeeds", async () => {
   const f = await fixture();
   try {
-    for (const args of [["0"], ["65524"], ["-1"], ["abc"], ["3000.5"], [""], ["3000", "3001"]]) expect(await f.start(args).exited).toBe(1);
+    for (const args of [["0"], ["65523"], ["-1"], ["abc"], ["3000.5"], [""], ["3000", "3001"]]) expect(await f.start(args).exited).toBe(1);
     expect(await f.start(["--help"]).exited).toBe(0);
     expect(await f.calls()).toEqual([]);
   } finally { f.remove(); }

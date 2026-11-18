@@ -4,6 +4,8 @@ Implementation specification for a Three.js homage to the 1995 Windows pinball t
 
 Any reference to the name ¨CADET¨ should be interpreted/replaced by ¨Fuel Left¨ to avoid copyright issues
 
+See ![image](pinball.jpeg)
+
 **Status:** normative. An implementing agent follows this document and does not invent a different game.
 **Product name to ship:** `Cadet` (window title: `Cadet`). Never title it with a Microsoft, Maxis, or Cinematronics mark.
 **Reference photograph:** the portrait playfield supplied with the request. Use it as a composition target only. Do not texture the table with it.

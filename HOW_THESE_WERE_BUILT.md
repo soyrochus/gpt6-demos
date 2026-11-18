@@ -14,12 +14,17 @@ Each project tests a different part of software development.
 
 | Case study | Engineering focus | AI use while running the application |
 | --- | --- | --- |
+| Fuel Left | Translating a photographed table and written rules into an original 3D pinball game | Runs locally in the browser |
 | Elfspace | Building an interactive 3D scene and a responsive score in 15 minutes | Runs locally in the browser |
 | Digital Logic Laboratory | Keeping an assembler, simulated computer, circuit hierarchy, and debugger consistent | None required |
 | NotAVirus | Native desktop behavior, reusable animation packs, and platform-specific integration | None required; generated artwork is bundled |
 | Assemblavatar | Generating executable modelling code, inspecting rendered results, and managing refinement | GPT-6 Astra generates and evaluates models; handwritten examples and manual source builds work without an API key |
 
 The repository presents these applications as demonstrations of GPT6-assisted software development. Exact development-model attribution, original prompts, elapsed effort, and the division of human and agent work still need to be supplied for Digital Logic Laboratory, NotAVirus, and Assemblavatar. Assemblavatar's documented runtime model is a separate fact from the models used to build the application.
+
+## Fuel Left
+
+The playfield photograph guided the cabinet layout. Three.js draws original geometry and a procedurally illustrated playfield. A fixed-step simulator owns the ball, while a separate mission reducer handles target selection, ordered objectives, fuel and rank. Bun runs the headless physics and scoring tests, including cradling a dropped ball and handing a multiplayer game from one player to the next. [Project and controls](./fuel-left/README.md) · [Specification](./fuel-left/spec-fuel-left.md)
 
 ## Elfspace in 15 minutes with GPT-6.2 Astra
 

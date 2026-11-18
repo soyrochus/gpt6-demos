@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101419" />
+    <meta
+      name="description"
+      content="Launch a chrome ball, choose a mission and keep six fuel lamps burning on an original space pinball table."
+    />
+    <title>Fuel Left</title>
+    <link rel="icon" href="/mark.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <img src="/mark.svg" width="46" height="44" alt="" />
+        <h1>Fuel Left</h1>
+        <span class="brand-type">Pinball</span>
+      </div>
+      <nav aria-label="Cabinet settings">
+        <button id="sound" aria-pressed="true" title="Sound effects">
+          <i data-icon="audio"></i><span>Sound</span><b class="switch"></b>
+        </button>
+        <button id="music" aria-pressed="false" title="Music">
+          <i data-icon="music"></i><span>Music</span><b class="switch"></b>
+        </button>
+        <button id="controls" title="Controls (F8)">
+          <i data-icon="keys"></i><span>Controls</span>
+        </button>
+      </nav>
+    </header>
+    <main class="console">
+      <section class="table-bay" aria-label="Pinball table">
+        <canvas
+          id="table"
+          tabindex="0"
+          aria-label="Fuel Left playfield. Use Z and slash for flippers. Hold and release Space to launch."
+        ></canvas>
+        <div id="table-overlay" hidden>
+          <button id="resume"><i data-icon="play"></i> Resume play</button>
+        </div>
+        <p id="render-error" hidden role="alert">
+          The table needs WebGL 2. Enable hardware acceleration in your browser
+          and reload.
+        </p>
+      </section>
+      <aside class="instruments" aria-label="Cabinet instruments">
+        <section class="score-module">
+          <div class="score-strip">
+            <span id="player">Player 01</span
+            ><span class="ball-counter"
+              ><i></i><span id="ball">Ball 1 / 3</span></span
+            >
+          </div>
+          <div class="glass">
+            <div class="label">Score</div>
+            <div id="score" role="img" aria-label="Score 0"></div>
+            <div class="high">
+              <span><i data-icon="score"></i> High score</span
+              ><strong id="high">0</strong>
+            </div>
+          </div>
+        </section>
+        <section class="rank-module">
+          <div class="rank-heading">
+            <span class="insignia"><i data-icon="rank"></i></span>
+            <div>
+              <span class="label">Rank</span
+              ><strong id="rank">Fuel Left</strong>
+            </div>
+            <span id="rank-level">01 / 09</span>
+          </div>
+          <div id="progress" aria-label="Rank progress"></div>
+        </section>
+        <section class="mission-module">
+          <div class="module-heading">
+            <i data-icon="flag"></i>
+            <h2>Mission control</h2>
+            <span id="multi" hidden></span>
+          </div>
+          <div class="transmission" role="status">
+            <strong id="mission-title">Awaiting launch</strong>
+            <p id="objective">
+              Hit mission targets, then shoot the launch ramp.
+            </p>
+          </div>
+          <div class="fuel-heading">
+            <span class="label"><i data-icon="fuel"></i> Fuel</span
+            ><span id="fuel-amount">6 / 6</span>
+          </div>
+          <div id="fuel" aria-label="Fuel lamps"></div>
+        </section>
+        <div class="actions">
+          <button id="plunger" data-action="plunger">
+            <i data-icon="launch"></i><span id="launch-label">Launch ball</span
+            ><kbd data-key="plunger">Space</kbd>
+          </button>
+          <div class="game-menu">
+            <button id="new"><i data-icon="reset"></i>New game</button
+            ><button id="players">
+              <i data-icon="users"></i><span>Players</span></button
+            ><button id="pause" title="Pause (F3)" aria-label="Pause">
+              <i data-icon="pause"></i>
+            </button>
+          </div>
+        </div>
+      </aside>
+      <footer class="play-controls">
+        <div class="flips">
+          <span class="label">Flippers</span
+          ><button data-action="left" aria-label="Left flipper">
+            <kbd data-key="left">Z</kbd><span>Left</span></button
+          ><button data-action="right" aria-label="Right flipper">
+            <kbd data-key="right">/</kbd><span>Right</span>
+          </button>
+        </div>
+        <div class="nudges">
+          <span class="label">Nudge</span
+          ><button data-action="nudgeLeft" aria-label="Nudge left">
+            <i data-icon="left"></i></button
+          ><button data-action="nudgeUp" aria-label="Nudge up">
+            <i data-icon="up"></i></button
+          ><button data-action="nudgeRight" aria-label="Nudge right">
+            <i data-icon="arrow"></i>
+          </button>
+        </div>
+      </footer>
+    </main>
+    <dialog id="dialog" aria-labelledby="dialog-title">
+      <div class="dialog-heading">
+        <h2 id="dialog-title"></h2>
+        <button id="close" aria-label="Close"><i data-icon="close"></i></button>
+      </div>
+      <div id="dialog-body"></div>
+    </dialog>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

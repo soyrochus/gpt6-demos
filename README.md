@@ -10,7 +10,7 @@
 [![Three.js](https://img.shields.io/badge/3D-Three.js-000000?logo=threedotjs&logoColor=white)](https://threejs.org/)
 [![Contributions welcome](https://img.shields.io/badge/Contributions-welcome-brightgreen.svg)](#principles-of-participation)
 
-A collection of interactive web and native desktop demos exploring 3D graphics, visual design, and playful experiences. Built with Bun, TypeScript, Three.js, and Rust, the projects include an architectural explorer, a tarot reading room, a helicopter cave expedition, a music composition desk, an orbital mechanics laboratory, a digital logic laboratory, a generative canvas and stop-motion studio, an AI-assisted procedural 3D modelling studio, a 7-a-side football game, a macOS and Ubuntu desktop companion, a solution-engineering workbench, and an interactive crystal cavern. Each demo is a standalone application with its own source code and setup instructions. YouTube walkthroughs are included where available.
+A collection of interactive web and native desktop demos exploring 3D graphics, visual design, and playful experiences. Built with Bun, TypeScript, Three.js, and Rust, the projects include an architectural explorer, a tarot reading room, a helicopter cave expedition, a music composition desk, an orbital mechanics laboratory, a digital logic laboratory, a generative canvas and stop-motion studio, an AI-assisted procedural 3D modelling studio, a 7-a-side football game, a macOS and Ubuntu desktop companion, a solution-engineering workbench, an interactive crystal cavern, and a space pinball table. Each demo is a standalone application with its own source code and setup instructions. YouTube walkthroughs are included where available.
 
 **Elfspace took 15 minutes in total to develop with GPT-6.2 Astra.** Fly through its crystal cavern, pause for the twelve figures to gather, and switch on the proximity-sensitive score. The whole experience fits in one HTML file. [Try Elfspace](./dmt-experience/README.md) · [How these demos were built](./HOW_THESE_WERE_BUILT.md)
 
@@ -22,7 +22,7 @@ Use this repository to try the demos, explore how they work, or build on their i
 
 ## Platform support
 
-The earlier browser demos are tested to run on **macOS and Linux**. They should also work on **Windows**, but have not been tested there. Elfspace requires a browser with WebGL 2. **NotAVirus is tested on macOS and Ubuntu**: its native macOS app requires macOS 13 or later, and its Ubuntu extension requires **GNOME Shell 50 on Wayland** (verified with GNOME 50.1 on Ubuntu 26.04.1). Follow its [platform build and run instructions](./not-a-virus/README.md). It has no browser or Windows version; other Linux desktops and GNOME versions are not supported.
+The earlier browser demos are tested to run on **macOS and Linux**. They should also work on **Windows**, but have not been tested there. Elfspace and Fuel Left require a browser with WebGL 2. **NotAVirus is tested on macOS and Ubuntu**: its native macOS app requires macOS 13 or later, and its Ubuntu extension requires **GNOME Shell 50 on Wayland** (verified with GNOME 50.1 on Ubuntu 26.04.1). Follow its [platform build and run instructions](./not-a-virus/README.md). It has no browser or Windows version; other Linux desktops and GNOME versions are not supported.
 
 ## Run all demos
 
@@ -34,7 +34,7 @@ Run the shared launcher from the repository root with [Bun 1.4.4](https://bun.sh
 ./run-all.sh --help
 ```
 
-The base port serves **both portals from one server**: the original gallery at `/` and the preview gallery at `/portal/`. Each demo uses the next port in the order below. For example, `./run-all.sh 30000` serves the portals at [http://localhost:30000/](http://localhost:30000/) and [http://localhost:30000/portal/](http://localhost:30000/portal/), with demo apps on ports **30001–30012**. Both portals automatically link to the assigned demo ports.
+The base port serves **both portals from one server**: the original gallery at `/` and the preview gallery at `/portal/`. Each demo uses the next port in the order below. For example, `./run-all.sh 30000` serves the portals at [http://localhost:30000/](http://localhost:30000/) and [http://localhost:30000/portal/](http://localhost:30000/portal/), with demo apps on ports **30001–30013**. Both portals automatically link to the assigned demo ports.
 
 | Service | Port assignment | Default port |
 | --- | --- | --- |
@@ -51,12 +51,13 @@ The base port serves **both portals from one server**: the original gallery at `
 | One More Match | Base + 10 | 3010 |
 | Tracework | Base + 11 | 3011 |
 | Elfspace | Base + 12 | 3012 |
+| Fuel Left | Base + 13 | 3013 |
 
-Choose a base port from **1 to 65523**, with the entire thirteen-port range available. Invalid arguments are rejected before installation or startup. Low ports may require system privileges; the default and the example above avoid them.
+Choose a base port from **1 to 65522**, with the entire fourteen-port range available. Invalid arguments are rejected before installation or startup. Low ports may require system privileges; the default and the example above avoid them.
 
-Before starting any servers, the launcher runs `bun install --frozen-lockfile` in `cross-talk/` and all twelve browser demos, then builds Tracework. Assemblavatar installs production dependencies and runs in production mode; Playwright is only a development test dependency. Tracework serves its built interface and API together on its assigned port. If an installation or the build fails, no servers are started.
+Before starting any servers, the launcher runs `bun install --frozen-lockfile` in `cross-talk/` and all thirteen browser demos, then builds Tracework. Assemblavatar installs production dependencies and runs in production mode; Playwright is only a development test dependency. Tracework serves its built interface and API together on its assigned port. If an installation or the build fails, no servers are started.
 
-Logs are labelled by service. Press **Ctrl+C** to stop all twelve browser demos and the single portal server; if any service exits, the launcher stops the others too. Individual applications' launch scripts and standalone default ports are unchanged.
+Logs are labelled by service. Press **Ctrl+C** to stop all thirteen browser demos and the single portal server; if any service exits, the launcher stops the others too. Individual applications' launch scripts and standalone default ports are unchanged.
 
 Before starting Flip-slop, follow its [environment setup](./flip-slop/README.md#run): copy `flip-slop/example.env` to `flip-slop/.env` and set the OpenAI API key only in `.env`.
 
@@ -86,7 +87,7 @@ For NotAVirus, follow its [platform build and run instructions](./not-a-virus/RE
 | Portal | Default address | Behavior |
 | --- | --- | --- |
 | Plain, original portal | [http://localhost:3000/](http://localhost:3000/) | Simple screenshot gallery; browser cards open the apps, and NotAVirus links to macOS and Ubuntu setup. |
-| New preview portal | [http://localhost:3000/portal/](http://localhost:3000/portal/) | Cards open a description with a walkthrough when available. Elfspace opens a screenshot preview. Videos play in the page; demo titles and **Open demo** links open the app in a new tab. NotAVirus provides **Source and setup** for macOS and Ubuntu. |
+| New preview portal | [http://localhost:3000/portal/](http://localhost:3000/portal/) | Cards open a description with a walkthrough when available. Elfspace and Fuel Left open screenshot previews. Videos play in the page; demo titles and **Open demo** links open the app in a new tab. NotAVirus provides **Source and setup** for macOS and Ubuntu. |
 
 The original [index.html](./index.html) uses a four-column desktop grid, two columns on tablets, and one on phones. It uses plain HTML, inline CSS, and relative image paths, so it needs no build or JavaScript and can also be opened directly from disk. Directly opened files use the default demo ports.
 
@@ -100,7 +101,7 @@ To serve both portal pages without starting the apps, run one server from the re
 # Both http://localhost:3000/ and http://localhost:3000/portal/
 bun run portal-server.ts
 
-# Alternatively, both pages on port 30000; demo links use 30001–30012
+# Alternatively, both pages on port 30000; demo links use 30001–30013
 PORT=30000 bun run portal-server.ts
 ```
 
@@ -267,6 +268,16 @@ Fly among twelve masked figures in a crystal cavern inspired by accounts of DMT 
 </a>
 
 [Source and setup](./dmt-experience/README.md) · [As-built specification](./dmt-experience/spec-dmt-experience.md)
+
+### Fuel Left — Arcade pinball
+
+An original space pinball table for one to four players. Use a partial plunge for a skill shot, hit mission targets and shoot the purple ramp to accept. Six fuel lamps time the mission as you work through nine ranks.
+
+<a href="./fuel-left/README.md">
+  <img src="./images/fuel-left.png" alt="Fuel Left in play, with the purple launch ramp and copper plunger lane beside the score and mission panel" width="480">
+</a>
+
+[Source, controls and setup](./fuel-left/README.md) · [Implementation specification](./fuel-left/spec-fuel-left.md)
 
 ---
 

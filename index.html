@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Explore thirteen interactive demos: architecture, tarot, cave flight, music, orbital mechanics, digital logic, generative stop-motion, a spatial Codex workspace, procedural 3D modelling, 7-a-side football, a macOS and Ubuntu desktop companion, a solution-engineering workbench, and a crystal cavern.">
+  <meta name="description" content="Explore fourteen interactive demos: architecture, tarot, cave flight, music, orbital mechanics, digital logic, generative stop-motion, a spatial Codex workspace, procedural 3D modelling, 7-a-side football, a macOS and Ubuntu desktop companion, a solution-engineering workbench, a crystal cavern, and space pinball.">
   <title>GPT6 Demos</title>
   <style>
     :root { color-scheme: light; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #17191e; background: #fff; }
@@ -32,7 +32,7 @@
 </head>
 <body>
   <main>
-    <header><h1>GPT6 Demos<span aria-hidden="true">.</span></h1><p>Thirteen interactive experiments. Open one and explore.</p></header>
+    <header><h1>GPT6 Demos<span aria-hidden="true">.</span></h1><p>Fourteen interactive experiments. Open one and explore.</p></header>
     <nav class="demos" aria-label="Local demos">
       <a class="demo" href="http://localhost:3001/" data-port-offset="1">
         <div class="preview"><img src="images/edificio-europa.png" alt="3D reconstruction of Edificio Europa" width="1870" height="929"></div>
@@ -98,6 +98,11 @@
         <div class="preview"><img src="images/dmt-experience.png" alt="Jeweled figures floating in the illuminated crystal cavern in Elfspace" width="1536" height="864" loading="lazy"></div>
         <div class="title"><h2>Elfspace</h2><span class="arrow" aria-hidden="true">↗</span></div>
         <p>Fly through a crystal cavern and pause to let twelve jeweled figures gather around you. Built with GPT-6.2 Astra in 15 minutes.</p>
+      </a>
+      <a class="demo" href="http://localhost:3013/" data-port-offset="13">
+        <div class="preview"><img src="images/fuel-left.png" alt="Fuel Left in play, with the purple launch ramp and copper plunger lane beside the score and mission panel" width="2192" height="1664" loading="lazy"></div>
+        <div class="title"><h2>Fuel Left</h2><span class="arrow" aria-hidden="true">↗</span></div>
+        <p>Launch a chrome ball up the copper lane. Finish missions before their fuel lamps go dark and climb from Fuel Left to Fleet Admiral.</p>
       </a>
     </nav>
     <footer>Start the browser demos with <code>./run-all.sh [BASE_PORT]</code> from the repository root (default: 3000). Both galleries share the base port at <a href="./">/</a> and <a href="portal/">/portal/</a>; demo links use consecutive ports above it. NotAVirus runs separately on macOS and Ubuntu; its link opens setup instructions.</footer>
