@@ -23,14 +23,18 @@ workspace/
     crosstalk/adapter.ts
 ```
 
-Merge these dependencies and scripts into your application's `package.json`:
+Add the two package directories to your application's Bun workspaces and merge the following entries into its `package.json`.
 
 ```json
 {
   "type": "module",
+  "workspaces": [
+    "../cross-talk/packages/client",
+    "../cross-talk/packages/server"
+  ],
   "dependencies": {
-    "@crosstalk/client": "link:../cross-talk/packages/client",
-    "@crosstalk/server": "link:../cross-talk/packages/server"
+    "@crosstalk/client": "workspace:*",
+    "@crosstalk/server": "workspace:*"
   },
   "scripts": {
     "dev": "bun --env-file=../cross-talk/.env --hot index.ts",

@@ -4,6 +4,10 @@
   "module": "index.ts",
   "type": "module",
   "private": true,
+  "workspaces": [
+    "../cross-talk/packages/client",
+    "../cross-talk/packages/server"
+  ],
   "devDependencies": {
     "@types/bun": "latest",
     "@types/three": "^0.187.0"
@@ -12,8 +16,8 @@
     "typescript": "^7.0.2"
   },
   "dependencies": {
-    "@crosstalk/client": "link:../cross-talk/packages/client",
-    "@crosstalk/server": "link:../cross-talk/packages/server",
+    "@crosstalk/client": "workspace:*",
+    "@crosstalk/server": "workspace:*",
     "three": "^0.187.0"
   },
   "scripts": {

@@ -86,7 +86,7 @@ This shared-file loader is part of the desktop host. Existing browser `dev`/`sta
 
 ## Embed the server
 
-The local packages expose `@crosstalk/server` and `@crosstalk/client`. Europa links them with Bun `file:` dependencies. Install the `cross-talk` directory's dependencies as well; these development packages use its shared sources. The root package also exports `cross-talk/server`, `cross-talk/client` and `cross-talk/protocol`.
+Europa imports `@crosstalk/server` and `@crosstalk/client` as Bun workspace dependencies. Run `bun install` in `cross-talk/` first so the shared source can resolve its dependencies. The root package also exports `cross-talk/server`, `cross-talk/client` and `cross-talk/protocol`.
 
 ```ts
 import { CrosstalkServer, type CrosstalkSocketData } from '@crosstalk/server';
