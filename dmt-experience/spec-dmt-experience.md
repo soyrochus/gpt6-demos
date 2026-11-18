@@ -1,6 +1,6 @@
 # Elfspace — as-built experience specification
 
-This document describes the single-file application in repository revision `1dde9b0`. The runtime source is [index.html](index.html). Launch instructions are in the [README](README.md).
+This document describes the single-file application originally built in revision `1dde9b0`, with its current rendering dependency. The runtime source is [index.html](index.html). Launch instructions are in the [README](README.md).
 
 ## Experience and opening composition
 
@@ -13,7 +13,7 @@ The camera starts level at world position `(0, 0.35, 7)`, looking along negative
 | Component | Implemented behavior |
 |---|---|
 | Distribution | One HTML file contains the markup, CSS, application module, shaders, generated asset definitions, and offline library bundle. It opens directly from disk. |
-| Online loading | An import map pins Three.js to 0.170.0 on jsDelivr. The loader requests the core module, `EffectComposer`, `RenderPass`, `UnrealBloomPass`, and `OutputPass` together. |
+| Online loading | An import map pins Three.js to 0.187.0 on jsDelivr. The loader requests the core module, `EffectComposer`, `RenderPass`, `UnrealBloomPass`, and `OutputPass` together. |
 | Offline loading | If the imports fail or take longer than 1.6 seconds, the loader decodes the embedded Base64 payload, inflates it with `DecompressionStream('gzip')`, imports the resulting blob as a module, and revokes its URL. |
 | Browser capabilities | Rendering uses WebGL 2, JavaScript modules, and Canvas 2D for mask painting. The optional score uses Web Audio. Mouse-look supports pointer lock and dragging. |
 | Startup feedback | “Entering the chamber…” appears during initialization. A caught startup failure logs the error and displays guidance to open the file in a current browser with WebGL 2 enabled. |

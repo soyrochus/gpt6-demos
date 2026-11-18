@@ -1,6 +1,6 @@
 # Generated Bun service
 
-Use Bun 1.4.0. Run `bun install --frozen-lockfile`, `bun run typecheck`, `bun test tests/generated`, then `bun run start`.
+Use Bun 1.4.4. Run `bun install --frozen-lockfile`, `bun run typecheck`, `bun test tests/generated`, then `bun run start`.
 
 This package is a bounded module generated from a reviewed Tracework scope. Consult `tracework-manifest.json`, `contract.json`, and `generation.diff` for provenance, missing checks, and review status. Export does not imply execution or verified acceptance.
 

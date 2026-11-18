@@ -1,7 +1,7 @@
 # Implementation decisions
 
 - **Bun HTML tooling:** use Bun's HTML bundler and HTML-import development server, following this project's Bun guidance. Vite is unnecessary. Desktop packaging copies the same production assets served by the browser backend.
-- **Electrobun 2.0.1:** explicitly select its real Bun 1.4.0 main process. Cottontail is used by Electrobun's build tooling, not as this app's backend runtime. The core and browser engine are pinned through Electrobun/Hutch.
+- **Electrobun 2.0.6:** the desktop app selects the Bun 1.4.4 main process. Cottontail is used by Electrobun's build tooling, not as this app's backend runtime. The core and browser engine are pinned through Electrobun/Hutch.
 - **GPU rendering:** remove Electrobun's default `disable-gpu` setting. Keep Chromium's software WebGL fallback available for hardware where acceleration is unavailable. Runtime smoke tests verify the actual renderer rather than treating a successful native launch as proof of WebGL support.
 - **Original player asset:** generate and check in a skinned GLB with an eleven-bone rig, six material groups, and nine clips. Geometry and animations are original to this project. This avoids external asset licensing/network dependencies and allows kit material reuse. `bun run assets` regenerates it.
 - **Football physics:** Rapier owns the free ball, ground, goalposts and crossbars. Kinematic movement, assisted dribbling, player separation, swept interceptions and football boundary rules live in the headless simulation. Stored transforms and velocities rebuild the small physics world on recovery; contact caches are reconstructed.

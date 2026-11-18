@@ -6,19 +6,19 @@
   "private": true,
   "devDependencies": {
     "@types/bun": "latest",
-    "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.7",
-    "@types/three": "^0.185.4",
-    "happy-dom": "^20.14.0"
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/three": "^0.187.0",
+    "happy-dom": "^21.0.4"
   },
   "peerDependencies": {
-    "typescript": "^7"
+    "typescript": "^7.0.2"
   },
   "dependencies": {
-    "lucide-react": "^1.41.0",
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8",
-    "three": "^0.185.1"
+    "lucide-react": "^1.75.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "three": "^0.187.0"
   },
   "scripts": {
     "dev": "bun --hot index.ts",

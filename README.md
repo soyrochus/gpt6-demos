@@ -26,7 +26,7 @@ The earlier browser demos are tested to run on **macOS and Linux**. They should 
 
 ## Run all demos
 
-With [Bun](https://bun.sh/) installed (Bun 1.4.0 for One More Match and Tracework), run from the repository root:
+Run the shared launcher from the repository root with [Bun 1.4.4](https://bun.sh/).
 
 ```sh
 ./run-all.sh           # Base port 3000 (default)

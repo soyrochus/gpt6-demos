@@ -29,8 +29,8 @@ Merge these dependencies and scripts into your application's `package.json`:
 {
   "type": "module",
   "dependencies": {
-    "@crosstalk/client": "file:../cross-talk/packages/client",
-    "@crosstalk/server": "file:../cross-talk/packages/server"
+    "@crosstalk/client": "link:../cross-talk/packages/client",
+    "@crosstalk/server": "link:../cross-talk/packages/server"
   },
   "scripts": {
     "dev": "bun --env-file=../cross-talk/.env --hot index.ts",

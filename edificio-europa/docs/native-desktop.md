@@ -13,7 +13,7 @@ The implementation follows [the native executable specification](../specs/native
 Use Linux x64 with a native Wayland desktop session. The reference machine already has the required tools. Check them with:
 
 ```sh
-bun --version                 # reference: 1.4.0
+bun --version                 # reference: 1.4.4
 rustc --version
 cargo --version
 cc --version
@@ -29,7 +29,7 @@ sudo apt install build-essential pkg-config patch tar libssl-dev \
   libgtk-3-dev libwebkit2gtk-4.1-dev xdg-utils gstreamer1.0-plugins-good
 ```
 
-Bun 1.4.0 and Rust/Cargo must also be installed and available on `PATH`. The first build needs network access for package dependencies, the pinned native source archive, and Cargo crates. No API key is needed to compile.
+Bun 1.4.4 and Rust/Cargo must also be installed and available on `PATH`. The first build needs network access for package dependencies, the pinned native source archive, and Cargo crates. No API key is needed to compile.
 
 ### 2. Install project dependencies and compile
 

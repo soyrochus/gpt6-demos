@@ -4,7 +4,7 @@ A playable 7-a-side football game: choose one of 20 countries, play the computer
 
 ## Run
 
-Use **Bun 1.4.0** (the runtime also pinned by Electrobun 2.0.1).
+Use **Bun 1.4.4** for development and the browser server. Electrobun packages the desktop runtime.
 
 ```sh
 bun install --frozen-lockfile

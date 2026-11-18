@@ -9,9 +9,9 @@ rust-version.workspace = true
 notavirus-core.workspace = true
 serde.workspace = true
 thiserror.workspace = true
-toml = "0.8"
+toml = "1.2"
 serde_json = "1"
 png = "0.18"
-zip = { version = "2.4", default-features = false, features = ["deflate"] }
+zip = { version = "9.7", default-features = false, features = ["deflate"] }
 tempfile = "3"
 tracing = "0.1"

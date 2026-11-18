@@ -57,7 +57,7 @@ cd ../edificio-europa
 
 Click **CROSSTALK** in the window to start voice. Without an API key, the manual Three.js explorer still works. The compiled application loads `.env` from its working directory; it does not automatically look in the sibling `cross-talk` directory. Existing environment and `.env` values take priority over the shared configuration. Restart after changing settings.
 
-Building requires Bun 1.4.0, Rust/Cargo, a C toolchain, pkg-config, patch/tar, and GTK3/WebKitGTK 4.1 development libraries. These are installed on the reference machine. The first build downloads and compiles the native binding; later builds reuse its cache. See the [complete setup and build walkthrough](docs/native-desktop.md#build-and-launch) for a fresh machine.
+Building requires Bun 1.4.4, Rust/Cargo, a C toolchain, pkg-config, patch/tar, and GTK3/WebKitGTK 4.1 development libraries. These are installed on the reference machine. The first build downloads and compiles the native binding; later builds reuse its cache. See the [complete setup and build walkthrough](docs/native-desktop.md#build-and-launch) for a fresh machine.
 
 The executable contains the Three.js explorer, Crosstalk service, and Bun runtime, and opens a native Wayland window. You do not start a separate Crosstalk server or need Bun installed to run the compiled file. The target computer still needs compatible GTK/WebKitGTK and audio libraries; voice requires network access. Photographs and remote fonts are omitted.
 

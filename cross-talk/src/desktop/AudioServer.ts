@@ -18,7 +18,7 @@ export class AudioServer {
   private fail(ws: ServerWebSocket<AudioSocketData>, code: string) {
     this.send(ws, { type: 'audio.error', code, recoverable: true, message: code === 'VOICE_NOT_CONFIGURED' ? 'Configure OPENAI_API_KEY to enable voice.' : 'Voice audio stopped. Check your connection and audio device, then start again.' }); this.stop(ws); ws.close(1008, code);
   }
-  readonly websocket: WebSocketHandler<AudioSocketData> = {
+  readonly websocket: WebSocketHandler<AudioSocketData> & Required<Pick<WebSocketHandler<AudioSocketData>, 'message'>> = {
     maxPayloadLength: 16384, idleTimeout: 30, sendPings: true, backpressureLimit: 26000, closeOnBackpressureLimit: true,
     open: ws => {
       if (this.sockets.size >= 4) { ws.close(1008, 'Connection limit'); return; }

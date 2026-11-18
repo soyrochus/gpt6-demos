@@ -120,9 +120,9 @@ export async function executeArtifact(
   const profile = capability.profile;
   ensure(
     /^sha256:[a-f0-9]{64}$/.test(profile.imageId) &&
-      profile.bunVersion === "1.4.0",
+      profile.bunVersion === "1.4.4",
     "INVALID_RUNNER",
-    "Runner must be a pinned Bun 1.4.0 image",
+    "Runner must be a pinned Bun 1.4.4 image",
   );
   ensure(
     profile.templateHash === hash(JSON.stringify(await trustedTemplate())),

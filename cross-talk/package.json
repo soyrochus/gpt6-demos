@@ -5,15 +5,15 @@
   "type": "module",
   "private": true,
   "devDependencies": {
-    "@playwright/test": "^1.63.0",
+    "@playwright/test": "^1.65.1",
     "@types/bun": "latest"
   },
   "peerDependencies": {
-    "typescript": "^7"
+    "typescript": "^7.0.2"
   },
   "dependencies": {
     "ajv": "^8.20.0",
-    "openai": "^7.15.0"
+    "openai": "^7.60.0"
   },
   "exports": {
     "./server": "./src/server/index.ts",

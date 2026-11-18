@@ -59,7 +59,7 @@ The GNOME protocol and ownership boundaries are documented in [gnome/PROTOCOL.md
 
 ## macOS build and run
 
-Requires macOS 13 or later, Xcode Command Line Tools, and stable Rust (1.88 or newer; tested with 1.97.1). The build downloads Rust dependencies; the running app has no network client or telemetry.
+Requires macOS 13 or later, Xcode Command Line Tools, and stable Rust (1.88 or newer; tested with 1.100.0). The build downloads Rust dependencies; the running app has no network client or telemetry.
 
 ```sh
 cd not-a-virus

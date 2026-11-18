@@ -11,6 +11,9 @@ bun run start
 
 Open **http://127.0.0.1:3000**. Use the existing `.env`, or create one using `.env.example` as a guide. Set `OPENAI_API_KEY` and leave `OPENAI_MODEL=gpt-6-astra`. Bun loads `.env` on the server. The key is never sent to the browser. `.env`, `.env.*` (except `.env.example`), `data/` and generated build files are ignored by Git.
 
+The modelling validator uses the TypeScript 5.9.3 compiler API to parse and check generated programs. TypeScript 7.0.2 no longer exports the functions it uses, including `createSourceFile` and `createProgram`.
+
+
 AI requests have a configurable ten-minute deadline (`AI_REQUEST_TIMEOUT_MS=600000`). Long photo-guided generations display their AI phase; refreshing an assemblage reconnects to its current job.
 
 `bun run start` runs in production mode without hot reloading. Previews, image decoding and GLB/GLTF processing run in an isolated frame in your open Assemblavatar tab. Keep the tab open while generating or importing; refreshes reconnect pending rendering work. No Playwright or separate Chromium installation is required at runtime. `run-all.sh` uses this mode automatically.

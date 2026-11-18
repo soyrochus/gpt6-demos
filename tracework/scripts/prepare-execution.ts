@@ -15,13 +15,13 @@ const pull = await docker([
   "pull",
   "--platform",
   "linux/amd64",
-  "oven/bun:1.4.0",
+  "oven/bun:1.4.4",
 ]);
 if (pull.code) throw new Error(pull.err);
 const inspect = await docker([
   "image",
   "inspect",
-  "oven/bun:1.4.0",
+  "oven/bun:1.4.4",
   "--format",
   "{{index .RepoDigests 0}}",
 ]);
@@ -53,7 +53,7 @@ await Bun.write(
       imageId: image.out.trim(),
       baseDigest: base,
       platform: "linux/amd64",
-      bunVersion: "1.4.0",
+      bunVersion: "1.4.4",
       templateHash: hash(JSON.stringify(await trustedTemplate())),
       qualified: false,
     },

@@ -6,15 +6,15 @@
   "private": true,
   "devDependencies": {
     "@types/bun": "latest",
-    "@types/three": "^0.185.4"
+    "@types/three": "^0.187.0"
   },
   "peerDependencies": {
-    "typescript": "^7"
+    "typescript": "^7.0.2"
   },
   "dependencies": {
-    "@crosstalk/client": "file:../cross-talk/packages/client",
-    "@crosstalk/server": "file:../cross-talk/packages/server",
-    "three": "^0.185.1"
+    "@crosstalk/client": "link:../cross-talk/packages/client",
+    "@crosstalk/server": "link:../cross-talk/packages/server",
+    "three": "^0.187.0"
   },
   "scripts": {
     "dev": "bun --env-file=../cross-talk/.env --hot index.ts",
@@ -28,5 +28,5 @@
     "test:desktop:native": "bun scripts/test-desktop-native.ts",
     "test:desktop:package": "bun scripts/test-desktop-package.ts"
   },
-  "packageManager": "bun@1.4.0"
+  "packageManager": "bun@1.4.4"
 }

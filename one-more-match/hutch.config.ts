@@ -1,1 +1,1 @@
-export default { electrobun: { version: "2.0.1" }, packageManager: "bun" };
+export default { electrobun: { version: "2.0.6" }, packageManager: "bun" };

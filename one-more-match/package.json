@@ -19,13 +19,13 @@
     "test:native": "bun run build && bun scripts/native-stability.ts"
   },
   "dependencies": {
-    "@dimforge/rapier3d-compat": "0.20.0",
-    "electrobun": "2.0.1",
-    "react": "19.3.0",
-    "react-dom": "19.3.0",
-    "three": "0.186.0",
-    "zod": "4.6.5",
-    "zustand": "5.0.15"
+    "@dimforge/rapier3d-compat": "0.21.0",
+    "electrobun": "2.0.6",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "three": "0.187.0",
+    "zod": "4.6.7",
+    "zustand": "5.1.0"
   },
   "devDependencies": {
     "@playwright/test": "latest",
@@ -33,10 +33,10 @@
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "@types/three": "latest",
-    "prettier": "^3.9.6",
-    "typescript": "^7"
+    "prettier": "^3.10.1",
+    "typescript": "^7.0.2"
   },
   "engines": {
-    "bun": "1.4.0"
+    "bun": "1.4.4"
   }
 }

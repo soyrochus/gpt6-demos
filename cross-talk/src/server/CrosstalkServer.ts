@@ -27,7 +27,7 @@ const messageSchemas: Record<string, object> = {
 };
 export class CrosstalkServer {
   readonly registry = new ApplicationRegistry();
-  readonly websocket: WebSocketHandler<CrosstalkSocketData>;
+  readonly websocket: WebSocketHandler<CrosstalkSocketData> & Required<Pick<WebSocketHandler<CrosstalkSocketData>, 'message'>>;
   private sessions?: SessionManager;
   private sockets = new Set<ServerWebSocket<CrosstalkSocketData>>();
   private endpoint: string;

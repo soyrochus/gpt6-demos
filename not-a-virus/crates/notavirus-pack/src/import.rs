@@ -21,8 +21,10 @@ pub fn install(archive: &Path, destination: &Path, existing_ids: &[String]) -> R
         let mut entry = zip
             .by_index(i)
             .map_err(|e| error(format!("invalid zip entry: {e}")))?;
-        let name = entry.name().trim_end_matches('/');
-        let path = Path::new(name);
+        let name = entry
+            .name()
+            .map_err(|e| error(format!("invalid zip entry name: {e}")))?;
+        let path = Path::new(name.trim_end_matches('/'));
         require(safe_relative(path), "unsafe zip path")?;
         require(paths.insert(path.to_path_buf()), "duplicate zip entry")?;
         if let Some(mode) = entry.unix_mode() {

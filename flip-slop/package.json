@@ -5,11 +5,11 @@
   "type": "module",
   "private": true,
   "devDependencies": {
-    "@playwright/test": "^1.63.0",
+    "@playwright/test": "^1.65.1",
     "@types/bun": "latest"
   },
   "peerDependencies": {
-    "typescript": "^7"
+    "typescript": "^7.0.2"
   },
   "dependencies": {
     "fflate": "^0.8.3",

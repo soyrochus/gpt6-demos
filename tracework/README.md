@@ -4,7 +4,7 @@ A local solution-engineering workbench built from [TRACEWORK-PRODUCT-SPEC.md](sp
 
 ## Run
 
-Requires **Bun 1.4.0**. All application, build and test commands run under Bun.
+Requires **Bun 1.4.4**. All application, build and test commands run under Bun.
 
 ```sh
 cd tracework
@@ -57,7 +57,7 @@ bun run execution:prepare
 bun run test:execution
 ```
 
-Preparation resolves a pinned Linux/amd64 Bun image and builds the trusted harness. Qualification must pass before execution is enabled. Containers have no external network, read-only root and input mounts, a non-root user, no added capabilities, limited CPU/memory/PIDs and a deadline. Execution reports bind to exact artifact bytes. Unexecuted code is exportable as a draft but cannot receive verified acceptance.
+Preparation resolves a pinned Linux/amd64 Bun image and builds the trusted harness. After upgrading the Bun version or template, rerun both commands to qualify the new image. Containers have no external network, read-only root and input mounts, a non-root user, no added capabilities, limited CPU/memory/PIDs and a deadline. Execution reports bind to exact artifact bytes. Unexecuted code is exportable as a draft but cannot receive verified acceptance.
 
 The initial behavioral execution profile covers named-record collection GET/POST operations backed by SQLite. Other API shapes require a reviewed extension of the trusted profile; an exported draft is not a claim of general application correctness.
 
