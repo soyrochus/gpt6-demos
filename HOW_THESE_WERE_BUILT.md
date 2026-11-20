@@ -1,6 +1,6 @@
 # How these demos were built
 
-Four case studies in building software with OpenAI models
+Case studies in building software with OpenAI models
 
 > **Draft for author review — updated 18 November 2026.** This account draws on the repository's specifications, architecture guides, implementation records, and verification reports. It reports their recorded results; the checks were not rerun for this document. Author notes identify missing development history to add before publication.
 
@@ -14,6 +14,7 @@ Each project tests a different part of software development.
 
 | Case study | Engineering focus | AI use while running the application |
 | --- | --- | --- |
+| Dipper | Transforming real astronomical catalogues and checking the view against independent ephemerides | Runs locally in the browser |
 | Fuel Left | Translating a photographed table and written rules into an original 3D pinball game | Runs locally in the browser |
 | Elfspace | Building an interactive 3D scene and a responsive score in 15 minutes | Runs locally in the browser |
 | Digital Logic Laboratory | Keeping an assembler, simulated computer, circuit hierarchy, and debugger consistent | None required |
@@ -21,6 +22,10 @@ Each project tests a different part of software development.
 | Assemblavatar | Generating executable modelling code, inspecting rendered results, and managing refinement | GPT-6 Astra generates and evaluates models; handwritten examples and manual source builds work without an API key |
 
 The repository presents these applications as demonstrations of GPT6-assisted software development. Exact development-model attribution, original prompts, elapsed effort, and the division of human and agent work still need to be supplied for Digital Logic Laboratory, NotAVirus, and Assemblavatar. Assemblavatar's documented runtime model is a separate fact from the models used to build the application.
+
+## Dipper
+
+Dipper packs a pinned HYG catalogue into a local binary asset. A single observer and UTC clock drive the GPU star field and planetary ephemerides. The mathematical tests compare positions against stored Astropy and NASA Horizons observations, and browser tests exercise the rendered scene. [Source and controls](./dipper/README.md) · [Accuracy checks](./dipper/docs/ACCURACY.md)
 
 ## Fuel Left
 

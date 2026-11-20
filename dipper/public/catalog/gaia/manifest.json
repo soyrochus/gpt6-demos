@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "epoch": 2016,
+  "tiles": [
+    {
+      "file": "dr3-80--10.json",
+      "ra": 80,
+      "dec": -10,
+      "size": 5,
+      "count": 1072,
+      "sha256": "734b87fbf050efb156f528b50407d02f0b41f7e6ccb579a880f91d36d437a519",
+      "query": "SELECT TOP 15001 source_id,ra,dec,ref_epoch,pmra,pmdec,phot_g_mean_mag,bp_rp FROM gaiadr3.gaia_source WHERE ra>=80 AND ra<85 AND dec>=-10 AND dec<-5 AND phot_g_mean_mag>7 AND phot_g_mean_mag<=11.5 ORDER BY source_id",
+      "sourceSha256": "1fb9f61e2b47795cb5d24d876bf9743dabbad53afa3da59f967d1df3f3120077",
+      "matched": 18
+    },
+    {
+      "file": "dr3-80--5.json",
+      "ra": 80,
+      "dec": -5,
+      "size": 5,
+      "count": 1391,
+      "sha256": "48d457a3cb0d42ea4d8dcde7afe8a7b1e12f9a9f76ad227d3a87fafe8f5aaf12",
+      "query": "SELECT TOP 15001 source_id,ra,dec,ref_epoch,pmra,pmdec,phot_g_mean_mag,bp_rp FROM gaiadr3.gaia_source WHERE ra>=80 AND ra<85 AND dec>=-5 AND dec<0 AND phot_g_mean_mag>7 AND phot_g_mean_mag<=11.5 ORDER BY source_id",
+      "sourceSha256": "ab11c5ef15f242757a24afabaeb8870bf21d6d10c7d3dcd126f47098ca7532f0",
+      "matched": 30
+    },
+    {
+      "file": "dr3-85--10.json",
+      "ra": 85,
+      "dec": -10,
+      "size": 5,
+      "count": 1003,
+      "sha256": "d479368e6b6bcc41b7fc311c2b1f87543081fa5d29af3573586a32182de0b70c",
+      "query": "SELECT TOP 15001 source_id,ra,dec,ref_epoch,pmra,pmdec,phot_g_mean_mag,bp_rp FROM gaiadr3.gaia_source WHERE ra>=85 AND ra<90 AND dec>=-10 AND dec<-5 AND phot_g_mean_mag>7 AND phot_g_mean_mag<=11.5 ORDER BY source_id",
+      "sourceSha256": "a2a4be650158bd088e3ba71c957176f8b59c652bca2810e38998525c10730d14",
+      "matched": 12
+    },
+    {
+      "file": "dr3-85--5.json",
+      "ra": 85,
+      "dec": -5,
+      "size": 5,
+      "count": 980,
+      "sha256": "95863b527d34caf8c9f3189c24b24fb6dd02ff0bb4794a32bfaadfd00ea90dd7",
+      "query": "SELECT TOP 15001 source_id,ra,dec,ref_epoch,pmra,pmdec,phot_g_mean_mag,bp_rp FROM gaiadr3.gaia_source WHERE ra>=85 AND ra<90 AND dec>=-5 AND dec<0 AND phot_g_mean_mag>7 AND phot_g_mean_mag<=11.5 ORDER BY source_id",
+      "sourceSha256": "f82fd19e50e26279a6cf8da4ba7ae6fdcf3bb27559f61a83d645951f965375d8",
+      "matched": 20
+    }
+  ]
+}

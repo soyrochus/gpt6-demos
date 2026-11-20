@@ -1,0 +1,2207 @@
+[
+  {
+    "site": "Valencia",
+    "latitudeDeg": 39.4699,
+    "longitudeDeg": -0.3763,
+    "elevationM": 0,
+    "name": "Sun",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=10&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%27-0.3763%2C39.4699%2C0%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "source": "NASA/JPL Horizons API",
+      "version": "1.2"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 88.777182138,
+        "altitudeDeg": -1.995606452,
+        "illuminatedFraction": 1,
+        "diameterDeg": 0.5349272222222222
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 280.038588002,
+        "altitudeDeg": -45.423691819,
+        "illuminatedFraction": 1,
+        "diameterDeg": 0.5417025
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 177.242394132,
+        "altitudeDeg": 73.951864183,
+        "illuminatedFraction": 1,
+        "diameterDeg": 0.5244305555555556
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 24.978434522,
+        "altitudeDeg": -47.76458502,
+        "illuminatedFraction": 1,
+        "diameterDeg": 0.5309958333333333
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 251.566664248,
+        "altitudeDeg": -14.721823116,
+        "illuminatedFraction": 1,
+        "diameterDeg": 0.5416475000000001
+      }
+    ]
+  },
+  {
+    "site": "Valencia",
+    "latitudeDeg": 39.4699,
+    "longitudeDeg": -0.3763,
+    "elevationM": 0,
+    "name": "Moon",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=301&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%27-0.3763%2C39.4699%2C0%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "source": "NASA/JPL Horizons API",
+      "version": "1.2"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 227.520586289,
+        "altitudeDeg": 16.314412042,
+        "illuminatedFraction": 0.8660599999999999,
+        "diameterDeg": 0.5027905555555555
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 315.905265008,
+        "altitudeDeg": -75.420689635,
+        "illuminatedFraction": 0.08413029999999999,
+        "diameterDeg": 0.4861308333333333
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 92.832437195,
+        "altitudeDeg": 2.570697039,
+        "illuminatedFraction": 0.4662637,
+        "diameterDeg": 0.5160986111111111
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 235.500207312,
+        "altitudeDeg": 11.162210865,
+        "illuminatedFraction": 0.8563301,
+        "diameterDeg": 0.505243611111111
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 34.719125908,
+        "altitudeDeg": -31.80534454,
+        "illuminatedFraction": 0.7628870000000001,
+        "diameterDeg": 0.5109222222222222
+      }
+    ]
+  },
+  {
+    "site": "Valencia",
+    "latitudeDeg": 39.4699,
+    "longitudeDeg": -0.3763,
+    "elevationM": 0,
+    "name": "Mercury",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=199&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%27-0.3763%2C39.4699%2C0%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "version": "1.2",
+      "source": "NASA/JPL Horizons API"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 79.556128048,
+        "altitudeDeg": -2.698634561,
+        "illuminatedFraction": 0.0498011,
+        "diameterDeg": 0.002866747222222222
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 279.850497391,
+        "altitudeDeg": -49.525109984,
+        "illuminatedFraction": 0.9939561,
+        "diameterDeg": 0.001307113611111111
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 121.421610016,
+        "altitudeDeg": 61.14246072,
+        "illuminatedFraction": 0.27836469999999996,
+        "diameterDeg": 0.002558946388888889
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 357.676840148,
+        "altitudeDeg": -58.856168423,
+        "illuminatedFraction": 0.8459162,
+        "diameterDeg": 0.0014754730555555555
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 241.981782106,
+        "altitudeDeg": -5.606084375,
+        "illuminatedFraction": 0.9232944999999999,
+        "diameterDeg": 0.0014237066666666666
+      }
+    ]
+  },
+  {
+    "site": "Valencia",
+    "latitudeDeg": 39.4699,
+    "longitudeDeg": -0.3763,
+    "elevationM": 0,
+    "name": "Venus",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=299&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%27-0.3763%2C39.4699%2C0%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "source": "NASA/JPL Horizons API",
+      "version": "1.2"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 49.364268556,
+        "altitudeDeg": -17.989110441,
+        "illuminatedFraction": 0.6908048,
+        "diameterDeg": 0.004560266666666667
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 277.497823623,
+        "altitudeDeg": -43.825002029,
+        "illuminatedFraction": 0.9991932,
+        "diameterDeg": 0.0027111355555555555
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 105.296365907,
+        "altitudeDeg": 48.306626324,
+        "illuminatedFraction": 0.7265904000000001,
+        "diameterDeg": 0.0041622
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 321.538929312,
+        "altitudeDeg": -66.01852224,
+        "illuminatedFraction": 0.22122630000000001,
+        "diameterDeg": 0.011712655555555555
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 263.667516453,
+        "altitudeDeg": -27.44769365,
+        "illuminatedFraction": 0.9588562,
+        "diameterDeg": 0.0028878222222222224
+      }
+    ]
+  },
+  {
+    "site": "Valencia",
+    "latitudeDeg": 39.4699,
+    "longitudeDeg": -0.3763,
+    "elevationM": 0,
+    "name": "Mars",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=499&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%27-0.3763%2C39.4699%2C0%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "source": "NASA/JPL Horizons API",
+      "version": "1.2"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 101.708969893,
+        "altitudeDeg": 3.42100542,
+        "illuminatedFraction": 0.9923102,
+        "diameterDeg": 0.0011179591666666665
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 279.703722134,
+        "altitudeDeg": -47.252326235,
+        "illuminatedFraction": 0.9998739999999999,
+        "diameterDeg": 0.0010852175
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 247.382360696,
+        "altitudeDeg": 52.011616235,
+        "illuminatedFraction": 0.9557866,
+        "diameterDeg": 0.0012193183333333334
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 65.446861248,
+        "altitudeDeg": 4.389887089,
+        "illuminatedFraction": 0.9080604,
+        "diameterDeg": 0.001513838888888889
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 267.866651582,
+        "altitudeDeg": -32.520768158,
+        "illuminatedFraction": 0.9841374999999999,
+        "diameterDeg": 0.0010817366666666666
+      }
+    ]
+  },
+  {
+    "site": "Valencia",
+    "latitudeDeg": 39.4699,
+    "longitudeDeg": -0.3763,
+    "elevationM": 0,
+    "name": "Jupiter",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=599&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%27-0.3763%2C39.4699%2C0%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "source": "NASA/JPL Horizons API",
+      "version": "1.2"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 198.484732855,
+        "altitudeDeg": 27.139591535,
+        "illuminatedFraction": 0.9921738000000001,
+        "diameterDeg": 0.01102787222222222
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 103.901922498,
+        "altitudeDeg": 51.24612618,
+        "illuminatedFraction": 0.9998909,
+        "diameterDeg": 0.012920425000000001
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 115.805537196,
+        "altitudeDeg": 57.683492767,
+        "illuminatedFraction": 0.9979496,
+        "diameterDeg": 0.008906861111111112
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 55.041783954,
+        "altitudeDeg": -14.052291779,
+        "illuminatedFraction": 0.9959869,
+        "diameterDeg": 0.009114083333333332
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 290.286173379,
+        "altitudeDeg": -45.465700678,
+        "illuminatedFraction": 0.9959202,
+        "diameterDeg": 0.008994875
+      }
+    ]
+  },
+  {
+    "site": "Valencia",
+    "latitudeDeg": 39.4699,
+    "longitudeDeg": -0.3763,
+    "elevationM": 0,
+    "name": "Saturn",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=699&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%27-0.3763%2C39.4699%2C0%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "version": "1.2",
+      "source": "NASA/JPL Horizons API"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 171.688619895,
+        "altitudeDeg": 27.71611555,
+        "illuminatedFraction": 0.9975664000000001,
+        "diameterDeg": 0.004565205555555556
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 255.658177976,
+        "altitudeDeg": 12.000480275,
+        "illuminatedFraction": 0.9979330000000001,
+        "diameterDeg": 0.004642463888888888
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 263.404364595,
+        "altitudeDeg": 13.009638173,
+        "illuminatedFraction": 0.9972679,
+        "diameterDeg": 0.004782905555555556
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 187.01967693,
+        "altitudeDeg": 52.657672695,
+        "illuminatedFraction": 0.9998685,
+        "diameterDeg": 0.005460372222222222
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 302.992932116,
+        "altitudeDeg": -48.445935957,
+        "illuminatedFraction": 0.9983423,
+        "diameterDeg": 0.004475952777777778
+      }
+    ]
+  },
+  {
+    "site": "Valencia",
+    "latitudeDeg": 39.4699,
+    "longitudeDeg": -0.3763,
+    "elevationM": 0,
+    "name": "Uranus",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=799&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%27-0.3763%2C39.4699%2C0%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "version": "1.2",
+      "source": "NASA/JPL Horizons API"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 196.481531399,
+        "altitudeDeg": 26.511802398,
+        "illuminatedFraction": 0.9993691,
+        "diameterDeg": 0.0010471480555555555
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 216.238600068,
+        "altitudeDeg": 66.370745854,
+        "illuminatedFraction": 0.999541,
+        "diameterDeg": 0.00103315
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 240.202241749,
+        "altitudeDeg": 59.4602202,
+        "illuminatedFraction": 0.9998599,
+        "diameterDeg": 0.0009615913888888889
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 100.336779605,
+        "altitudeDeg": 45.875282795,
+        "illuminatedFraction": 0.9994468000000001,
+        "diameterDeg": 0.0010300780555555556
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 144.592245477,
+        "altitudeDeg": 53.566089419,
+        "illuminatedFraction": 0.9994757,
+        "diameterDeg": 0.0010014025000000001
+      }
+    ]
+  },
+  {
+    "site": "Valencia",
+    "latitudeDeg": 39.4699,
+    "longitudeDeg": -0.3763,
+    "elevationM": 0,
+    "name": "Neptune",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=899&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%27-0.3763%2C39.4699%2C0%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "source": "NASA/JPL Horizons API",
+      "version": "1.2"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 3.288503722,
+        "altitudeDeg": -28.377228194,
+        "illuminatedFraction": 0.9997242,
+        "diameterDeg": 0.0006335461111111111
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 255.713290978,
+        "altitudeDeg": 14.703316266,
+        "illuminatedFraction": 0.9997812,
+        "diameterDeg": 0.0006260013888888888
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 267.058454587,
+        "altitudeDeg": 4.322330846,
+        "illuminatedFraction": 0.9997119999999999,
+        "diameterDeg": 0.0006336202777777778
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 200.122231808,
+        "altitudeDeg": 48.669851302,
+        "illuminatedFraction": 0.999999,
+        "diameterDeg": 0.0006569108333333334
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 12.998500542,
+        "altitudeDeg": -44.647800566,
+        "illuminatedFraction": 0.9997432,
+        "diameterDeg": 0.000631853888888889
+      }
+    ]
+  },
+  {
+    "site": "Cape Town",
+    "latitudeDeg": -33.9249,
+    "longitudeDeg": 18.4241,
+    "elevationM": 200,
+    "name": "Sun",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=10&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%2718.4241%2C-33.9249%2C0.2%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "source": "NASA/JPL Horizons API",
+      "version": "1.2"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 80.894674283,
+        "altitudeDeg": 13.801480224,
+        "illuminatedFraction": 1,
+        "diameterDeg": 0.5349333333333334
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 210.966311275,
+        "altitudeDeg": -28.54600107,
+        "illuminatedFraction": 1,
+        "diameterDeg": 0.5417077777777778
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 340.893471606,
+        "altitudeDeg": 30.14236685,
+        "illuminatedFraction": 1,
+        "diameterDeg": 0.5244202777777778
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 128.269392622,
+        "altitudeDeg": -42.622374702,
+        "illuminatedFraction": 1,
+        "diameterDeg": 0.5309972222222222
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 240.262943402,
+        "altitudeDeg": -1.425183315,
+        "illuminatedFraction": 1,
+        "diameterDeg": 0.5416527777777778
+      }
+    ]
+  },
+  {
+    "site": "Cape Town",
+    "latitudeDeg": -33.9249,
+    "longitudeDeg": 18.4241,
+    "elevationM": 200,
+    "name": "Moon",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=301&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%2718.4241%2C-33.9249%2C0.2%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "version": "1.2",
+      "source": "NASA/JPL Horizons API"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 266.925930112,
+        "altitudeDeg": 28.275499333,
+        "illuminatedFraction": 0.8693814000000001,
+        "diameterDeg": 0.5043277777777777
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 172.893256894,
+        "altitudeDeg": -28.278367691,
+        "illuminatedFraction": 0.08270279999999999,
+        "diameterDeg": 0.48992027777777775
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 76.436533519,
+        "altitudeDeg": 18.245470152,
+        "illuminatedFraction": 0.46231720000000004,
+        "diameterDeg": 0.5183936111111112
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 262.74187619,
+        "altitudeDeg": 19.760735531,
+        "illuminatedFraction": 0.8576600000000001,
+        "diameterDeg": 0.5064047222222222
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 103.719835975,
+        "altitudeDeg": -41.576526056,
+        "illuminatedFraction": 0.7641513000000001,
+        "diameterDeg": 0.5097855555555556
+      }
+    ]
+  },
+  {
+    "site": "Cape Town",
+    "latitudeDeg": -33.9249,
+    "longitudeDeg": 18.4241,
+    "elevationM": 200,
+    "name": "Mercury",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=199&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%2718.4241%2C-33.9249%2C0.2%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "source": "NASA/JPL Horizons API",
+      "version": "1.2"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 79.133335655,
+        "altitudeDeg": 4.724804373,
+        "illuminatedFraction": 0.049814,
+        "diameterDeg": 0.0028667722222222225
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 206.397966893,
+        "altitudeDeg": -27.757504935,
+        "illuminatedFraction": 0.9939542,
+        "diameterDeg": 0.0013071250000000001
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 8.389654984,
+        "altitudeDeg": 34.365962343,
+        "illuminatedFraction": 0.27835329999999997,
+        "diameterDeg": 0.0025589002777777776
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 155.194545066,
+        "altitudeDeg": -44.558953683,
+        "illuminatedFraction": 0.8459133,
+        "diameterDeg": 0.0014754805555555555
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 246.548187604,
+        "altitudeDeg": 10.096800651,
+        "illuminatedFraction": 0.9232931000000001,
+        "diameterDeg": 0.0014237191666666667
+      }
+    ]
+  },
+  {
+    "site": "Cape Town",
+    "latitudeDeg": -33.9249,
+    "longitudeDeg": 18.4241,
+    "elevationM": 200,
+    "name": "Venus",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=299&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%2718.4241%2C-33.9249%2C0.2%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "source": "NASA/JPL Horizons API",
+      "version": "1.2"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 88.079878183,
+        "altitudeDeg": -27.443413446,
+        "illuminatedFraction": 0.690816,
+        "diameterDeg": 0.004560238888888889
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 213.004120492,
+        "altitudeDeg": -26.94188961,
+        "illuminatedFraction": 0.9991931,
+        "diameterDeg": 0.0027111513888888887
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 26.892097184,
+        "altitudeDeg": 31.508351426,
+        "illuminatedFraction": 0.7265827,
+        "diameterDeg": 0.0041621638888888896
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 176.212122945,
+        "altitudeDeg": -36.413685317,
+        "illuminatedFraction": 0.22121210000000002,
+        "diameterDeg": 0.011713058333333333
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 230.07561637,
+        "altitudeDeg": -15.118042214,
+        "illuminatedFraction": 0.9588569,
+        "diameterDeg": 0.002887838888888889
+      }
+    ]
+  },
+  {
+    "site": "Cape Town",
+    "latitudeDeg": -33.9249,
+    "longitudeDeg": 18.4241,
+    "elevationM": 200,
+    "name": "Mars",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=499&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%2718.4241%2C-33.9249%2C0.2%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "version": "1.2",
+      "source": "NASA/JPL Horizons API"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 78.936425529,
+        "altitudeDeg": 27.698075615,
+        "illuminatedFraction": 0.9923094,
+        "diameterDeg": 0.0011179674999999998
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 208.951354104,
+        "altitudeDeg": -28.041439209,
+        "illuminatedFraction": 0.9998739000000001,
+        "diameterDeg": 0.0010852225
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 305.730310349,
+        "altitudeDeg": 15.457382267,
+        "illuminatedFraction": 0.9557863999999999,
+        "diameterDeg": 0.0012193055555555555
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 68.668458051,
+        "altitudeDeg": -7.101289405,
+        "illuminatedFraction": 0.9080617,
+        "diameterDeg": 0.0015138313888888887
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 225.275609716,
+        "altitudeDeg": -19.353961307,
+        "illuminatedFraction": 0.9841377,
+        "diameterDeg": 0.0010817405555555556
+      }
+    ]
+  },
+  {
+    "site": "Cape Town",
+    "latitudeDeg": -33.9249,
+    "longitudeDeg": 18.4241,
+    "elevationM": 200,
+    "name": "Jupiter",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=599&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%2718.4241%2C-33.9249%2C0.2%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "version": "1.2",
+      "source": "NASA/JPL Horizons API"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 282.109133585,
+        "altitudeDeg": 55.523294962,
+        "illuminatedFraction": 0.9921741000000001,
+        "diameterDeg": 0.011027908333333334
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 23.842580228,
+        "altitudeDeg": 29.906215946,
+        "illuminatedFraction": 0.9998909,
+        "diameterDeg": 0.012920388888888888
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 13.779159318,
+        "altitudeDeg": 33.902992569,
+        "illuminatedFraction": 0.9979495,
+        "diameterDeg": 0.008906844444444444
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 84.744037017,
+        "altitudeDeg": -21.438564882,
+        "illuminatedFraction": 0.995987,
+        "diameterDeg": 0.009114075000000001
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 209.092930901,
+        "altitudeDeg": -35.552040252,
+        "illuminatedFraction": 0.9959203,
+        "diameterDeg": 0.008994883333333334
+      }
+    ]
+  },
+  {
+    "site": "Cape Town",
+    "latitudeDeg": -33.9249,
+    "longitudeDeg": 18.4241,
+    "elevationM": 200,
+    "name": "Saturn",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=699&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%2718.4241%2C-33.9249%2C0.2%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "source": "NASA/JPL Horizons API",
+      "version": "1.2"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 317.681327924,
+        "altitudeDeg": 75.020712742,
+        "illuminatedFraction": 0.9975664000000001,
+        "diameterDeg": 0.004565216666666667
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 267.144583552,
+        "altitudeDeg": 1.390420486,
+        "illuminatedFraction": 0.9979331,
+        "diameterDeg": 0.0046424583333333335
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 270.136564606,
+        "altitudeDeg": -5.629134178,
+        "illuminatedFraction": 0.9972678,
+        "diameterDeg": 0.004782897222222223
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 324.413683732,
+        "altitudeDeg": 47.746975433,
+        "illuminatedFraction": 0.9998685,
+        "diameterDeg": 0.005460372222222222
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 201.121048744,
+        "altitudeDeg": -42.301793189,
+        "illuminatedFraction": 0.9983423,
+        "diameterDeg": 0.004475952777777778
+      }
+    ]
+  },
+  {
+    "site": "Cape Town",
+    "latitudeDeg": -33.9249,
+    "longitudeDeg": 18.4241,
+    "elevationM": 200,
+    "name": "Uranus",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=799&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%2718.4241%2C-33.9249%2C0.2%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "version": "1.2",
+      "source": "NASA/JPL Horizons API"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 281.826852846,
+        "altitudeDeg": 57.411804707,
+        "illuminatedFraction": 0.9993691,
+        "diameterDeg": 0.0010471488888888888
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 324.083338876,
+        "altitudeDeg": 27.8946367,
+        "illuminatedFraction": 0.999541,
+        "diameterDeg": 0.0010331491666666667
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 313.533759737,
+        "altitudeDeg": 19.490912372,
+        "illuminatedFraction": 0.9998599,
+        "diameterDeg": 0.0009615902777777778
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 30.420384587,
+        "altitudeDeg": 28.682723822,
+        "illuminatedFraction": 0.9994468000000001,
+        "diameterDeg": 0.0010300775
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 2.268987133,
+        "altitudeDeg": 48.131805832,
+        "illuminatedFraction": 0.9994757,
+        "diameterDeg": 0.0010014025000000001
+      }
+    ]
+  },
+  {
+    "site": "Cape Town",
+    "latitudeDeg": -33.9249,
+    "longitudeDeg": 18.4241,
+    "elevationM": 200,
+    "name": "Neptune",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=899&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%2718.4241%2C-33.9249%2C0.2%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "version": "1.2",
+      "source": "NASA/JPL Horizons API"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 115.874853916,
+        "altitudeDeg": -67.386745525,
+        "illuminatedFraction": 0.9997242,
+        "diameterDeg": 0.0006335455555555556
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 269.774971253,
+        "altitudeDeg": 2.018741769,
+        "illuminatedFraction": 0.9997813,
+        "diameterDeg": 0.0006260013888888888
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 262.717247844,
+        "altitudeDeg": -11.521715447,
+        "illuminatedFraction": 0.9997119999999999,
+        "diameterDeg": 0.00063362
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 311.77788091,
+        "altitudeDeg": 44.825793747,
+        "illuminatedFraction": 0.999999,
+        "diameterDeg": 0.0006569108333333334
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 131.701473517,
+        "altitudeDeg": -51.152168533,
+        "illuminatedFraction": 0.9997432,
+        "diameterDeg": 0.000631853888888889
+      }
+    ]
+  },
+  {
+    "site": "Reykjavík",
+    "latitudeDeg": 64.1466,
+    "longitudeDeg": -21.9426,
+    "elevationM": 0,
+    "name": "Sun",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=10&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%27-21.9426%2C64.1466%2C0%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "version": "1.2",
+      "source": "NASA/JPL Horizons API"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 68.408526151,
+        "altitudeDeg": -10.466640304,
+        "illuminatedFraction": 1,
+        "diameterDeg": 0.5349238888888889
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 279.131345114,
+        "altitudeDeg": -27.791783185,
+        "illuminatedFraction": 1,
+        "diameterDeg": 0.5417080555555556
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 149.349964893,
+        "altitudeDeg": 46.705224762,
+        "illuminatedFraction": 1,
+        "diameterDeg": 0.5244252777777778
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 354.362338988,
+        "altitudeDeg": -25.761544222,
+        "illuminatedFraction": 1,
+        "diameterDeg": 0.5310027777777777
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 240.893272719,
+        "altitudeDeg": -12.208897546,
+        "illuminatedFraction": 1,
+        "diameterDeg": 0.5416483333333333
+      }
+    ]
+  },
+  {
+    "site": "Reykjavík",
+    "latitudeDeg": 64.1466,
+    "longitudeDeg": -21.9426,
+    "elevationM": 0,
+    "name": "Moon",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=301&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%27-21.9426%2C64.1466%2C0%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "source": "NASA/JPL Horizons API",
+      "version": "1.2"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 204.987157728,
+        "altitudeDeg": 4.405784447,
+        "illuminatedFraction": 0.863691,
+        "diameterDeg": 0.5011516666666667
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 313.4535715,
+        "altitudeDeg": -48.928087765,
+        "illuminatedFraction": 0.0846454,
+        "diameterDeg": 0.4877788888888889
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 74.546530757,
+        "altitudeDeg": -8.236084854,
+        "illuminatedFraction": 0.46445030000000004,
+        "diameterDeg": 0.5144933333333334
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 214.208719109,
+        "altitudeDeg": 3.220661307,
+        "illuminatedFraction": 0.8580095,
+        "diameterDeg": 0.5041283333333334
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 8.457019555,
+        "altitudeDeg": -13.998275175,
+        "illuminatedFraction": 0.764474,
+        "diameterDeg": 0.5133302777777777
+      }
+    ]
+  },
+  {
+    "site": "Reykjavík",
+    "latitudeDeg": 64.1466,
+    "longitudeDeg": -21.9426,
+    "elevationM": 0,
+    "name": "Mercury",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=199&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%27-21.9426%2C64.1466%2C0%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "source": "NASA/JPL Horizons API",
+      "version": "1.2"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 59.78752172,
+        "altitudeDeg": -6.893735825,
+        "illuminatedFraction": 0.0497945,
+        "diameterDeg": 0.0028667333333333334
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 281.189746721,
+        "altitudeDeg": -31.484858103,
+        "illuminatedFraction": 0.9939564,
+        "diameterDeg": 0.0013071230555555557
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 120.423255143,
+        "altitudeDeg": 36.815364332,
+        "illuminatedFraction": 0.278366,
+        "diameterDeg": 0.002558905277777778
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 333.176817225,
+        "altitudeDeg": -31.898480319,
+        "illuminatedFraction": 0.8459161000000001,
+        "diameterDeg": 0.0014754891666666665
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 228.068806944,
+        "altitudeDeg": -8.620970297,
+        "illuminatedFraction": 0.9232980999999999,
+        "diameterDeg": 0.0014237041666666666
+      }
+    ]
+  },
+  {
+    "site": "Reykjavík",
+    "latitudeDeg": 64.1466,
+    "longitudeDeg": -21.9426,
+    "elevationM": 0,
+    "name": "Venus",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=299&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%27-21.9426%2C64.1466%2C0%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "version": "1.2",
+      "source": "NASA/JPL Horizons API"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 26.23165711,
+        "altitudeDeg": -6.801436315,
+        "illuminatedFraction": 0.6907964,
+        "diameterDeg": 0.004560302777777778
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 276.493336653,
+        "altitudeDeg": -27.201684333,
+        "illuminatedFraction": 0.9991934,
+        "diameterDeg": 0.0027111513888888887
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 104.242717823,
+        "altitudeDeg": 28.777816393,
+        "illuminatedFraction": 0.7265896,
+        "diameterDeg": 0.004162158333333333
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 312.972549272,
+        "altitudeDeg": -38.988880554,
+        "illuminatedFraction": 0.22123210000000001,
+        "diameterDeg": 0.011713016666666666
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 257.441463677,
+        "altitudeDeg": -18.021479993,
+        "illuminatedFraction": 0.9588544,
+        "diameterDeg": 0.0028878333333333334
+      }
+    ]
+  },
+  {
+    "site": "Reykjavík",
+    "latitudeDeg": 64.1466,
+    "longitudeDeg": -21.9426,
+    "elevationM": 0,
+    "name": "Mars",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=499&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%27-21.9426%2C64.1466%2C0%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "source": "NASA/JPL Horizons API",
+      "version": "1.2"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 82.661756618,
+        "altitudeDeg": -11.090876771,
+        "illuminatedFraction": 0.9923108,
+        "diameterDeg": 0.0011179538888888888
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 279.854926578,
+        "altitudeDeg": -29.521966152,
+        "illuminatedFraction": 0.9998741,
+        "diameterDeg": 0.0010852222222222222
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 200.02824315,
+        "altitudeDeg": 43.254147106,
+        "illuminatedFraction": 0.9557856,
+        "diameterDeg": 0.0012193158333333332
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 50.576796522,
+        "altitudeDeg": 5.934761646,
+        "illuminatedFraction": 0.9080628000000001,
+        "diameterDeg": 0.0015138399999999998
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 263.386401054,
+        "altitudeDeg": -20.762554348,
+        "illuminatedFraction": 0.9841368,
+        "diameterDeg": 0.0010817402777777776
+      }
+    ]
+  },
+  {
+    "site": "Reykjavík",
+    "latitudeDeg": 64.1466,
+    "longitudeDeg": -21.9426,
+    "elevationM": 0,
+    "name": "Jupiter",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=599&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%27-21.9426%2C64.1466%2C0%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "source": "NASA/JPL Horizons API",
+      "version": "1.2"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 176.304200417,
+        "altitudeDeg": 4.602110126,
+        "illuminatedFraction": 0.9921736,
+        "diameterDeg": 0.01102783611111111
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 104.815863857,
+        "altitudeDeg": 31.812292711,
+        "illuminatedFraction": 0.9998909,
+        "diameterDeg": 0.012920391666666666
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 115.554764844,
+        "altitudeDeg": 34.693965164,
+        "illuminatedFraction": 0.9979496,
+        "diameterDeg": 0.008906844444444444
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 32.909387526,
+        "altitudeDeg": -5.710634051,
+        "illuminatedFraction": 0.995987,
+        "diameterDeg": 0.009114091666666666
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 286.414472789,
+        "altitudeDeg": -24.787595419,
+        "illuminatedFraction": 0.9959201,
+        "diameterDeg": 0.008994891666666668
+      }
+    ]
+  },
+  {
+    "site": "Reykjavík",
+    "latitudeDeg": 64.1466,
+    "longitudeDeg": -21.9426,
+    "elevationM": 0,
+    "name": "Saturn",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=699&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%27-21.9426%2C64.1466%2C0%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "version": "1.2",
+      "source": "NASA/JPL Horizons API"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 152.891793578,
+        "altitudeDeg": 0.483214386,
+        "illuminatedFraction": 0.9975663,
+        "diameterDeg": 0.0045651972222222215
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 231.888778789,
+        "altitudeDeg": 13.30138175,
+        "illuminatedFraction": 0.9979330000000001,
+        "diameterDeg": 0.004642463888888888
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 238.295570471,
+        "altitudeDeg": 17.788089987,
+        "illuminatedFraction": 0.9972679,
+        "diameterDeg": 0.004782905555555556
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 160.52381355,
+        "altitudeDeg": 26.906694045,
+        "illuminatedFraction": 0.9998685,
+        "diameterDeg": 0.005460363888888889
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 296.490409188,
+        "altitudeDeg": -24.542447746,
+        "illuminatedFraction": 0.9983423,
+        "diameterDeg": 0.0044759583333333335
+      }
+    ]
+  },
+  {
+    "site": "Reykjavík",
+    "latitudeDeg": 64.1466,
+    "longitudeDeg": -21.9426,
+    "elevationM": 0,
+    "name": "Uranus",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=799&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%27-21.9426%2C64.1466%2C0%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "version": "1.2",
+      "source": "NASA/JPL Horizons API"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 174.765712746,
+        "altitudeDeg": 3.491209301,
+        "illuminatedFraction": 0.999369,
+        "diameterDeg": 0.0010471469444444444
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 170.621032068,
+        "altitudeDeg": 45.043009528,
+        "illuminatedFraction": 0.999541,
+        "diameterDeg": 0.0010331497222222223
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 188.879701186,
+        "altitudeDeg": 46.2763199,
+        "illuminatedFraction": 0.9998599,
+        "diameterDeg": 0.0009615911111111111
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 99.574917863,
+        "altitudeDeg": 28.098568464,
+        "illuminatedFraction": 0.9994468999999999,
+        "diameterDeg": 0.0010300775
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 132.3747094,
+        "altitudeDeg": 26.453404537,
+        "illuminatedFraction": 0.9994757,
+        "diameterDeg": 0.0010014016666666668
+      }
+    ]
+  },
+  {
+    "site": "Reykjavík",
+    "latitudeDeg": 64.1466,
+    "longitudeDeg": -21.9426,
+    "elevationM": 0,
+    "name": "Neptune",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=899&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%27-21.9426%2C64.1466%2C0%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "source": "NASA/JPL Horizons API",
+      "version": "1.2"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 342.934563952,
+        "altitudeDeg": -2.578615392,
+        "illuminatedFraction": 0.9997242,
+        "diameterDeg": 0.0006335463888888889
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 230.60222316,
+        "altitudeDeg": 15.700739941,
+        "illuminatedFraction": 0.9997813,
+        "diameterDeg": 0.0006260016666666667
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 245.777140272,
+        "altitudeDeg": 11.769456167,
+        "illuminatedFraction": 0.9997119999999999,
+        "diameterDeg": 0.0006336205555555555
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 170.649380372,
+        "altitudeDeg": 25.476662385,
+        "illuminatedFraction": 0.999999,
+        "diameterDeg": 0.0006569105555555556
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 346.911905307,
+        "altitudeDeg": -20.169203533,
+        "illuminatedFraction": 0.9997432,
+        "diameterDeg": 0.0006318541666666666
+      }
+    ]
+  },
+  {
+    "site": "Equator",
+    "latitudeDeg": 0,
+    "longitudeDeg": 0,
+    "elevationM": 0,
+    "name": "Sun",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=10&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%270%2C0%2C0%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "version": "1.2",
+      "source": "NASA/JPL Horizons API"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 90.323612613,
+        "altitudeDeg": -1.941947615,
+        "illuminatedFraction": 1,
+        "diameterDeg": 0.5349272222222222
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 242.453292601,
+        "altitudeDeg": -39.211503741,
+        "illuminatedFraction": 1,
+        "diameterDeg": 0.5417041666666667
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 1.04794982,
+        "altitudeDeg": 66.557037274,
+        "illuminatedFraction": 1,
+        "diameterDeg": 0.5244294444444444
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 90.051018164,
+        "altitudeDeg": -73.134066075,
+        "illuminatedFraction": 1,
+        "diameterDeg": 0.5309911111111111
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 246.571082039,
+        "altitudeDeg": -0.447358907,
+        "illuminatedFraction": 1,
+        "diameterDeg": 0.5416530555555555
+      }
+    ]
+  },
+  {
+    "site": "Equator",
+    "latitudeDeg": 0,
+    "longitudeDeg": 0,
+    "elevationM": 0,
+    "name": "Moon",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=301&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%270%2C0%2C0%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "version": "1.2",
+      "source": "NASA/JPL Horizons API"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 246.365604568,
+        "altitudeDeg": 38.604219438,
+        "illuminatedFraction": 0.868069,
+        "diameterDeg": 0.5055494444444445
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 200.00384722,
+        "altitudeDeg": -60.232328024,
+        "illuminatedFraction": 0.0840982,
+        "diameterDeg": 0.48689305555555557
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 89.950703749,
+        "altitudeDeg": 3.946655469,
+        "illuminatedFraction": 0.4658927,
+        "diameterDeg": 0.5163025
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 249.989591275,
+        "altitudeDeg": 29.74140575,
+        "illuminatedFraction": 0.8563082,
+        "diameterDeg": 0.5077030555555555
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 66.331644821,
+        "altitudeDeg": -57.880787283,
+        "illuminatedFraction": 0.7635077,
+        "diameterDeg": 0.5082441666666667
+      }
+    ]
+  },
+  {
+    "site": "Equator",
+    "latitudeDeg": 0,
+    "longitudeDeg": 0,
+    "elevationM": 0,
+    "name": "Mercury",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=199&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%270%2C0%2C0%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "version": "1.2",
+      "source": "NASA/JPL Horizons API"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 83.623298949,
+        "altitudeDeg": -8.337731468,
+        "illuminatedFraction": 0.0498097,
+        "diameterDeg": 0.0028667305555555556
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 237.942844224,
+        "altitudeDeg": -41.453093521,
+        "illuminatedFraction": 0.9939555,
+        "diameterDeg": 0.0013071175
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 48.261771438,
+        "altitudeDeg": 57.004433314,
+        "illuminatedFraction": 0.278364,
+        "diameterDeg": 0.002558941111111111
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 185.693879493,
+        "altitudeDeg": -81.614531084,
+        "illuminatedFraction": 0.8459129,
+        "diameterDeg": 0.001475466388888889
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 244.329043784,
+        "altitudeDeg": 12.47363159,
+        "illuminatedFraction": 0.9232923,
+        "diameterDeg": 0.0014237211111111112
+      }
+    ]
+  },
+  {
+    "site": "Equator",
+    "latitudeDeg": 0,
+    "longitudeDeg": 0,
+    "elevationM": 0,
+    "name": "Venus",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=299&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%270%2C0%2C0%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "version": "1.2",
+      "source": "NASA/JPL Horizons API"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 68.778859501,
+        "altitudeDeg": -38.858531419,
+        "illuminatedFraction": 0.6908117,
+        "diameterDeg": 0.004560205555555556
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 242.679568647,
+        "altitudeDeg": -36.804299339,
+        "illuminatedFraction": 0.9991930000000001,
+        "diameterDeg": 0.0027111416666666666
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 61.964427368,
+        "altitudeDeg": 43.801658344,
+        "illuminatedFraction": 0.7265903,
+        "diameterDeg": 0.004162191666666667
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 216.37934698,
+        "altitudeDeg": -65.407812746,
+        "illuminatedFraction": 0.22121,
+        "diameterDeg": 0.01171266111111111
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 247.277360733,
+        "altitudeDeg": -17.421401737,
+        "illuminatedFraction": 0.9588579,
+        "diameterDeg": 0.002887836111111111
+      }
+    ]
+  },
+  {
+    "site": "Equator",
+    "latitudeDeg": 0,
+    "longitudeDeg": 0,
+    "elevationM": 0,
+    "name": "Mars",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=499&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%270%2C0%2C0%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "version": "1.2",
+      "source": "NASA/JPL Horizons API"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 96.917142569,
+        "altitudeDeg": 10.442544306,
+        "illuminatedFraction": 0.9923094,
+        "diameterDeg": 0.0011179616666666667
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 240.348456502,
+        "altitudeDeg": -40.090690459,
+        "illuminatedFraction": 0.9998739999999999,
+        "diameterDeg": 0.0010852191666666667
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 299.044733554,
+        "altitudeDeg": 49.036370886,
+        "illuminatedFraction": 0.9557865,
+        "diameterDeg": 0.0012193174999999999
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 67.915468361,
+        "altitudeDeg": -11.43916188,
+        "illuminatedFraction": 0.9080597,
+        "diameterDeg": 0.0015138286111111112
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 246.458827492,
+        "altitudeDeg": -23.614791099,
+        "illuminatedFraction": 0.9841382,
+        "diameterDeg": 0.0010817391666666668
+      }
+    ]
+  },
+  {
+    "site": "Equator",
+    "latitudeDeg": 0,
+    "longitudeDeg": 0,
+    "elevationM": 0,
+    "name": "Jupiter",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=599&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%270%2C0%2C0%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "version": "1.2",
+      "source": "NASA/JPL Horizons API"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 218.537250771,
+        "altitudeDeg": 62.46954239,
+        "illuminatedFraction": 0.9921738999999999,
+        "diameterDeg": 0.01102791388888889
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 57.808755472,
+        "altitudeDeg": 44.554014871,
+        "illuminatedFraction": 0.9998909,
+        "diameterDeg": 0.012920413888888888
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 53.087571693,
+        "altitudeDeg": 53.462035086,
+        "illuminatedFraction": 0.9979496,
+        "diameterDeg": 0.008906858333333333
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 71.015044889,
+        "altitudeDeg": -32.380052309,
+        "illuminatedFraction": 0.9959869,
+        "diameterDeg": 0.00911406388888889
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 247.88646244,
+        "altitudeDeg": -45.165947007,
+        "illuminatedFraction": 0.9959203999999999,
+        "diameterDeg": 0.008994875
+      }
+    ]
+  },
+  {
+    "site": "Equator",
+    "latitudeDeg": 0,
+    "longitudeDeg": 0,
+    "elevationM": 0,
+    "name": "Saturn",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=699&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%270%2C0%2C0%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "source": "NASA/JPL Horizons API",
+      "version": "1.2"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 162.231934454,
+        "altitudeDeg": 66.445371322,
+        "illuminatedFraction": 0.9975663,
+        "diameterDeg": 0.004565213888888889
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 266.693469897,
+        "altitudeDeg": 17.956471321,
+        "illuminatedFraction": 0.9979330000000001,
+        "diameterDeg": 0.004642466666666666
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 273.347741196,
+        "altitudeDeg": 13.801462392,
+        "illuminatedFraction": 0.9972679,
+        "diameterDeg": 0.004782905555555556
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 296.73659401,
+        "altitudeDeg": 84.817506489,
+        "illuminatedFraction": 0.9998685,
+        "diameterDeg": 0.005460377777777778
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 250.341209265,
+        "altitudeDeg": -54.18636146,
+        "illuminatedFraction": 0.9983423,
+        "diameterDeg": 0.00447595
+      }
+    ]
+  },
+  {
+    "site": "Equator",
+    "latitudeDeg": 0,
+    "longitudeDeg": 0,
+    "elevationM": 0,
+    "name": "Uranus",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=799&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%270%2C0%2C0%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "source": "NASA/JPL Horizons API",
+      "version": "1.2"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 214.446179943,
+        "altitudeDeg": 62.667545873,
+        "illuminatedFraction": 0.9993691,
+        "diameterDeg": 0.0010471488888888888
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 323.873438759,
+        "altitudeDeg": 65.666560461,
+        "illuminatedFraction": 0.999541,
+        "diameterDeg": 0.00103315
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 308.30358911,
+        "altitudeDeg": 55.333041994,
+        "illuminatedFraction": 0.9998599,
+        "diameterDeg": 0.0009615911111111111
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 62.13757632,
+        "altitudeDeg": 39.644850506,
+        "illuminatedFraction": 0.9994468000000001,
+        "diameterDeg": 0.0010300777777777776
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 67.825378437,
+        "altitudeDeg": 68.593174833,
+        "illuminatedFraction": 0.9994757,
+        "diameterDeg": 0.0010014027777777777
+      }
+    ]
+  },
+  {
+    "site": "Equator",
+    "latitudeDeg": 0,
+    "longitudeDeg": 0,
+    "elevationM": 0,
+    "name": "Neptune",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=899&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%270%2C0%2C0%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "source": "NASA/JPL Horizons API",
+      "version": "1.2"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 8.553360501,
+        "altitudeDeg": -67.654554321,
+        "illuminatedFraction": 0.9997242,
+        "diameterDeg": 0.0006335455555555556
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 268.602780909,
+        "altitudeDeg": 19.968414334,
+        "illuminatedFraction": 0.9997812,
+        "diameterDeg": 0.0006260016666666667
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 270.48345717,
+        "altitudeDeg": 4.828158642,
+        "illuminatedFraction": 0.9997119999999999,
+        "diameterDeg": 0.0006336202777777778
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 269.67054756,
+        "altitudeDeg": 76.491726871,
+        "illuminatedFraction": 0.999999,
+        "diameterDeg": 0.0006569111111111111
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 62.027397028,
+        "altitudeDeg": -79.13505065,
+        "illuminatedFraction": 0.9997432,
+        "diameterDeg": 0.0006318536111111111
+      }
+    ]
+  },
+  {
+    "site": "Date line",
+    "latitudeDeg": -17,
+    "longitudeDeg": 179.9,
+    "elevationM": 50,
+    "name": "Sun",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=10&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%27179.9%2C-17%2C0.05%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "version": "1.2",
+      "source": "NASA/JPL Horizons API"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 270.287045546,
+        "altitudeDeg": 2.042497853,
+        "illuminatedFraction": 1,
+        "diameterDeg": 0.5349288888888889
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 102.948396053,
+        "altitudeDeg": 45.083370203,
+        "illuminatedFraction": 1,
+        "diameterDeg": 0.5417358333333333
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 355.475601474,
+        "altitudeDeg": -83.541487833,
+        "illuminatedFraction": 1,
+        "diameterDeg": 0.5243875
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 314.115013869,
+        "altitudeDeg": 66.308089972,
+        "illuminatedFraction": 1,
+        "diameterDeg": 0.5310333333333334
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 112.412837628,
+        "altitudeDeg": 7.013198993,
+        "illuminatedFraction": 1,
+        "diameterDeg": 0.5416561111111111
+      }
+    ]
+  },
+  {
+    "site": "Date line",
+    "latitudeDeg": -17,
+    "longitudeDeg": 179.9,
+    "elevationM": 50,
+    "name": "Moon",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=301&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%27179.9%2C-17%2C0.05%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "version": "1.2",
+      "source": "NASA/JPL Horizons API"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 124.275026983,
+        "altitudeDeg": -31.876807156,
+        "illuminatedFraction": 0.8619049,
+        "diameterDeg": 0.4962916666666667
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 138.99118694,
+        "altitudeDeg": 74.408854304,
+        "illuminatedFraction": 0.0826244,
+        "diameterDeg": 0.5011922222222222
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 268.641563549,
+        "altitudeDeg": -5.537616104,
+        "illuminatedFraction": 0.45022779999999996,
+        "diameterDeg": 0.5148938888888889
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 118.057650046,
+        "altitudeDeg": -24.492629627,
+        "illuminatedFraction": 0.8661077,
+        "diameterDeg": 0.5002925
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 312.64772727,
+        "altitudeDeg": 47.347148412,
+        "illuminatedFraction": 0.7715283,
+        "diameterDeg": 0.5217022222222222
+      }
+    ]
+  },
+  {
+    "site": "Date line",
+    "latitudeDeg": -17,
+    "longitudeDeg": 179.9,
+    "elevationM": 50,
+    "name": "Mercury",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=199&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%27179.9%2C-17%2C0.05%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "source": "NASA/JPL Horizons API",
+      "version": "1.2"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 278.559834009,
+        "altitudeDeg": 6.20335313,
+        "illuminatedFraction": 0.0497938,
+        "diameterDeg": 0.0028667777777777776
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 106.392702052,
+        "altitudeDeg": 48.44320522,
+        "illuminatedFraction": 0.9939534000000001,
+        "diameterDeg": 0.0013071725
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 283.998871984,
+        "altitudeDeg": -65.149106587,
+        "illuminatedFraction": 0.27834369999999997,
+        "diameterDeg": 0.002558680277777778
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 6.144620494,
+        "altitudeDeg": 81.295648542,
+        "illuminatedFraction": 0.8459131999999999,
+        "diameterDeg": 0.0014755644444444445
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 118.019594552,
+        "altitudeDeg": -4.842476206,
+        "illuminatedFraction": 0.9233083999999999,
+        "diameterDeg": 0.0014237072222222224
+      }
+    ]
+  },
+  {
+    "site": "Date line",
+    "latitudeDeg": -17,
+    "longitudeDeg": 179.9,
+    "elevationM": 50,
+    "name": "Venus",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=299&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%27179.9%2C-17%2C0.05%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "version": "1.2",
+      "source": "NASA/JPL Horizons API"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 302.024842245,
+        "altitudeDeg": 31.247144057,
+        "illuminatedFraction": 0.6907889,
+        "diameterDeg": 0.004560425
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 103.925759474,
+        "altitudeDeg": 42.775948453,
+        "illuminatedFraction": 0.9991941,
+        "diameterDeg": 0.0027112280555555554
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 280.852048145,
+        "altitudeDeg": -49.470530984,
+        "illuminatedFraction": 0.7265691,
+        "diameterDeg": 0.004161961111111111
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 102.421545926,
+        "altitudeDeg": 75.260219334,
+        "illuminatedFraction": 0.2212378,
+        "diameterDeg": 0.011715030555555556
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 106.770244696,
+        "altitudeDeg": 23.113537804,
+        "illuminatedFraction": 0.9588483,
+        "diameterDeg": 0.002887888888888889
+      }
+    ]
+  },
+  {
+    "site": "Date line",
+    "latitudeDeg": -17,
+    "longitudeDeg": 179.9,
+    "elevationM": 50,
+    "name": "Mars",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=499&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%27179.9%2C-17%2C0.05%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "version": "1.2",
+      "source": "NASA/JPL Horizons API"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 260.36661516,
+        "altitudeDeg": -7.880504043,
+        "illuminatedFraction": 0.9923119,
+        "diameterDeg": 0.0011179550000000001
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 104.642198944,
+        "altitudeDeg": 46.501017531,
+        "illuminatedFraction": 0.9998738,
+        "diameterDeg": 0.0010852458333333334
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 81.712075696,
+        "altitudeDeg": -54.701575149,
+        "illuminatedFraction": 0.9557821,
+        "diameterDeg": 0.0012192791666666668
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 294.348451653,
+        "altitudeDeg": 4.783345514,
+        "illuminatedFraction": 0.9080737000000001,
+        "diameterDeg": 0.0015138391666666667
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 105.508670124,
+        "altitudeDeg": 29.251774482,
+        "illuminatedFraction": 0.9841343,
+        "diameterDeg": 0.0010817563888888889
+      }
+    ]
+  },
+  {
+    "site": "Date line",
+    "latitudeDeg": -17,
+    "longitudeDeg": 179.9,
+    "elevationM": 50,
+    "name": "Jupiter",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=599&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%27179.9%2C-17%2C0.05%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "source": "NASA/JPL Horizons API",
+      "version": "1.2"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 154.671500169,
+        "altitudeDeg": -47.970124783,
+        "illuminatedFraction": 0.9921736,
+        "diameterDeg": 0.011027758333333334
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 284.67319723,
+        "altitudeDeg": -51.344961957,
+        "illuminatedFraction": 0.9998908,
+        "diameterDeg": 0.012920222222222222
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 282.663848801,
+        "altitudeDeg": -60.704382853,
+        "illuminatedFraction": 0.9979492999999999,
+        "diameterDeg": 0.008906755555555557
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 297.753087251,
+        "altitudeDeg": 25.666301047,
+        "illuminatedFraction": 0.9959877,
+        "diameterDeg": 0.009114127777777778
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 94.091776558,
+        "altitudeDeg": 48.996219724,
+        "illuminatedFraction": 0.9959198,
+        "diameterDeg": 0.008994966666666668
+      }
+    ]
+  },
+  {
+    "site": "Date line",
+    "latitudeDeg": -17,
+    "longitudeDeg": 179.9,
+    "elevationM": 50,
+    "name": "Saturn",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=699&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%27179.9%2C-17%2C0.05%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "source": "NASA/JPL Horizons API",
+      "version": "1.2"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 191.063050404,
+        "altitudeDeg": -49.921042887,
+        "illuminatedFraction": 0.9975664000000001,
+        "diameterDeg": 0.004565183333333334
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 98.573113273,
+        "altitudeDeg": -16.282438431,
+        "illuminatedFraction": 0.9979334,
+        "diameterDeg": 0.004642452777777778
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 90.946598999,
+        "altitudeDeg": -14.260999714,
+        "illuminatedFraction": 0.9972675,
+        "diameterDeg": 0.004782894444444444
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 162.630565537,
+        "altitudeDeg": -74.668024974,
+        "illuminatedFraction": 0.9998685,
+        "diameterDeg": 0.005460325
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 84.977251057,
+        "altitudeDeg": 56.317286633,
+        "illuminatedFraction": 0.9983422000000001,
+        "diameterDeg": 0.004475980555555556
+      }
+    ]
+  },
+  {
+    "site": "Date line",
+    "latitudeDeg": -17,
+    "longitudeDeg": 179.9,
+    "elevationM": 50,
+    "name": "Uranus",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=799&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%27179.9%2C-17%2C0.05%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "version": "1.2",
+      "source": "NASA/JPL Horizons API"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 157.457654411,
+        "altitudeDeg": -47.669161167,
+        "illuminatedFraction": 0.999369,
+        "diameterDeg": 0.001047145
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 77.897249061,
+        "altitudeDeg": -75.71009443,
+        "illuminatedFraction": 0.999541,
+        "diameterDeg": 0.0010331458333333334
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 77.767595461,
+        "altitudeDeg": -62.918062492,
+        "illuminatedFraction": 0.9998599,
+        "diameterDeg": 0.0009615877777777778
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 283.042149107,
+        "altitudeDeg": -45.580109739,
+        "illuminatedFraction": 0.9994468999999999,
+        "diameterDeg": 0.0010300747222222223
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 247.554904118,
+        "altitudeDeg": -68.441689493,
+        "illuminatedFraction": 0.9994757,
+        "diameterDeg": 0.0010013988888888888
+      }
+    ]
+  },
+  {
+    "site": "Date line",
+    "latitudeDeg": -17,
+    "longitudeDeg": 179.9,
+    "elevationM": 50,
+    "name": "Neptune",
+    "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=899&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=OBSERVER&CENTER=coord%40399&COORD_TYPE=GEODETIC&SITE_COORD=%27179.9%2C-17%2C0.05%27&TLIST=%272415098.75%2C2461056.375%2C2461213%2C2461306.5416666665%2C2488424.25%27&QUANTITIES=%274%2C10%2C13%27&CSV_FORMAT=YES&ANG_FORMAT=DEG&APPARENT=AIRLESS&EXTRA_PREC=YES",
+    "signature": {
+      "source": "NASA/JPL Horizons API",
+      "version": "1.2"
+    },
+    "rows": [
+      {
+        "instant": "1900-03-20T06:00:00Z",
+        "azimuthDeg": 355.016899678,
+        "altitudeDeg": 50.774772101,
+        "illuminatedFraction": 0.9997242,
+        "diameterDeg": 0.0006335472222222222
+      },
+      {
+        "instant": "2026-01-15T21:00:00Z",
+        "azimuthDeg": 97.417143706,
+        "altitudeDeg": -18.750540767,
+        "illuminatedFraction": 0.9997813,
+        "diameterDeg": 0.0006260011111111111
+      },
+      {
+        "instant": "2026-06-21T12:00:00Z",
+        "azimuthDeg": 90.981971325,
+        "altitudeDeg": -4.853771019,
+        "illuminatedFraction": 0.9997119999999999,
+        "diameterDeg": 0.0006336202777777778
+      },
+      {
+        "instant": "2026-09-23T01:00:00Z",
+        "azimuthDeg": 140.934280722,
+        "altitudeDeg": -68.410667604,
+        "illuminatedFraction": 0.999999,
+        "diameterDeg": 0.0006569091666666666
+      },
+      {
+        "instant": "2100-12-21T18:00:00Z",
+        "azimuthDeg": 336.098327453,
+        "altitudeDeg": 66.006156505,
+        "illuminatedFraction": 0.9997432,
+        "diameterDeg": 0.0006318552777777777
+      }
+    ]
+  }
+]

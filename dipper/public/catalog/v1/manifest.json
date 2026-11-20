@@ -1,0 +1,19 @@
+{
+  "source": "HYG v4.1",
+  "revision": "c7f7f883fe678cc7680169a50ccd7dcc49b060ce",
+  "url": "https://raw.githubusercontent.com/astronexus/HYG-Database/c7f7f883fe678cc7680169a50ccd7dcc49b060ce/hyg/CURRENT/hygdata_v41.csv",
+  "sourceSha256": "d9f69fd86bbf90a4e4d52b4c5c53eacfa6dfc0bfdef85bfd94f095e0bebe4ebd",
+  "epoch": 2000,
+  "magnitudeLimit": 8,
+  "count": 41487,
+  "skipped": {
+    "sun": 1,
+    "invalid": 0,
+    "faint": 78138
+  },
+  "sha256": "4131c7695187264ccb9a2bef59436d8fccf033b0757ee29343ef2275488e6f3a",
+  "namesSha256": "36d37d2728f29e4f425d149e2ccad802d35446667230a7c49303834b5dff85d3",
+  "densitySha256": "5e4242b5ef38158adda08a78481b53c20c8b754e9613bebe2007fc4ca5208a7e",
+  "built": "2026-11-19T16:05:41.098Z",
+  "license": "CC BY-SA 4.0"
+}
