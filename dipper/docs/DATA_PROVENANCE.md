@@ -1,6 +1,6 @@
 # Dipper data credits
 
-Assets retrieved on 19 November 2026. The application serves these files locally. Only the optional map panel requests external tiles.
+Assets retrieved on 19 November 2026. The application serves these files locally. Only the optional online street detail layer requests external tiles.
 
 ## HYG v4.1 stars and diffuse density
 
@@ -34,6 +34,8 @@ For the display only, the Johnson V estimate uses the G−V polynomial in BP−R
 
 ## Map, type and icons
 
-Leaflet displays OpenStreetMap tiles with visible attribution. Custom providers require the matching attribution and usage conditions. [OpenStreetMap contributors](https://www.openstreetmap.org/copyright) · [Tile usage](https://operations.osmfoundation.org/policies/tiles/)
+The bundled world map uses Natural Earth 1:50m Admin 0 Countries, v5.1.2 (public domain), retrieved on 20 November 2026. Dipper retains the 242 country features and their names, label anchors, ranks and minimum label zooms. Coordinates are rounded to 0.001°. Source SHA-256 is `3e458fc036ad0a66411f2c1e6cac49c5d7bfb81cb1123bc513b22511a2b7fdeb`. Packaged `src/assets/world.geojson` SHA-256 is `951bd5e39b3be0a3c10a33dd5b07637abd0223758cdf0f50936fe2473682d018`. [Pinned source](https://github.com/nvkelso/natural-earth-vector/blob/v5.1.2/geojson/ne_50m_admin_0_countries.geojson) · [Natural Earth terms](https://www.naturalearthdata.com/about/terms-of-use/)
+
+Leaflet displays OpenStreetMap tiles with visible attribution when online street detail is enabled. Custom providers require the matching attribution and usage conditions. [OpenStreetMap contributors](https://www.openstreetmap.org/copyright) · [Tile usage](https://operations.osmfoundation.org/policies/tiles/)
 
 DM Sans and Instrument Serif are distributed via Fontsource under the SIL Open Font License. The font notices ship in public/licenses. Interface icons are from Lucide (ISC). The portal image is a screenshot of the running simulator.

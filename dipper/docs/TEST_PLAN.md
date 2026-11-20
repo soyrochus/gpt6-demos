@@ -12,7 +12,7 @@ The offline suite stores 150 independent stellar directions and 225 independent 
 
 ## Browser coverage
 
-Playwright starts the static build on an isolated local port. It verifies an actual WebGL draw, visible-star diagnostics, camera orientation, zoom, object picking, location and UTC changes, reverse playback, reset, sharing, catalogue error recovery and on-demand Gaia loading. The lunar lighting test samples rendered pixels on either side of the lunar centre along the projected solar direction. A mobile Chromium context uses a 390 × 844 viewport, touch input and 2× pixel density. The map interaction test isolates external tile availability.
+Playwright starts the static build on an isolated local port. It verifies an actual WebGL draw, visible-star diagnostics, camera orientation, zoom, object picking, location and UTC changes, reverse playback, reset, sharing, catalogue error recovery and on-demand Gaia loading. The lunar lighting test samples rendered pixels on either side of the lunar centre along the projected solar direction. A mobile Chromium context uses a 390 × 844 viewport, touch input and 2× pixel density. The location-picker tests check map geometry, marker alignment, and coordinate selection across dialog reopens and viewport resizing. They exercise delayed and failed street tiles with the bundled map active.
 
 ## Performance sample
 

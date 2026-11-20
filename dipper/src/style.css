@@ -56,7 +56,8 @@ canvas:focus-visible {
 a {
   color: var(--mint);
 }
-svg {
+svg.lucide,
+.brand-mark {
   width: 17px;
   height: 17px;
   stroke-width: 1.6;
@@ -808,7 +809,8 @@ label input:not([type="range"]) {
   display: block;
   margin-top: 5px;
 }
-.map {
+.map,
+.map.leaflet-container {
   height: 220px;
   background: #293b42;
   border-radius: 4px;
@@ -1003,7 +1005,8 @@ p[role="alert"] {
   .mast-actions .icon {
     width: 25px;
   }
-  .map {
+  .map,
+  .map.leaflet-container {
     height: 170px;
   }
 }
@@ -1042,4 +1045,31 @@ p[role="alert"] {
 }
 .results [aria-selected="true"] {
   background: #293a3e;
+}
+
+.map-country-label {
+  pointer-events: none;
+}
+.map-country-label span {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  font:
+    500 11px "DM Sans Variable",
+    sans-serif;
+  color: #eff5ee;
+  text-shadow: 0 1px 2px #172d31;
+}
+.street-detail {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 12px;
+}
+.street-detail input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+.map-status {
+  margin: -4px 0 12px;
 }

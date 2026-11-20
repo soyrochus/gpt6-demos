@@ -25,7 +25,7 @@ The first visit opens a paused winter night in Valencia, 15 January 2026 at 23:0
 
 ## Data and static deployment
 
-The shipped binary, name index, overlays, Gaia tiles, fonts and ephemeris code work from local assets. Serve the site over HTTP on localhost or over HTTPS for browser checksum verification. Leaflet loads tiles when the location dialog opens. Coordinate entry, time-zone override and presets continue working if tiles fail. Copy `.env.example` to `.env` to select another tile provider, its attribution, or a default observer.
+The shipped binary, name index, overlays, Gaia tiles, fonts and ephemeris code work from local assets. Serve the site over HTTP on localhost or over HTTPS for browser checksum verification. The location picker opens with bundled country boundaries and labels. Click to place the observer, or zoom and pan for a closer view. Enable **Online street detail** for street-level tiles. The local map stays usable while tiles load and if the provider is unavailable. Copy `.env.example` to `.env` to select another tile provider, its attribution, or a default observer.
 
 ```sh
 bun run build

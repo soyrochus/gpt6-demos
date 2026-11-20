@@ -273,3 +273,92 @@ test("optional density failure leaves the sky usable", async ({ page }) => {
   );
   await find(page, "Polaris");
 });
+
+test("world map stays selectable on repeat opens, resizing and unavailable street tiles", async ({
+  page,
+}) => {
+  const errors: string[] = [];
+  page.on("pageerror", (error) => errors.push(error.stack ?? error.message));
+  let requested = 0;
+  let release!: () => void;
+  const delayed = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  await page.route("**/tile.openstreetmap.org/**", async (route) => {
+    requested++;
+    await delayed;
+    await route.abort();
+  });
+  await page.goto("/");
+  await ready(page);
+  const open = page.getByRole("button", { name: "Open world map" });
+  const map = page.locator(".map"),
+    marker = map.locator(".observer-marker");
+  const longitude = page.getByLabel("Longitude (°)");
+  const streets = page.getByRole("checkbox", { name: "Online street detail" });
+  const assertCentered = async () => {
+    await expect
+      .poll(async () => {
+        const box = await map.boundingBox(),
+          dot = await marker.boundingBox();
+        return box && dot
+          ? Math.hypot(
+              dot.x + dot.width / 2 - box.x - box.width / 2,
+              dot.y + dot.height / 2 - box.y - box.height / 2,
+            )
+          : Infinity;
+      })
+      .toBeLessThan(2);
+  };
+  await open.click();
+  await expect(map.locator(".map-country")).toHaveCount(242);
+  await expect(map.locator(".map-country-label span").first()).toBeVisible();
+  await assertCentered();
+  await page
+    .getByRole("dialog")
+    .screenshot({ path: test.info().outputPath("location-picker.png") });
+  await page.getByRole("button", { name: "Close dialog" }).click();
+  await open.click();
+  await assertCentered();
+  await page.setViewportSize({ width: 390, height: 844 });
+  await assertCentered();
+  expect(requested).toBe(0);
+  const initialLon = Number(await longitude.inputValue());
+  const box = (await map.boundingBox())!;
+  await streets.check();
+  await expect.poll(() => requested).toBeGreaterThan(0);
+  await expect(page.getByRole("status")).toContainText("Loading street detail");
+  await map.click({ position: { x: box.width / 2 + 64, y: box.height / 2 } });
+  // At zoom 2, 1,024 CSS pixels span 360° of longitude.
+  expect(
+    Math.abs(+(await longitude.inputValue()) - initialLon - 22.5),
+  ).toBeLessThan(0.4);
+  release();
+  await expect(streets).not.toBeChecked();
+  await expect(page.getByRole("status")).toContainText("world map is ready");
+  await map.getByRole("button", { name: "Zoom in" }).click();
+  await map.click({
+    position: { x: box.width / 2 - 30, y: box.height / 2 + 15 },
+  });
+  await expect(page.getByLabel("Time zone")).not.toHaveValue("");
+  await page.unroute("**/tile.openstreetmap.org/**");
+  await page.route("**/tile.openstreetmap.org/**", (route) =>
+    route.fulfill({
+      contentType: "image/png",
+      body: Buffer.from(
+        "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+j36kAAAAASUVORK5CYII=",
+        "base64",
+      ),
+    }),
+  );
+  await streets.check();
+  await expect(map.locator(".leaflet-tile-loaded").first()).toBeVisible();
+  await expect(map.locator(".leaflet-tile-pane .leaflet-layer")).toHaveCSS(
+    "opacity",
+    "1",
+  );
+  await expect(streets).toBeChecked();
+  await page.getByRole("button", { name: "Apply location" }).click();
+  await expect(page.locator(".city")).toHaveText("Custom location");
+  expect(errors).toEqual([]);
+});
