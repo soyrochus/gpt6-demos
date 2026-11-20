@@ -7,7 +7,11 @@
 [![Bun](https://img.shields.io/badge/Runtime-Bun-14151a?logo=bun&logoColor=white)](https://bun.sh/)
 [![TypeScript](https://img.shields.io/badge/Language-TypeScript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Rust](https://img.shields.io/badge/Language-Rust-DEA584?logo=rust&logoColor=black)](https://www.rust-lang.org/)
+[![WebAssembly](https://img.shields.io/badge/Target-WebAssembly-654FF0?logo=webassembly&logoColor=white)](./temblor/README.md#build-and-check)
 [![Three.js](https://img.shields.io/badge/3D-Three.js-000000?logo=threedotjs&logoColor=white)](https://threejs.org/)
+[![WebGL 2](https://img.shields.io/badge/Graphics-WebGL%202-990000?logo=webgl&logoColor=white)](./fuel-left/README.md)
+[![WebGPU](https://img.shields.io/badge/Graphics-WebGPU-005A9C)](./temblor/README.md)
+[![Canvas 2D](https://img.shields.io/badge/Graphics-Canvas%202D-355E3B)](./flip-slop/README.md)
 [![Contributions welcome](https://img.shields.io/badge/Contributions-welcome-brightgreen.svg)](#principles-of-participation)
 
 A collection of interactive web and native desktop demos exploring 3D graphics, visual design, and playful experiences. Built with Bun, TypeScript, Three.js, and Rust, the projects include an architectural explorer, a tarot reading room, a helicopter cave expedition, a music composition desk, an orbital mechanics laboratory, a digital logic laboratory, a generative canvas and stop-motion studio, an AI-assisted procedural 3D modelling studio, a 7-a-side football game, a macOS and Ubuntu desktop companion, a solution-engineering workbench, an interactive crystal cavern, a space pinball table, an Earth-based night sky simulator, and a Rust-based engine for Quake III Arena maps. Each demo is a standalone application with its own source code and setup instructions. YouTube walkthroughs are included where available.
