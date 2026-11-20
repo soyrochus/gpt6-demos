@@ -67,10 +67,10 @@ function pause(message = "Click Resume to capture the mouse.") {
 }
 async function probe() {
   try {
-    if (!isSecureContext || !navigator.gpu)
-      throw Error(
-        "WebGPU requires desktop Chromium with hardware acceleration on HTTPS or localhost.",
-      );
+    if (!isSecureContext)
+      throw Error("WebGPU requires a secure connection. Open Temblor on HTTPS or localhost.");
+    if (!navigator.gpu)
+      throw Error("WebGPU is unavailable in this browser. Open Temblor in desktop Chromium.");
     await init();
     engine = await Engine.create(canvas);
     size();

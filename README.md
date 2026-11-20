@@ -22,7 +22,7 @@ Use this repository to try the demos, explore how they work, or build on their i
 
 ## Platform support
 
-The earlier browser demos are tested to run on **macOS and Linux**. They should also work on **Windows**, but have not been tested there. Elfspace, Fuel Left and Dipper require a browser with WebGL 2. Temblor requires desktop Chromium with hardware WebGPU and has been tested on macOS with an Apple M4 Pro. **NotAVirus is tested on macOS and Ubuntu**: its native macOS app requires macOS 13 or later, and its Ubuntu extension requires **GNOME Shell 50 on Wayland** (verified with GNOME 50.1 on Ubuntu 26.04.1). Follow its [platform build and run instructions](./not-a-virus/README.md). It has no browser or Windows version; other Linux desktops and GNOME versions are not supported.
+The earlier browser demos are tested to run on **macOS and Linux**. They should also work on **Windows**, but have not been tested there. Elfspace, Fuel Left and Dipper require a browser with WebGL 2. Temblor requires desktop Chromium with hardware WebGPU. Tested configurations include macOS on an Apple M4 Pro and Ubuntu 26.04.1 on AMD Radeon Vega graphics with Vulkan enabled in Chrome 158. **NotAVirus is tested on macOS and Ubuntu**: its native macOS app requires macOS 13 or later, and its Ubuntu extension requires **GNOME Shell 50 on Wayland** (verified with GNOME 50.1 on Ubuntu 26.04.1). Follow its [platform build and run instructions](./not-a-virus/README.md). It has no browser or Windows version; other Linux desktops and GNOME versions are not supported.
 
 ## Run all demos
 
@@ -296,6 +296,8 @@ Look up from anywhere on Earth. Find a star or planet, turn the clock, and watch
 ### Temblor — Rust-based engine for Quake III Arena maps
 
 Temblor brings Quake III Arena maps to the browser using Rust, WebAssembly, and WebGPU. Race a bot to five frags on the bundled OpenArena map *Trial by Error*. Move with WASD, aim and fire with the mouse, and collect weapons and armor as you fight. Click **Play** in desktop Chromium with WebGPU. To launch just Temblor, run `cd temblor && ./play` and open [localhost:8080](http://localhost:8080/).
+
+**Ubuntu setup.** If Temblor reports “No WebGPU adapter,” open `chrome://flags/#enable-vulkan` in Chrome, set **Vulkan** to **Enabled**, and click **Relaunch**. Reopen Temblor and click **Play**.
 
 <a href="./temblor/README.md"><img src="./images/temblor.png" alt="Rocket launcher and orange pickups on a grated walkway in Trial by Error" width="480"></a>
 

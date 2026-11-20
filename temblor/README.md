@@ -6,6 +6,8 @@ Run **`./play`**, open **http://127.0.0.1:8080**, and click **Play** in desktop 
 
 From the GPT6 Demos repository root, run `./run-all.sh` and choose **Temblor** in the [preview gallery](http://localhost:3000/portal/). The shared launcher serves the game at base port + 15. To run just that service, use `bun run dev` from this directory and open [localhost:3015](http://localhost:3015/). Set `PORT` to choose another port.
 
+**Ubuntu and “No WebGPU adapter.”** In Chrome, open `chrome://flags/#enable-vulkan`, set **Vulkan** to **Enabled**, and click **Relaunch**. Reopen Temblor and click **Play**. On Ubuntu 26.04.1 with AMD Radeon Vega graphics and Chrome 158, graphics acceleration was already active and enabling Vulkan made the hardware adapter available. If the message persists, check **Use graphics acceleration when available** in `chrome://settings/system` and the WebGPU diagnostics in `chrome://gpu`.
+
 ![The rocket launcher and orange pickups inside Trial by Error during a browser match](evidence/release-fight.png)
 
 Fight one bot to five frags in **Trial by Error**. Move with WASD, aim with the mouse, fire with the primary button, jump with Space and crouch with C. Switch weapons with the number row or wheel, hold Tab for scores and press Escape to pause. Controls includes sensitivity and volume. Collect the orange rocket launcher near the starting corridor and use the pillars for cover. Both actors respawn after a frag. Click **Rematch** on the final score.

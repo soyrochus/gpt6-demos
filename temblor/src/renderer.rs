@@ -64,7 +64,14 @@ impl Renderer {
         let surface = instance
             .create_surface(wgpu::SurfaceTarget::Canvas(canvas))
             .map_err(|e| e.to_string())?;
-        let adapter=instance.request_adapter(&wgpu::RequestAdapterOptions{power_preference:wgpu::PowerPreference::HighPerformance,compatible_surface:Some(&surface),force_fallback_adapter:false}).await.ok_or("No WebGPU adapter. Enable hardware acceleration in desktop Chromium and reopen on localhost or HTTPS.")?;
+        let adapter = instance
+            .request_adapter(&wgpu::RequestAdapterOptions {
+                power_preference: wgpu::PowerPreference::HighPerformance,
+                compatible_surface: Some(&surface),
+                force_fallback_adapter: false,
+            })
+            .await
+            .ok_or("No WebGPU adapter. Check graphics acceleration in chrome://settings/system. On Linux, set chrome://flags/#enable-vulkan to Enabled. Relaunch Chromium and click Play.")?;
         let (device, queue) = adapter
             .request_device(
                 &wgpu::DeviceDescriptor {

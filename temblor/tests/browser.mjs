@@ -1,14 +1,10 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
-import { chromium } from "playwright";
+import { launchChrome } from "./chromium.mjs";
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
-const browser = await chromium.launch({
+const browser = await launchChrome({
   headless: process.env.HEADLESS === "1",
-  ...(process.env.CHROMIUM_PATH
-    ? { executablePath: process.env.CHROMIUM_PATH }
-    : { channel: "chrome" }),
   args: [
-    "--enable-unsafe-webgpu",
     "--disable-background-timer-throttling",
     "--disable-renderer-backgrounding",
   ],

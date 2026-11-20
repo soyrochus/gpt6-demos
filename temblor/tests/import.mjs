@@ -1,16 +1,12 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
-import { chromium } from "playwright";
+import { launchChrome } from "./chromium.mjs";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 const dir = await mkdtemp(path.join(tmpdir(), "temblor-test-"));
-const browser = await chromium.launch({
-  channel: "chrome",
-  headless: true,
-  args: ["--enable-unsafe-webgpu"],
-});
+const browser = await launchChrome({ headless: true });
 try {
   execFileSync("python3", [
     "-c",

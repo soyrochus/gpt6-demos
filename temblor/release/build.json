@@ -1,6 +1,6 @@
 {
   "engine": "Temblor 0.1.0",
-  "sourceRevision": "a6bee252064603d47343e550cb4f66631696738335b6968cf7f1fb0ef3dc93e5",
+  "sourceRevision": "0ab33bc3fda6d2a9e2a66ce71458ae14709b15e854a132257acfe0f23f3520a3",
   "rustc": "rustc 1.100.0 (0ef1bc386 2026-11-09)",
   "bindgen": "0.2.114",
   "files": {
@@ -25,8 +25,8 @@
       "sha256": "99f3dc43a47e2888b722ecf4dc85414e5675a98963bdf1f12b961e2a7bf8ecbf"
     },
     "host.js": {
-      "bytes": 12244,
-      "sha256": "71d2c9c57e53f315b0928be8b5e0bb68ce0ca65c6a700264b614965617b86eb9"
+      "bytes": 12318,
+      "sha256": "83a48c7c97ec9ad55bbbd3d93d27ec82ecb765b0e20f3de440508f3b23cccb4e"
     },
     "index.html": {
       "bytes": 4317,
@@ -114,15 +114,15 @@
     },
     "pkg/temblor.js": {
       "bytes": 67474,
-      "sha256": "81d4542359ae44f12aab883d9df2a56afb242a5afe781e1d710a9b248482bad2"
+      "sha256": "dd29324f687b6ea1af68d44eb05df1b507c57634b30f0799eb9635ab9ab4e399"
     },
     "pkg/temblor_bg.wasm": {
-      "bytes": 853009,
-      "sha256": "025c76a0e9901c9d5d6d64d6458437166049f35c0995a069d64b744bcc95d676"
+      "bytes": 853278,
+      "sha256": "45f7d1dec6b63ebe7bc1bd49bfff2c8b780c99acf0d9a618b1c63d9e955b09a8"
     },
     "temblor-source.tar.gz": {
-      "bytes": 13520433,
-      "sha256": "6df5c22e76008710db7feaaebbcb7de0ef3f9fcba1b61e9d25e0524d4adb0dfb"
+      "bytes": 13520979,
+      "sha256": "ca35e0de19e4515295457bd2e3abe3e3fb59a11ee9544ebddb62b984b99507ae"
     }
   }
 }

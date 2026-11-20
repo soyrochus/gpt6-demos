@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
-import { chromium } from "playwright";
+import { launchChrome } from "./chromium.mjs";
 import assert from "node:assert/strict";
 import { writeFile } from "node:fs/promises";
-const browser = await chromium.launch({ channel: "chrome", headless: true });
+const browser = await launchChrome({ headless: true });
 try {
   const url = process.env.TEMBLOR_URL || "http://127.0.0.1:8080";
   const unsupported = await browser.newPage();
@@ -11,9 +11,17 @@ try {
   );
   await unsupported.goto(url);
   await unsupported.waitForFunction(() =>
-    document.querySelector("#status").textContent.includes("WebGPU requires"),
+    document.querySelector("#status").textContent.includes("WebGPU is unavailable"),
   );
   await unsupported.close();
+  const noAdapter = await browser.newPage();
+  await noAdapter.addInitScript(() => {
+    GPU.prototype.requestAdapter = async () => null;
+  });
+  await noAdapter.goto(url);
+  await noAdapter.locator("#play:enabled").waitFor();
+  assert.match(await noAdapter.locator("#status").textContent(), /chrome:\/\/flags\/#enable-vulkan/);
+  await noAdapter.close();
   const page = await browser.newPage({
       viewport: { width: 1280, height: 720 },
     }),

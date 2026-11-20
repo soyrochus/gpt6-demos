@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Test driver only. Aim and locomotion use CDP mouse and keyboard events.
-import { chromium } from "playwright";
+import { launchChrome } from "./chromium.mjs";
 import fs from "node:fs/promises";
 import assert from "node:assert/strict";
 import { tmpdir } from "node:os";
@@ -15,8 +15,7 @@ const evidence = retail
   ? await fs.mkdtemp(path.join(tmpdir(), "temblor-retail-"))
   : "evidence";
 const record = (name) => path.join(evidence, name);
-const browser = await chromium.launch({
-  channel: "chrome",
+const browser = await launchChrome({
   headless: process.env.HEADLESS === "1",
   args: [
     "--disable-renderer-backgrounding",
