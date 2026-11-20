@@ -1,0 +1,82 @@
+{
+  "fixture": "maps/oa_rpg3dm2.bsp",
+  "seed": 1813,
+  "machine": "Apple M4 Pro",
+  "os": "macOS 27.2.1 (26B131)",
+  "browser": "157.0.8103.80",
+  "device": {
+    "gpu": "apple",
+    "architecture": "metal-3",
+    "resolution": [
+      1280,
+      720
+    ],
+    "dpr": 1,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36"
+  },
+  "wasm": {
+    "bytes": 853009,
+    "sha256": "025c76a0e9901c9d5d6d64d6458437166049f35c0995a069d64b744bcc95d676"
+  },
+  "arena": {
+    "bytes": 3891059,
+    "sha256": "ff075a1895c4c0ab6557360370dc2e6c326303f7d605e27270c1eb3c3ab4626b"
+  },
+  "coldNavigationToControlMs": 538.4,
+  "playToControlMs": 456.2,
+  "resourceTransferBytesExcludingNavigation": 4849940,
+  "finalScoresHumanBot": [
+    [
+      5,
+      1
+    ],
+    [
+      0,
+      5
+    ],
+    [
+      5,
+      2
+    ],
+    [
+      0,
+      5
+    ],
+    [
+      5,
+      4
+    ],
+    [
+      0,
+      5
+    ]
+  ],
+  "rematches": 5,
+  "stableObservedCountsAfterGC": {
+    "hostListeners": 43,
+    "ambientLoops": 31,
+    "gpu": {
+      "createTexture": 0,
+      "createBuffer": 5,
+      "createRenderPipeline": 3,
+      "createBindGroup": 1
+    }
+  },
+  "performance": {
+    "matchNumbers": [
+      1,
+      3
+    ],
+    "warmupMsPerMatch": 5000,
+    "sampleDurationMs": 120011.9,
+    "frames": 7201,
+    "medianMs": 16.7,
+    "p95Ms": 16.8,
+    "longestFrameMs": 16.8,
+    "framesOver50Ms": 0,
+    "longestFrameAcrossSixMatchesMs": 133.3,
+    "targetPassed": true
+  },
+  "retail": "Open: licensed baseq3 files unavailable",
+  "humanPlaytest": "Open: no feedback received"
+}

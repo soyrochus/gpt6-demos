@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-20T16:47:21.545053+00:00",
+  "title": "Design System: Temblor",
+  "extensions": {
+    "colorMeta": {
+      "burn": {
+        "role": "primary",
+        "displayName": "Burn orange",
+        "canonical": "#ff7846",
+        "tonalRamp": [
+          "oklch(15% 0.1771 40.10)",
+          "oklch(26% 0.1771 40.10)",
+          "oklch(38% 0.1771 40.10)",
+          "oklch(49% 0.1771 40.10)",
+          "oklch(61% 0.1771 40.10)",
+          "oklch(72% 0.1771 40.10)",
+          "oklch(84% 0.1771 40.10)",
+          "oklch(95% 0.1771 40.10)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Warm off-white",
+        "canonical": "#f6f2e8",
+        "tonalRamp": [
+          "oklch(15% 0.0139 88.68)",
+          "oklch(26% 0.0139 88.68)",
+          "oklch(38% 0.0139 88.68)",
+          "oklch(49% 0.0139 88.68)",
+          "oklch(61% 0.0139 88.68)",
+          "oklch(72% 0.0139 88.68)",
+          "oklch(84% 0.0139 88.68)",
+          "oklch(95% 0.0139 88.68)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted ivory",
+        "canonical": "#c5c4b6",
+        "tonalRamp": [
+          "oklch(15% 0.0192 103.49)",
+          "oklch(26% 0.0192 103.49)",
+          "oklch(38% 0.0192 103.49)",
+          "oklch(49% 0.0192 103.49)",
+          "oklch(61% 0.0192 103.49)",
+          "oklch(72% 0.0192 103.49)",
+          "oklch(84% 0.0192 103.49)",
+          "oklch(95% 0.0192 103.49)"
+        ]
+      },
+      "panel": {
+        "role": "neutral",
+        "displayName": "Charcoal",
+        "canonical": "#171b19",
+        "tonalRamp": [
+          "oklch(15% 0.0072 164.25)",
+          "oklch(26% 0.0072 164.25)",
+          "oklch(38% 0.0072 164.25)",
+          "oklch(49% 0.0072 164.25)",
+          "oklch(61% 0.0072 164.25)",
+          "oklch(72% 0.0072 164.25)",
+          "oklch(84% 0.0072 164.25)",
+          "oklch(95% 0.0072 164.25)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Launcher title",
+        "purpose": "Identify the game on launch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Explain actions and controls."
+      },
+      "hud-label": {
+        "displayName": "HUD label",
+        "purpose": "Identify a changing value."
+      },
+      "hud-value": {
+        "displayName": "HUD value",
+        "purpose": "Read health, armor and ammunition during movement."
+      }
+    },
+    "shadows": [
+      {
+        "name": "dialog",
+        "value": "0 10px 32px #0009",
+        "purpose": "Separate the controls and import dialogs from the arena."
+      }
+    ],
+    "motion": [],
+    "breakpoints": [
+      {
+        "name": "compact",
+        "value": "650px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Play",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Start or resume the match.",
+      "html": "<button class=\"ds-play\">Play <span aria-hidden=\"true\"></span></button>",
+      "css": ".ds-play{font:650 16px Arial,sans-serif;border-radius:2px;padding:14px 20px;cursor:pointer;display:inline-flex;align-items:center;justify-content:space-between;min-width:145px;background:var(--burn,#ff7846);color:#1a100c;border:1px solid var(--burn,#ff7846)}.ds-play:hover{background:#ff9567}.ds-play:focus-visible{outline:3px solid var(--burn,#ff7846);outline-offset:5px}.ds-play span{width:0;height:0;border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:9px solid currentColor}"
+    },
+    {
+      "name": "Secondary action",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Open controls or local files.",
+      "html": "<button class=\"ds-action\">Controls</button>",
+      "css": ".ds-action{font:650 16px Arial,sans-serif;border-radius:2px;padding:14px 20px;cursor:pointer;background:#1b211fff;color:var(--ink,#f6f2e8);border:1px solid #6b716a}.ds-action:hover{background:#303730}.ds-action:focus-visible{outline:3px solid var(--burn,#ff7846);outline-offset:5px}"
+    },
+    {
+      "name": "Volume",
+      "kind": "input",
+      "refersTo": "volume",
+      "description": "Adjust the audio level in Controls.",
+      "html": "<label class=\"ds-range\">Volume <input type=\"range\" min=\"0\" max=\"1\" step=\".05\" value=\".5\"></label>",
+      "css": ".ds-range{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px;background:var(--panel,#171b19);color:var(--ink,#f6f2e8);font:16px Arial,sans-serif}.ds-range input{width:45%;accent-color:var(--burn,#ff7846)}.ds-range input:focus-visible{outline:3px solid var(--burn,#ff7846);outline-offset:5px}"
+    },
+    {
+      "name": "Vitals",
+      "kind": "custom",
+      "refersTo": "vitals",
+      "description": "Read health and armor together.",
+      "html": "<div class=\"ds-vitals\"><div><small>Health</small><strong>125</strong></div><div><small>Armor</small><strong>0</strong></div></div>",
+      "css": ".ds-vitals{display:inline-flex;gap:24px;padding:8px 16px;background:#0c100de6;color:var(--ink,#f6f2e8);font:16px Arial,sans-serif;font-variant-numeric:tabular-nums;text-shadow:0 2px 4px #000}.ds-vitals small{display:block;color:var(--muted,#c5c4b6);font-size:11px;letter-spacing:.1em;text-transform:uppercase}.ds-vitals strong{font-size:38px;line-height:1}.ds-vitals div:first-child strong{color:#ffac77}"
+    },
+    {
+      "name": "Score strip",
+      "kind": "custom",
+      "refersTo": "score",
+      "description": "Compare the two scores with the frag limit.",
+      "html": "<div class=\"ds-score\"><span>YOU <b>0</b></span><span>BOT <b>0</b></span><small>LIMIT 5</small></div>",
+      "css": ".ds-score{display:inline-flex;align-items:center;gap:10px;padding:8px 12px;color:var(--ink,#f6f2e8);background:#0b100cdb;font:12px Arial,sans-serif;font-variant-numeric:tabular-nums;text-shadow:0 2px 4px #000}.ds-score b{font-size:20px}.ds-score span:first-child b{color:#ffc297}.ds-score small{font-size:11px;letter-spacing:.1em;color:var(--muted,#c5c4b6)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Arena-led launcher and compact match HUD",
+    "overview": "The launcher shows the arena before the player enters it. A darkened levelshot gives the title, match rules and Play button a readable left edge. During play, four small groups of information leave the opponent and crosshair in view.",
+    "keyCharacteristics": [],
+    "rules": [],
+    "dos": [],
+    "donts": []
+  }
+}

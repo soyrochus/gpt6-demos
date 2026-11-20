@@ -1,0 +1,257 @@
+[
+  {
+    "path": "maps/oa_rpg3dm2.bsp",
+    "upstream": "openarena-maps-0.8.5split.orig/pak1-maps/maps/oa_rpg3dm2.bsp",
+    "sha256": "0f8cca68b7c2eecff3815dfd7c3733377eb0ab56f1461b9b71c5efea8368976d"
+  },
+  {
+    "path": "textures/base_ceiling/metceil1d.jpg",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_ceiling/metceil1d.jpg",
+    "sha256": "c1565a746545f68a9746423997ce14ee06ed10c08f5253133ab65d487b66224b"
+  },
+  {
+    "path": "textures/base_floor/achtung_clang.jpg",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_floor/achtung_clang.jpg",
+    "sha256": "effa4ae3f92e90de717a260361b15ed09591e9f7601ea51bcb367daca5d08366"
+  },
+  {
+    "path": "textures/base_floor/clang_floor.jpg",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_floor/clang_floor.jpg",
+    "sha256": "a19b4e0d724423b48534ae2f4ebbfcf0a5330cf1f29d19b32f2666f1da0cd0e4"
+  },
+  {
+    "path": "textures/base_floor/clang_floor512.jpg",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_floor/clang_floor512.jpg",
+    "sha256": "eb7408b30e37acabd795b5fe71f965f1b5b386964404cc71db9fa1f8543d184b"
+  },
+  {
+    "path": "textures/base_floor/clanggrate.jpg",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_floor/clanggrate.jpg",
+    "sha256": "dd285a291c6b6366d43963ae74e237ebf08e69e6be4553d5b322713fa1133e9c"
+  },
+  {
+    "path": "textures/base_floor/cybergrate2.tga",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_floor/cybergrate2.tga",
+    "sha256": "f6dc1e44e51abcdc0e99a66073a7ba0f0a5af5ec097202b44e7c1564db8680ec"
+  },
+  {
+    "path": "textures/base_floor/metalbridge04d.jpg",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_floor/metalbridge04d.jpg",
+    "sha256": "3b628d3a6f1ed7b2deb5037d0e572aae6b2aa928ab39d73fcf467b50a37586fd"
+  },
+  {
+    "path": "textures/base_floor/metfloor1.jpg",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_floor/metfloor1.jpg",
+    "sha256": "7566cbb39000679f40fb496c4f8d86e4a08d17438d224a2fa1c37749175dbd15"
+  },
+  {
+    "path": "textures/base_floor/proto_grate4.tga",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_floor/proto_grate4.tga",
+    "sha256": "1b0ec2a2a360ed2a15fb8e429a48ed04cf2b8a9769eba8766be67a2c9fd9303d"
+  },
+  {
+    "path": "textures/base_floor/proto_grill.jpg",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_floor/proto_grill.jpg",
+    "sha256": "6ca3a8b512c37e31f869b7afa373f4948b1189075e31861c7ecde2bae7f1f476"
+  },
+  {
+    "path": "textures/base_floor/skylight1.jpg",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_floor/skylight1.jpg",
+    "sha256": "aaabe7fbe6d2af4e1f78db6848b6c6c0288f8fe2305a522e60bd977b03bc044d"
+  },
+  {
+    "path": "textures/base_floor/skylight1_lm.jpg",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_floor/skylight1_lm.jpg",
+    "sha256": "8ebcfc6688d41f92ecbc70a1c757b2763219f955a239e0db3caf49713c76a544"
+  },
+  {
+    "path": "textures/base_light/ceil1_34.blend.tga",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_light/ceil1_34.blend.tga",
+    "sha256": "4e8ea42da0f605a5aada5fbe64e2828218f1db0d7dc6e2f0913e9e6c3743c84c"
+  },
+  {
+    "path": "textures/base_light/ceil1_34.tga",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_light/ceil1_34.tga",
+    "sha256": "719a1e0b959adce57fd62ccadb3344f17051afde7606d97e7d60ab13fc45972a"
+  },
+  {
+    "path": "textures/base_light/xlight5.blend.jpg",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_light/xlight5.blend.jpg",
+    "sha256": "3853a45e19f8aae52b803ae50629c3cb29c01885ada8c5f8835023943fbd1bc0"
+  },
+  {
+    "path": "textures/base_light/xlight5.jpg",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_light/xlight5.jpg",
+    "sha256": "2c2274439a057fede3747990974ce530919609919b14e0055e3e1425ecdd57ae"
+  },
+  {
+    "path": "textures/base_support/cable.jpg",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_support/cable.jpg",
+    "sha256": "8c07eeb28b3caab0ed4d046454978a5094b632ab6a6d6d7fd10fba2078ecc699"
+  },
+  {
+    "path": "textures/base_support/metal14_1.jpg",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_support/metal14_1.jpg",
+    "sha256": "04a8c2caffcfc54870bf7d970792d770eaea38d8eab72c40e5dcb9d08cde2425"
+  },
+  {
+    "path": "textures/base_support/support1_1.jpg",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_support/support1_1.jpg",
+    "sha256": "af7a64d8a730ba76a3d3ca01c870a6cb0342f1cde04ec47e2387a9acaf5711e5"
+  },
+  {
+    "path": "textures/base_trim/deeprust.jpg",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_trim/deeprust.jpg",
+    "sha256": "245fe0c0f6ba538238c98a71b23e3ed2258b55eb984ce26689da200a4de82237"
+  },
+  {
+    "path": "textures/base_trim/dirty_pewter_big.jpg",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_trim/dirty_pewter_big.jpg",
+    "sha256": "722d8393f238b7f6e0b1f63b174ee87f7266ad4680f5836fe7bff5be5fbda3b0"
+  },
+  {
+    "path": "textures/base_trim/pewter.jpg",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_trim/pewter.jpg",
+    "sha256": "82de231fb6f00216da4f42b4c83ad3b825a54d333d49f388c06d48acf58ac4f8"
+  },
+  {
+    "path": "textures/base_wall/bluemetalsupport2e.jpg",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_wall/bluemetalsupport2e.jpg",
+    "sha256": "cac0b0a4259fd107859c4998a4308cd26cf665eb39519a1c36f69ec1a3260d98"
+  },
+  {
+    "path": "textures/base_wall/chrome_env.jpg",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_wall/chrome_env.jpg",
+    "sha256": "c18ca05c1642bd076a9b9658f162ce3b6ca138847239be85cbe579a444b3e6fc"
+  },
+  {
+    "path": "textures/base_wall/chrome_env2.jpg",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_wall/chrome_env2.jpg",
+    "sha256": "dd7b2d6845e97c159b3871101850e7db60e3b6299fde027eefc01431837075d3"
+  },
+  {
+    "path": "textures/base_wall/concrete_dark.jpg",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_wall/concrete_dark.jpg",
+    "sha256": "328176a3d8ffa26a7adaa8ad31e3964d57fddff52d1b631671fb1cf6f1b39de4"
+  },
+  {
+    "path": "textures/base_wall/patch10.jpg",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_wall/patch10.jpg",
+    "sha256": "0fa812ba643d1909c9050e0da733737f2a15d883aca4ee6b01f4be7038908814"
+  },
+  {
+    "path": "textures/base_wall/shiny3.tga",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/base_wall/shiny3.tga",
+    "sha256": "529290ff372b59d6b1f02fbc038554108bf5d6c987072a398ef118d3984c686a"
+  },
+  {
+    "path": "textures/effects/envmap2.tga",
+    "upstream": "openarena-data-0.8.5split.orig/pak0/textures/effects/envmap2.tga",
+    "sha256": "0bdfa0195150df7b966e8a8b4b745855cc8574be51814bb20f94867f4552e5ee"
+  },
+  {
+    "path": "textures/liquids/vorwater.tga",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/liquids/vorwater.tga",
+    "sha256": "25711e3b49ca494a1292d828f0e6980cf824118ded4b951b48f266888347ae54"
+  },
+  {
+    "path": "textures/sfx/logo512.jpg",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/sfx/logo512.jpg",
+    "sha256": "93c18910c12ab3d627b638f4c6f3b990d6d6e1f4850ea53b05b89ecbdaa9364f"
+  },
+  {
+    "path": "textures/sfx/portal_sfx_ring_electric.jpg",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/sfx/portal_sfx_ring_electric.jpg",
+    "sha256": "cbc483c94355eff58f5104ef694d6bae1722e8ff7d2d0707198301aeba183368"
+  },
+  {
+    "path": "textures/skies/nitesky.jpg",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/skies/nitesky.jpg",
+    "sha256": "0b9121dc44dcd6cdbd4eb80f4f90d1e9d32d8a0f81ce060b7cda52ce19fe5c2e"
+  },
+  {
+    "path": "textures/skies/stars.jpg",
+    "upstream": "openarena-textures-0.8.5split.orig/pak4-textures/textures/skies/stars.jpg",
+    "sha256": "b3c81133fe6aeb17ef8e3e22106f7737367b709e05b871b7959eaa9d32b99f5a"
+  },
+  {
+    "path": "scripts/clown.shader",
+    "upstream": "openarena-data-0.8.5split.orig/pak0/scripts/clown.shader",
+    "sha256": "a544aae63e78fd0a655cea797131646a9a7d548bc6e8fa863b7a743f30e6e7c0"
+  },
+  {
+    "path": "scripts/liquid_water.shader",
+    "upstream": "openarena-data-0.8.5split.orig/pak0/scripts/liquid_water.shader",
+    "sha256": "0214848308c5c747b913fb1525cef946ee88ecb95ca7763ac2135a53e9894faa"
+  },
+  {
+    "path": "scripts/oalite.shader",
+    "upstream": "openarena-data-0.8.5split.orig/pak0/scripts/oalite.shader",
+    "sha256": "812c14bf3f7482297c4a4e2ccf9107faf71b2114c0011fba7f8939da209a6a23"
+  },
+  {
+    "path": "scripts/oanew.shader",
+    "upstream": "openarena-data-0.8.5split.orig/pak0/scripts/oanew.shader",
+    "sha256": "cb1ae9973f564d0a94895b6396a5832cf485ff2e93a9036f78f3f526b483a071"
+  },
+  {
+    "path": "scripts/oasky.shader",
+    "upstream": "openarena-data-0.8.5split.orig/pak0/scripts/oasky.shader",
+    "sha256": "8260ec79043b88c7efa2180aac837d2c1bcd622833c8c3eb1ead8487434907b8"
+  },
+  {
+    "path": "levelshots/oa_rpg3dm2.jpg",
+    "upstream": "openarena-maps-0.8.5split.orig/pak1-maps/levelshots/oa_rpg3dm2.jpg",
+    "sha256": "0e72666c9fa91208e859e8b9e62f46c0c9d92618ebd9c41a3e0166a8441d2457"
+  },
+  {
+    "path": "editable/oa_rpg3dm2.map",
+    "upstream": "openarena-maps-0.8.5split.orig/source/assets/maps/oa_rpg3dm2.map",
+    "sha256": "1001bbea110875c82b31d58f4e8bcaff895fbceaac73072e69413919663b1a2a"
+  },
+  {
+    "path": "editable/rpg3dm2source.txt",
+    "upstream": "openarena-maps-0.8.5split.orig/source/assets/maps/rpg3dm2source.txt",
+    "sha256": "b5c3e377fdbc8555ea2e4569ec999b82903534e5067d3622728792cd8d8dbf89"
+  },
+  {
+    "path": "maps/oa_rpg3dm2.aas",
+    "upstream": "openarena-misc-0.8.5split.orig/pak6-misc/maps/oa_rpg3dm2.aas",
+    "sha256": "0dec3f1f54c4d4a9626d5a93c14ff64e04b22a24a0b1eda10dfae8de3ee928a5"
+  },
+  {
+    "path": "sound/world/wind1.wav",
+    "upstream": "openarena-data-0.8.5split.orig/pak0/sound/world/wind1.wav",
+    "sha256": "3a5a1f0c429c7196dc679342c32a5971622e5f11f6eb4e2a22cd083c3e7bc57e"
+  },
+  {
+    "path": "sound/world/ambience03.wav",
+    "upstream": "openarena-data-0.8.5split.orig/pak0/sound/world/ambience03.wav",
+    "sha256": "234eeca20c175c09738bbe20365d4b9d67e38dacf06bdfe8960d9e6117640517"
+  },
+  {
+    "path": "sound/world/tim_pump.wav",
+    "upstream": "openarena-data-0.8.5split.orig/pak0/sound/world/tim_pump.wav",
+    "sha256": "659cb12f30964dd4b996de289cb056e2f610477b14105cb1beba8e4ea09f0bdc"
+  },
+  {
+    "path": "sound/world/monitor_02.wav",
+    "upstream": "openarena-data-0.8.5split.orig/pak0/sound/world/monitor_02.wav",
+    "sha256": "c13adbb71c5e7644e8a5e90157790ee89f2734db3aaf0cf8ca5eb2b1ee2fa753"
+  },
+  {
+    "path": "sound/world/machinerydrone01.wav",
+    "upstream": "openarena-data-0.8.5split.orig/pak0/sound/world/machinerydrone01.wav",
+    "sha256": "6d69dba26b75a61e3674f0d6b1ff60e77cd18f4cad8119681e14339febf9f38f"
+  },
+  {
+    "path": "sound/world/tim_machine.wav",
+    "upstream": "openarena-data-0.8.5split.orig/pak0/sound/world/tim_machine.wav",
+    "sha256": "4099614ee981f1dad31870022d90bbe5548009804ee23584dba5cf634402eab7"
+  },
+  {
+    "path": "sound/world/drone6.wav",
+    "upstream": "openarena-data-0.8.5split.orig/pak0/sound/world/drone6.wav",
+    "sha256": "33126c55b62f57d481ccd0082828b5710b1faf5f1a5db7eb9e08a4321238b75d"
+  }
+]

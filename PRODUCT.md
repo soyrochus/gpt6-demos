@@ -8,11 +8,11 @@ web
 
 ## Product Purpose
 
-GPT6 Demos is a collection of fourteen browser demos and one native desktop demo. Its portal lets visitors discover the demos, watch walkthroughs, and open applications.
+GPT6 Demos is a collection of fifteen browser demos and one native desktop demo. Its portal lets visitors discover the demos, watch walkthroughs, and open applications.
 
 ## Operating Context
 
-The root README and index.html define the current demos, images, video links, and local ports. run-all.sh starts fourteen browser demos on ports 3001–3014 by default and a portal server on port 3000.
+The root README and index.html define the current demos, images, video links, and local ports. run-all.sh starts fifteen browser demos on ports 3001–3015 by default and a portal server on port 3000.
 
 ## Capabilities and Constraints
 

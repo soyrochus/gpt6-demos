@@ -1,0 +1,1034 @@
+{
+  "archive": "arena.pk3",
+  "classes": {
+    "ammo_grenades": 1,
+    "ammo_lightning": 1,
+    "ammo_rockets": 2,
+    "ammo_shells": 1,
+    "info_player_deathmatch": 4,
+    "info_player_intermission": 1,
+    "item_armor_body": 1,
+    "item_armor_combat": 1,
+    "item_armor_shard": 7,
+    "item_health": 4,
+    "item_health_mega": 1,
+    "item_health_small": 7,
+    "target_position": 19,
+    "target_speaker": 31,
+    "trigger_push": 1,
+    "weapon_grenadelauncher": 1,
+    "weapon_lightning": 1,
+    "weapon_rocketlauncher": 2,
+    "weapon_shotgun": 2,
+    "worldspawn": 1
+  },
+  "entities": [
+    {
+      "handling": "World collision and surfaces",
+      "properties": {
+        "classname": "worldspawn",
+        "message": "Trial by Error"
+      }
+    },
+    {
+      "handling": "Spawn position and yaw",
+      "properties": {
+        "angle": "45",
+        "classname": "info_player_deathmatch",
+        "origin": "-480 208 152"
+      }
+    },
+    {
+      "handling": "Spawn position and yaw",
+      "properties": {
+        "angle": "135",
+        "classname": "info_player_deathmatch",
+        "origin": "1088 128 216"
+      }
+    },
+    {
+      "handling": "Spawn position and yaw",
+      "properties": {
+        "angle": "315",
+        "classname": "info_player_deathmatch",
+        "origin": "-192 1728 280"
+      }
+    },
+    {
+      "handling": "Spawn position and yaw",
+      "properties": {
+        "angle": "225",
+        "classname": "info_player_deathmatch",
+        "origin": "864 1728 408"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "item_health",
+        "origin": "-224 32 176"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "ammo_shells",
+        "origin": "496 1376 400"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "ammo_rockets",
+        "origin": "400 1376 400"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "ammo_grenades",
+        "origin": "928 576 208"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "ammo_lightning",
+        "origin": "928 768 208"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "weapon_grenadelauncher",
+        "origin": "304 768 480"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "weapon_lightning",
+        "origin": "320 1152 416"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "item_health",
+        "origin": "-128 1760 272"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "ammo_rockets",
+        "origin": "-224 1664 272"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "item_health",
+        "origin": "1056 1120 208"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "item_health",
+        "origin": "992 1120 208"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "weapon_shotgun",
+        "origin": "1024 192 224"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "item_health_small",
+        "origin": "256 128 272"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "item_health_small",
+        "origin": "192 128 272"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "item_health_small",
+        "origin": "128 128 272"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "item_armor_shard",
+        "origin": "-128 512 272"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "item_armor_shard",
+        "origin": "-128 448 272"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "item_armor_shard",
+        "origin": "-128 384 272"
+      }
+    },
+    {
+      "handling": "Named destination",
+      "properties": {
+        "classname": "target_position",
+        "origin": "-64 192 320",
+        "targetname": "bounce1"
+      }
+    },
+    {
+      "handling": "Inline brush jump pad",
+      "properties": {
+        "classname": "trigger_push",
+        "model": "*1",
+        "target": "bounce1"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "item_armor_shard",
+        "origin": "336 1664 208"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "item_armor_shard",
+        "origin": "384 1664 208"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "item_armor_shard",
+        "origin": "432 1664 208"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "item_armor_shard",
+        "origin": "480 1664 208"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "weapon_rocketlauncher",
+        "origin": "512 1024 216"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "item_armor_combat",
+        "origin": "-96 -96 160"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "weapon_rocketlauncher",
+        "origin": "-352 160 160"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "item_health_mega",
+        "origin": "192 448 480"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "item_armor_body",
+        "origin": "512 1024 32"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "item_health_small",
+        "origin": "-64 1568 272"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "item_health_small",
+        "origin": "-64 1504 272"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "item_health_small",
+        "origin": "-64 1440 272"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "item_health_small",
+        "origin": "-64 1376 272"
+      }
+    },
+    {
+      "handling": "Inventory and timed respawn",
+      "properties": {
+        "classname": "weapon_shotgun",
+        "origin": "-128 1664 280"
+      }
+    },
+    {
+      "handling": "Named destination",
+      "properties": {
+        "classname": "target_position",
+        "origin": "592 -144 144",
+        "targetname": "t1"
+      }
+    },
+    {
+      "handling": "Named destination",
+      "properties": {
+        "classname": "target_position",
+        "origin": "-208 -144 144",
+        "targetname": "t2"
+      }
+    },
+    {
+      "handling": "Named destination",
+      "properties": {
+        "classname": "target_position",
+        "origin": "-400 48 144",
+        "targetname": "t3"
+      }
+    },
+    {
+      "handling": "Named destination",
+      "properties": {
+        "classname": "target_position",
+        "origin": "-400 848 240",
+        "targetname": "t4"
+      }
+    },
+    {
+      "handling": "Named destination",
+      "properties": {
+        "classname": "target_position",
+        "origin": "120 704 296",
+        "targetname": "t5"
+      }
+    },
+    {
+      "handling": "Named destination",
+      "properties": {
+        "classname": "target_position",
+        "origin": "120 960 296",
+        "targetname": "t6"
+      }
+    },
+    {
+      "handling": "Named destination",
+      "properties": {
+        "classname": "target_position",
+        "origin": "448 376 296",
+        "targetname": "t7"
+      }
+    },
+    {
+      "handling": "Named destination",
+      "properties": {
+        "classname": "target_position",
+        "origin": "704 376 296",
+        "targetname": "t8"
+      }
+    },
+    {
+      "handling": "Named destination",
+      "properties": {
+        "classname": "target_position",
+        "origin": "264 896 264",
+        "targetname": "t9"
+      }
+    },
+    {
+      "handling": "Named destination",
+      "properties": {
+        "classname": "target_position",
+        "origin": "264 1024 264",
+        "targetname": "t10"
+      }
+    },
+    {
+      "handling": "Named destination",
+      "properties": {
+        "classname": "target_position",
+        "origin": "760 896 264",
+        "targetname": "t11"
+      }
+    },
+    {
+      "handling": "Named destination",
+      "properties": {
+        "classname": "target_position",
+        "origin": "760 1024 264",
+        "targetname": "t12"
+      }
+    },
+    {
+      "handling": "Named destination",
+      "properties": {
+        "classname": "target_position",
+        "origin": "832 1160 392",
+        "targetname": "t13"
+      }
+    },
+    {
+      "handling": "Named destination",
+      "properties": {
+        "classname": "target_position",
+        "origin": "512 1024 24",
+        "targetname": "t14"
+      }
+    },
+    {
+      "handling": "Named destination",
+      "properties": {
+        "classname": "target_position",
+        "origin": "1256 1512 312",
+        "targetname": "t17"
+      }
+    },
+    {
+      "handling": "Named destination",
+      "properties": {
+        "classname": "target_position",
+        "origin": "1392 1184 248",
+        "targetname": "t18"
+      }
+    },
+    {
+      "handling": "Named destination",
+      "properties": {
+        "classname": "target_position",
+        "origin": "1368 936 248",
+        "targetname": "t19"
+      }
+    },
+    {
+      "handling": "Camera marker",
+      "properties": {
+        "classname": "info_player_intermission",
+        "origin": "-352 384 496",
+        "target": "intermission"
+      }
+    },
+    {
+      "handling": "Named destination",
+      "properties": {
+        "classname": "target_position",
+        "origin": "-272 480 448",
+        "targetname": "intermission"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/ambience03.wav",
+        "origin": "416 1376 448",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/tim_pump.wav",
+        "origin": "280 1024 64",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/monitor_02.wav",
+        "origin": "1344 960 256",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/tim_pump.wav",
+        "origin": "744 1024 64",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/drone6.wav",
+        "origin": "512 1568 256",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/drone6.wav",
+        "origin": "416 1664 256",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/drone6.wav",
+        "origin": "-320 480 192",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/drone6.wav",
+        "origin": "224 -32 192",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/tim_machine.wav",
+        "origin": "1104 624 512",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/tim_machine.wav",
+        "origin": "608 528 512",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/machinerydrone01.wav",
+        "origin": "1280 1216 448",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/machinerydrone01.wav",
+        "origin": "1184 1440 448",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/wind1.wav",
+        "origin": "-96 1024 512",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/wind1.wav",
+        "origin": "-96 1344 512",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/wind1.wav",
+        "origin": "-96 1216 512",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/wind1.wav",
+        "origin": "704 256 512",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/wind1.wav",
+        "origin": "512 128 512",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/wind1.wav",
+        "origin": "320 0 512",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/wind1.wav",
+        "origin": "64 0 512",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/wind1.wav",
+        "origin": "-128 128 512",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/wind1.wav",
+        "origin": "-256 256 512",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/wind1.wav",
+        "origin": "-256 448 512",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/wind1.wav",
+        "origin": "-256 640 512",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/wind1.wav",
+        "origin": "-128 832 512",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/wind1.wav",
+        "origin": "512 960 640",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/drone6.wav",
+        "origin": "-320 416 192",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/drone6.wav",
+        "origin": "160 -32 192",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/machinerydrone01.wav",
+        "origin": "1248 1344 448",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/tim_machine.wav",
+        "origin": "1040 560 512",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/tim_machine.wav",
+        "origin": "544 528 512",
+        "spawnflags": "1"
+      }
+    },
+    {
+      "handling": "Local audio emitter",
+      "properties": {
+        "classname": "target_speaker",
+        "noise": "sound/world/ambience03.wav",
+        "origin": "480 1376 448",
+        "spawnflags": "1"
+      }
+    }
+  ],
+  "map": "maps/oa_rpg3dm2.bsp",
+  "materials": [
+    {
+      "contents": 1,
+      "name": "textures/base_support/metal14_1",
+      "stages": 2,
+      "surfaceFlags": 0,
+      "surfaces": 525
+    },
+    {
+      "contents": 1,
+      "name": "noshader",
+      "stages": 0,
+      "surfaceFlags": 0,
+      "surfaces": 0
+    },
+    {
+      "contents": 1,
+      "name": "textures/base_light/xlight5",
+      "stages": 4,
+      "surfaceFlags": 4096,
+      "surfaces": 175
+    },
+    {
+      "contents": 1,
+      "name": "textures/base_floor/metalbridge04d",
+      "stages": 2,
+      "surfaceFlags": 0,
+      "surfaces": 289
+    },
+    {
+      "contents": 1,
+      "name": "textures/base_trim/pewter",
+      "stages": 2,
+      "surfaceFlags": 0,
+      "surfaces": 1949
+    },
+    {
+      "contents": 1,
+      "name": "textures/base_wall/concrete_dark",
+      "stages": 2,
+      "surfaceFlags": 0,
+      "surfaces": 71
+    },
+    {
+      "contents": 1,
+      "name": "textures/base_support/cable",
+      "stages": 2,
+      "surfaceFlags": 0,
+      "surfaces": 67
+    },
+    {
+      "contents": 1,
+      "name": "textures/base_floor/metfloor1",
+      "stages": 4,
+      "surfaceFlags": 0,
+      "surfaces": 337
+    },
+    {
+      "contents": 1,
+      "name": "textures/base_light/ceil1_34",
+      "stages": 3,
+      "surfaceFlags": 4096,
+      "surfaces": 53
+    },
+    {
+      "contents": 1,
+      "name": "textures/common/caulk",
+      "stages": 0,
+      "surfaceFlags": 3232,
+      "surfaces": 0
+    },
+    {
+      "contents": 1,
+      "name": "textures/base_floor/proto_grate4",
+      "stages": 2,
+      "surfaceFlags": 0,
+      "surfaces": 19
+    },
+    {
+      "contents": 1,
+      "name": "textures/base_trim/dirty_pewter_big",
+      "stages": 2,
+      "surfaceFlags": 0,
+      "surfaces": 81
+    },
+    {
+      "contents": 1,
+      "name": "textures/base_wall/patch10",
+      "stages": 2,
+      "surfaceFlags": 0,
+      "surfaces": 116
+    },
+    {
+      "contents": 1,
+      "name": "textures/base_floor/clang_floor",
+      "stages": 2,
+      "surfaceFlags": 0,
+      "surfaces": 193
+    },
+    {
+      "contents": 1,
+      "name": "textures/base_trim/deeprust",
+      "stages": 2,
+      "surfaceFlags": 0,
+      "surfaces": 2
+    },
+    {
+      "contents": 1,
+      "name": "textures/base_floor/achtung_clang",
+      "stages": 2,
+      "surfaceFlags": 0,
+      "surfaces": 12
+    },
+    {
+      "contents": 1,
+      "name": "textures/base_wall/bluemetalsupport2e",
+      "stages": 4,
+      "surfaceFlags": 0,
+      "surfaces": 17
+    },
+    {
+      "contents": 1,
+      "name": "textures/base_floor/cybergrate2",
+      "stages": 3,
+      "surfaceFlags": 0,
+      "surfaces": 7
+    },
+    {
+      "contents": 1,
+      "name": "textures/base_floor/proto_grill",
+      "stages": 2,
+      "surfaceFlags": 0,
+      "surfaces": 38
+    },
+    {
+      "contents": 536870912,
+      "name": "textures/common/nodraw",
+      "stages": 0,
+      "surfaceFlags": 16544,
+      "surfaces": 0
+    },
+    {
+      "contents": 1,
+      "name": "textures/base_floor/clanggrate",
+      "stages": 2,
+      "surfaceFlags": 0,
+      "surfaces": 86
+    },
+    {
+      "contents": 1,
+      "name": "textures/base_wall/shiny3",
+      "stages": 2,
+      "surfaceFlags": 0,
+      "surfaces": 122
+    },
+    {
+      "contents": 1,
+      "name": "textures/skies/nitesky",
+      "stages": 2,
+      "surfaceFlags": 3092,
+      "surfaces": 16
+    },
+    {
+      "contents": 1,
+      "name": "textures/base_ceiling/metceil1d",
+      "stages": 2,
+      "surfaceFlags": 0,
+      "surfaces": 6
+    },
+    {
+      "contents": 1,
+      "name": "textures/base_floor/skylight1",
+      "stages": 3,
+      "surfaceFlags": 0,
+      "surfaces": 1
+    },
+    {
+      "contents": 536870944,
+      "name": "textures/liquids/vorwater",
+      "stages": 2,
+      "surfaceFlags": 32,
+      "surfaces": 1
+    },
+    {
+      "contents": 1,
+      "name": "textures/sfx/logo512",
+      "stages": 2,
+      "surfaceFlags": 0,
+      "surfaces": 9
+    },
+    {
+      "contents": 65536,
+      "name": "textures/common/clip",
+      "stages": 0,
+      "surfaceFlags": 19632,
+      "surfaces": 0
+    },
+    {
+      "contents": 805306368,
+      "name": "textures/common/hint",
+      "stages": 0,
+      "surfaceFlags": 16528,
+      "surfaces": 0
+    },
+    {
+      "contents": 1,
+      "name": "textures/base_support/support1_1",
+      "stages": 2,
+      "surfaceFlags": 0,
+      "surfaces": 3
+    },
+    {
+      "contents": 1,
+      "name": "textures/base_floor/clang_floor512",
+      "stages": 2,
+      "surfaceFlags": 0,
+      "surfaces": 1
+    },
+    {
+      "contents": 1,
+      "name": "textures/common/trigger",
+      "stages": 0,
+      "surfaceFlags": 128,
+      "surfaces": 0
+    }
+  ],
+  "models": [
+    {
+      "brushes": 1953,
+      "index": 0,
+      "maxs": [
+        1536.00048828125,
+        1920.0,
+        768.0
+      ],
+      "mins": [
+        -640.0039672851562,
+        -384.0023498535156,
+        -128.0
+      ],
+      "surfaces": 4196
+    },
+    {
+      "brushes": 1,
+      "index": 1,
+      "maxs": [
+        -16.0000057220459,
+        240.0,
+        144.0
+      ],
+      "mins": [
+        -176.0,
+        80.0,
+        136.0
+      ],
+      "surfaces": 0
+    }
+  ],
+  "resources": {
+    "textures/base_ceiling/metceil1d.jpg": "arena.pk3",
+    "textures/base_floor/achtung_clang.jpg": "arena.pk3",
+    "textures/base_floor/clang_floor.jpg": "arena.pk3",
+    "textures/base_floor/clang_floor512.jpg": "arena.pk3",
+    "textures/base_floor/clanggrate.jpg": "arena.pk3",
+    "textures/base_floor/cybergrate2.tga": "arena.pk3",
+    "textures/base_floor/metalbridge04d.jpg": "arena.pk3",
+    "textures/base_floor/metfloor1.jpg": "arena.pk3",
+    "textures/base_floor/proto_grate4.tga": "arena.pk3",
+    "textures/base_floor/proto_grill.jpg": "arena.pk3",
+    "textures/base_floor/skylight1.jpg": "arena.pk3",
+    "textures/base_floor/skylight1_lm.jpg": "arena.pk3",
+    "textures/base_light/ceil1_34.blend.tga": "arena.pk3",
+    "textures/base_light/ceil1_34.tga": "arena.pk3",
+    "textures/base_light/xlight5.blend.jpg": "arena.pk3",
+    "textures/base_light/xlight5.jpg": "arena.pk3",
+    "textures/base_support/cable.jpg": "arena.pk3",
+    "textures/base_support/metal14_1.jpg": "arena.pk3",
+    "textures/base_support/support1_1.jpg": "arena.pk3",
+    "textures/base_trim/deeprust.jpg": "arena.pk3",
+    "textures/base_trim/dirty_pewter_big.jpg": "arena.pk3",
+    "textures/base_trim/pewter.jpg": "arena.pk3",
+    "textures/base_wall/bluemetalsupport2e.jpg": "arena.pk3",
+    "textures/base_wall/chrome_env.jpg": "arena.pk3",
+    "textures/base_wall/chrome_env2.jpg": "arena.pk3",
+    "textures/base_wall/concrete_dark.jpg": "arena.pk3",
+    "textures/base_wall/patch10.jpg": "arena.pk3",
+    "textures/base_wall/shiny3.tga": "arena.pk3",
+    "textures/effects/envmap2.tga": "arena.pk3",
+    "textures/liquids/vorwater.tga": "arena.pk3",
+    "textures/sfx/logo512.jpg": "arena.pk3",
+    "textures/sfx/portal_sfx_ring_electric.jpg": "arena.pk3",
+    "textures/skies/nitesky.jpg": "arena.pk3",
+    "textures/skies/stars.jpg": "arena.pk3"
+  },
+  "title": "Trial by Error",
+  "warnings": []
+}

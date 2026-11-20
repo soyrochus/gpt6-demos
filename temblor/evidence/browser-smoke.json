@@ -1,0 +1,93 @@
+{
+  "browser": "157.0.8103.80",
+  "gpu": {
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "description": "",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "dpr": 1
+  },
+  "wasm": "025c76a0e9901c9d5d6d64d6458437166049f35c0995a069d64b744bcc95d676",
+  "verifiedSource": "e27ad82e74ecbb87323079278b894c7048bf7bb66d65d2a27931dcb87d2419f6",
+  "errors": [],
+  "spawn": {
+    "ammo": 100,
+    "armor": 0,
+    "bot": [
+      -69.9181137084961,
+      1592.27099609375,
+      280.0481872558594
+    ],
+    "botHealth": 129,
+    "gun": 2,
+    "health": 124,
+    "ms": 1000,
+    "owned": [
+      false,
+      true,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "pain": 0,
+    "pitch": 0,
+    "pos": [
+      -480,
+      208,
+      152.125
+    ],
+    "scores": [
+      0,
+      0
+    ],
+    "visible": false,
+    "weapon": "Machinegun",
+    "winner": null,
+    "yaw": 0.7853981852531433
+  },
+  "pause": {
+    "ammo": 96,
+    "armor": 0,
+    "bot": [
+      100.80499267578125,
+      1666.0054931640625,
+      280.0481872558594
+    ],
+    "botHealth": 129,
+    "gun": 2,
+    "health": 124,
+    "ms": 1576,
+    "owned": [
+      false,
+      true,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "pain": 0,
+    "pitch": -0.5478000044822693,
+    "pos": [
+      -393.28466796875,
+      143.05018615722656,
+      160.125
+    ],
+    "scores": [
+      0,
+      0
+    ],
+    "visible": false,
+    "weapon": "Machinegun",
+    "winner": null,
+    "yaw": -0.6424018740653992
+  }
+}

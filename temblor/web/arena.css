@@ -1,0 +1,412 @@
+/* SPDX-License-Identifier: GPL-2.0-or-later */
+:root {
+  color-scheme: dark;
+  --ink: #f6f2e8;
+  --muted: #c5c4b6;
+  --burn: #ff7846;
+  --panel: #171b19;
+  font-family: "Arial", sans-serif;
+  color: var(--ink);
+  background: #0b0e0d;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+button,
+select,
+input {
+  font: inherit;
+}
+button,
+a,
+input,
+select {
+  outline-offset: 5px;
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--burn);
+}
+button {
+  cursor: pointer;
+}
+button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+canvas,
+#hud,
+#menu {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+canvas {
+  display: block;
+}
+#menu {
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(24px, 5vw, 76px);
+  background: #111713;
+  justify-content: space-between;
+}
+.poster {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(9, 13, 12, 0.92),
+      rgba(9, 13, 12, 0.5) 56%,
+      rgba(9, 13, 12, 0.1)
+    ),
+    linear-gradient(0deg, #0c100ff2, transparent 48%),
+    url(arena.jpg) 50% 48% / cover;
+  filter: saturate(0.68);
+}
+header,
+footer,
+.actions,
+.score,
+#top {
+  display: flex;
+  align-items: center;
+}
+header {
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  font-size: 15px;
+  gap: 10px;
+}
+.edition,
+footer,
+.score small,
+#top,
+small {
+  color: var(--muted);
+}
+.edition {
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+}
+.mark {
+  width: 24px;
+  height: 22px;
+  background: var(--burn);
+  clip-path: polygon(
+    0 100%,
+    55% 0,
+    82% 0,
+    26% 100%,
+    39% 100%,
+    84% 24%,
+    100% 46%,
+    69% 100%
+  );
+}
+h1,
+h2,
+p {
+  margin: 0;
+}
+h1 {
+  text-transform: uppercase;
+  font-size: clamp(4rem, 11vw, 10rem);
+  font-family: "Arial Narrow", "Helvetica Neue", sans-serif;
+  font-style: italic;
+  font-weight: 950;
+  letter-spacing: -0.04em;
+  line-height: 0.93;
+}
+.titleblock p {
+  font-size: clamp(16px, 2vw, 23px);
+  margin: 20px 0 36px;
+}
+.titleblock p span {
+  color: var(--burn);
+  margin: 0 0.4em;
+}
+.actions {
+  gap: 12px;
+  flex-wrap: wrap;
+}
+button,
+.file {
+  background: #1b211fff;
+  color: var(--ink);
+  border: 1px solid #6b716a;
+  padding: 14px 20px;
+  font-weight: 650;
+  border-radius: 2px;
+}
+button:hover,
+.file:hover {
+  background: #303730;
+}
+.primary {
+  border-color: var(--burn);
+  background: var(--burn);
+  color: #1a100c;
+}
+.primary:hover {
+  background: #ff9567;
+}
+#play {
+  min-width: 145px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#play i {
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 9px solid currentColor;
+}
+#status,
+#importStatus {
+  min-height: 1.5em;
+  margin-top: 16px;
+  color: #e4ddcd;
+  max-width: 70ch;
+  line-height: 1.5;
+}
+footer {
+  font-size: 13px;
+  justify-content: space-between;
+  gap: 20px;
+}
+footer div {
+  display: flex;
+  gap: 22px;
+}
+a {
+  color: var(--ink);
+  text-underline-offset: 4px;
+}
+dialog {
+  background: var(--panel);
+  color: var(--ink);
+  padding: 28px;
+  width: min(480px, 94vw);
+  border: 1px solid #737970;
+  box-shadow: 0 10px 32px #0009;
+}
+dialog::backdrop {
+  background: #080a09bb;
+}
+dialog form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+h2 {
+  font-size: 30px;
+  letter-spacing: -0.03em;
+}
+.close {
+  padding: 0 10px;
+  font-size: 24px;
+}
+dialog p {
+  line-height: 1.5;
+}
+dl {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+dd {
+  margin: 0;
+  color: var(--muted);
+}
+label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 16px 0;
+}
+input[type="range"] {
+  accent-color: var(--burn);
+  width: 45%;
+}
+.file {
+  display: block;
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+}
+.file input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.file:focus-within {
+  outline: 3px solid var(--burn);
+}
+select {
+  max-width: 80%;
+  padding: 8px;
+}
+#hud {
+  pointer-events: none;
+  text-shadow: 0 2px 4px #000;
+  font-variant-numeric: tabular-nums;
+}
+#top,
+.score,
+#vitals,
+#loadout,
+#board,
+#death,
+#feed {
+  position: absolute;
+}
+#top {
+  left: 3%;
+  top: 3%;
+  gap: 12px;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.09em;
+  color: white;
+}
+.score {
+  right: 3%;
+  top: 3%;
+  gap: 10px;
+  padding: 8px 12px;
+  background: #0b100cdb;
+  font-size: 12px;
+}
+.score b {
+  font-size: 20px;
+}
+.score span:first-child b {
+  color: #ffc297;
+}
+.score small {
+  font-size: 10px;
+}
+#reticle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 15px;
+  height: 15px;
+  transform: translate(-50%, -50%);
+  background:
+    linear-gradient(white, white) center/2px 100% no-repeat,
+    linear-gradient(white, white) center/100% 2px no-repeat;
+  filter: drop-shadow(0 1px 1px black);
+}
+#reticle.hit {
+  transform: translate(-50%, -50%) rotate(45deg);
+  filter: drop-shadow(0 0 3px #ff5800);
+}
+#vitals,
+#loadout {
+  bottom: 4%;
+  padding: 8px 16px;
+  background: #0c100de6;
+}
+#vitals {
+  left: 3%;
+  display: flex;
+  gap: 24px;
+}
+#loadout {
+  right: 3%;
+  text-align: right;
+}
+#hud small {
+  display: block;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+#vitals strong,
+#loadout strong {
+  font-size: 38px;
+  line-height: 1;
+}
+#hp {
+  color: #ffac77;
+}
+#feed {
+  left: 3%;
+  top: 10%;
+  color: #fff2ce;
+}
+#death,
+#board {
+  left: 50%;
+  top: 40%;
+  transform: translateX(-50%);
+  padding: 20px 28px;
+  text-align: center;
+  background: #101611ed;
+  font-size: 24px;
+}
+#board {
+  top: 22%;
+}
+#menu.paused {
+  background: #0c100edb;
+}
+#menu.paused .poster {
+  display: none;
+}
+#menu.paused h1 {
+  font-size: clamp(55px, 8vw, 108px);
+}
+[hidden],
+#menu[hidden] {
+  display: none !important;
+}
+::selection {
+  background: var(--burn);
+  color: #111;
+}
+@media (max-width: 650px) {
+  footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  header .edition {
+    display: none;
+  }
+  .actions {
+    gap: 8px;
+  }
+  button {
+    padding: 12px 15px;
+  }
+}
+
+#inventory {
+  width: min(78ch, 94vw);
+}
+#inventoryText {
+  font-size: 12px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 60vh;
+  overflow: auto;
+}

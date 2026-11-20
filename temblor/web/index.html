@@ -1,0 +1,128 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: GPL-2.0-or-later -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#101211" />
+    <meta name="description" content="Temblor is a Rust-based engine for Quake III Arena maps. Play a bot match on OpenArena’s Trial by Error in your browser." />
+    <link rel="icon" href="data:," />
+    <title>Temblor · Arena</title>
+    <link rel="stylesheet" href="arena.css" />
+  </head>
+  <body>
+    <canvas
+      id="arena"
+      width="1280"
+      height="720"
+      aria-label="First-person arena"
+    ></canvas>
+    <main id="menu">
+      <div class="poster"></div>
+      <header>
+        <span class="mark" aria-hidden="true"></span> TEMBLOR
+        <span class="edition">/ ARENA ENGINE</span>
+      </header>
+      <section id="lobby">
+        <div class="titleblock">
+          <h1 id="title">Temblor</h1>
+          <p id="subtitle">
+            Trial by Error <span> / </span> One on one <span> / </span> First to
+            five
+          </p>
+        </div>
+        <div class="actions">
+          <button id="play" class="primary" disabled>
+            Play <i aria-hidden="true"></i></button
+          ><button id="import">Load local game files</button
+          ><button id="help">Controls</button
+          ><button id="details" hidden>Map details</button>
+        </div>
+        <p id="status" role="status">Checking WebGPU…</p>
+      </section>
+      <footer>
+        <span>Rust-based engine for Quake III Arena maps</span>
+        <div>
+          <a href="notices.html" target="_blank" rel="noopener">Licenses</a
+          ><a href="temblor-source.tar.gz" download>Corresponding source ↓</a>
+        </div>
+      </footer>
+    </main>
+    <dialog id="controls">
+      <form method="dialog">
+        <h2>Controls</h2>
+        <button class="close" aria-label="Close">×</button>
+      </form>
+      <dl>
+        <dt>Move</dt>
+        <dd>W A S D</dd>
+        <dt>Look / fire</dt>
+        <dd>Mouse / primary</dd>
+        <dt>Jump / crouch</dt>
+        <dd>Space / C</dd>
+        <dt>Weapon</dt>
+        <dd>1–9 / wheel</dd>
+        <dt>Scores / pause</dt>
+        <dd>Tab / Esc</dd>
+      </dl>
+      <label
+        >Mouse sensitivity
+        <input
+          id="sensitivity"
+          type="range"
+          min="0.4"
+          max="3"
+          step="0.1"
+          value="1" /></label
+      ><label
+        >Volume
+        <input id="volume" type="range" min="0" max="1" step="0.05" value="0.5"
+      /></label>
+    </dialog>
+    <dialog id="inventory">
+      <form method="dialog">
+        <h2>Map details</h2>
+        <button class="close" aria-label="Close">×</button>
+      </form>
+      <pre id="inventoryText"></pre>
+    </dialog>
+    <dialog id="files">
+      <form method="dialog">
+        <h2>Local game files</h2>
+        <button class="close" aria-label="Close">×</button>
+      </form>
+      <p>
+        Select your baseq3 PK3 archives together, including pak0.pk3 and
+        available patches. Files stay on this device.
+      </p>
+      <label class="file"
+        >Choose PK3 archives
+        <input id="archives" type="file" accept=".pk3" multiple /></label
+      ><label id="maprow" hidden>Map<select id="maps"></select></label>
+      <p role="status" id="importStatus"></p>
+      <button id="enter" class="primary" disabled>Play selected map</button>
+    </dialog>
+    <section id="hud" hidden aria-label="Match HUD">
+      <div id="top">
+        <b id="mapname">Trial by Error</b><span id="timer"></span>
+      </div>
+      <div class="score">
+        <span>YOU <b id="you">0</b></span
+        ><span>BOT <b id="bot">0</b></span
+        ><small>LIMIT 5</small>
+      </div>
+      <div id="reticle"></div>
+      <div id="feed"></div>
+      <div id="vitals">
+        <div><small>Health</small><strong id="hp">125</strong></div>
+        <div><small>Armor</small><strong id="armor">0</strong></div>
+      </div>
+      <div id="loadout">
+        <small id="weapon">Machinegun</small><strong id="ammo">100</strong>
+      </div>
+      <div id="death" hidden>Fragged <small>Respawning…</small></div>
+      <div id="board" hidden></div>
+    </section>
+    <script type="module" src="host.js"></script>
+  </body>
+</html>

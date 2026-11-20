@@ -1,0 +1,128 @@
+{
+  "engine": "Temblor 0.1.0",
+  "sourceRevision": "a6bee252064603d47343e550cb4f66631696738335b6968cf7f1fb0ef3dc93e5",
+  "rustc": "rustc 1.100.0 (0ef1bc386 2026-11-09)",
+  "bindgen": "0.2.114",
+  "files": {
+    "arena.css": {
+      "bytes": 6343,
+      "sha256": "122b71b4726c11e610bb3e71dfd7472a79cdcb48df46862d6c7f02cd1dc8968f"
+    },
+    "arena.jpg": {
+      "bytes": 14075,
+      "sha256": "0e72666c9fa91208e859e8b9e62f46c0c9d92618ebd9c41a3e0166a8441d2457"
+    },
+    "arena.pk3": {
+      "bytes": 3891059,
+      "sha256": "ff075a1895c4c0ab6557360370dc2e6c326303f7d605e27270c1eb3c3ab4626b"
+    },
+    "audio.js": {
+      "bytes": 3636,
+      "sha256": "fc3b270ebcbbb502f919a434922c06dbcf3fd68da0095003373708da2a5961ae"
+    },
+    "dependencies.json": {
+      "bytes": 9699,
+      "sha256": "99f3dc43a47e2888b722ecf4dc85414e5675a98963bdf1f12b961e2a7bf8ecbf"
+    },
+    "host.js": {
+      "bytes": 12244,
+      "sha256": "71d2c9c57e53f315b0928be8b5e0bb68ce0ca65c6a700264b614965617b86eb9"
+    },
+    "index.html": {
+      "bytes": 4317,
+      "sha256": "2de7bef14390dca553c1ae6b3542f446f9719e22b5763f99825930563786da05"
+    },
+    "licenses/COPYING": {
+      "bytes": 15148,
+      "sha256": "fac9da110d1433f4df0cb9f5dda9449e9aff6ee236ed240fa29e3e92926c363a"
+    },
+    "licenses/ENGINE.md": {
+      "bytes": 3346,
+      "sha256": "0614ff0ab2832fff7d5cffe33a9c1f94dfbafbabc4340a001f6bdc2f0b6a0c70"
+    },
+    "licenses/manifest.json": {
+      "bytes": 11793,
+      "sha256": "660904584f79c19afc089db1b881622be92990f1be958214c636d48029fa2be6"
+    },
+    "licenses/openarena-data.copyright": {
+      "bytes": 2506,
+      "sha256": "1dce40781117bdd291ef6234ac2173567b9f6c3aea0d3bd86f145d89f5a653a0"
+    },
+    "licenses/openarena-maps.copyright": {
+      "bytes": 2506,
+      "sha256": "1dce40781117bdd291ef6234ac2173567b9f6c3aea0d3bd86f145d89f5a653a0"
+    },
+    "licenses/openarena-misc.copyright": {
+      "bytes": 2506,
+      "sha256": "1dce40781117bdd291ef6234ac2173567b9f6c3aea0d3bd86f145d89f5a653a0"
+    },
+    "licenses/openarena-textures.copyright": {
+      "bytes": 2506,
+      "sha256": "1dce40781117bdd291ef6234ac2173567b9f6c3aea0d3bd86f145d89f5a653a0"
+    },
+    "licenses/pak0-COPYING": {
+      "bytes": 17992,
+      "sha256": "32b1062f7da84967e7019d01ab805935caa7ab7321a7ced0e30ebe75e5df1670"
+    },
+    "licenses/pak0-CREDITS": {
+      "bytes": 2847,
+      "sha256": "d26d738819666e597ebf949481ac363e5ded338e0fbf0737efed4080870b8ee2"
+    },
+    "licenses/pak0-CREDITS-0.8.5": {
+      "bytes": 2934,
+      "sha256": "9f65a5eed481334ff8b142b532e0bb4aa4ec7d52f11a7d3e80a29324dd58170f"
+    },
+    "licenses/pak1-maps-COPYING": {
+      "bytes": 17992,
+      "sha256": "32b1062f7da84967e7019d01ab805935caa7ab7321a7ced0e30ebe75e5df1670"
+    },
+    "licenses/pak1-maps-CREDITS": {
+      "bytes": 2847,
+      "sha256": "d26d738819666e597ebf949481ac363e5ded338e0fbf0737efed4080870b8ee2"
+    },
+    "licenses/pak1-maps-CREDITS-0.8.5": {
+      "bytes": 2934,
+      "sha256": "9f65a5eed481334ff8b142b532e0bb4aa4ec7d52f11a7d3e80a29324dd58170f"
+    },
+    "licenses/pak4-textures-COPYING": {
+      "bytes": 17992,
+      "sha256": "32b1062f7da84967e7019d01ab805935caa7ab7321a7ced0e30ebe75e5df1670"
+    },
+    "licenses/pak4-textures-CREDITS": {
+      "bytes": 2847,
+      "sha256": "d26d738819666e597ebf949481ac363e5ded338e0fbf0737efed4080870b8ee2"
+    },
+    "licenses/pak6-misc-COPYING": {
+      "bytes": 17992,
+      "sha256": "32b1062f7da84967e7019d01ab805935caa7ab7321a7ced0e30ebe75e5df1670"
+    },
+    "licenses/pak6-misc-CREDITS": {
+      "bytes": 2847,
+      "sha256": "d26d738819666e597ebf949481ac363e5ded338e0fbf0737efed4080870b8ee2"
+    },
+    "licenses/pak6-misc-CREDITS-0.8.5": {
+      "bytes": 2934,
+      "sha256": "9f65a5eed481334ff8b142b532e0bb4aa4ec7d52f11a7d3e80a29324dd58170f"
+    },
+    "licenses/rpg3dm2source.txt": {
+      "bytes": 2479,
+      "sha256": "b5c3e377fdbc8555ea2e4569ec999b82903534e5067d3622728792cd8d8dbf89"
+    },
+    "notices.html": {
+      "bytes": 2080,
+      "sha256": "5b90b7591bf7957e6cb56536154aabe16dfeaa48733f7923c6b9da9834229ac1"
+    },
+    "pkg/temblor.js": {
+      "bytes": 67474,
+      "sha256": "81d4542359ae44f12aab883d9df2a56afb242a5afe781e1d710a9b248482bad2"
+    },
+    "pkg/temblor_bg.wasm": {
+      "bytes": 853009,
+      "sha256": "025c76a0e9901c9d5d6d64d6458437166049f35c0995a069d64b744bcc95d676"
+    },
+    "temblor-source.tar.gz": {
+      "bytes": 13520433,
+      "sha256": "6df5c22e76008710db7feaaebbcb7de0ef3f9fcba1b61e9d25e0524d4adb0dfb"
+    }
+  }
+}

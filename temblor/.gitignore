@@ -1,0 +1,11 @@
+/target/
+/node_modules/
+.DS_Store
+# Retail game data is never a release input.
+/baseq3/
+/private-data/
+*.pk3
+!assets/arena.pk3
+!release/arena.pk3
+*.bsp
+!assets/source/maps/oa_rpg3dm2.bsp

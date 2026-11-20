@@ -1,0 +1,21 @@
+cargo test --release --locked --offline -- --nocapture
+running 3 tests
+test game::rules_tests::blocked_shots_misses_empty_and_armor ... ok
+test game::rules_tests::pickup_returns_and_dead_actor_cannot_shoot ... ok
+test game::rules_tests::rocket_travel_splash_and_suicide ... ok
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+running 7 tests
+test jump_crosses_gap_and_oblique_wall_slides ... ok
+test low_ceiling_blocks_jump_and_standing_up ... ok
+reference case 0 max coordinate error 0.000030517578
+reference case 1 max coordinate error 0.14385605
+reference case 2 max coordinate error 0.0000076293945
+reference case 3 max coordinate error 0.00012207031
+test reference_commands ... ok
+test rejects_invalid_inputs ... ok
+test real_jump_pad_launches_through_touch_volume ... ok
+test real_map_and_materials ... ok
+test seeded_bot_five_frags_and_rematch ... ok
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.22s
+running 0 tests
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s

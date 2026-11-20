@@ -1,0 +1,22 @@
+diff --git a/code/game/g_main.c b/code/game/g_main.c
+index ed5d4ea..b55e0ee 100644
+--- a/code/game/g_main.c
++++ b/code/game/g_main.c
+@@ -1873,7 +1873,16 @@ void G_RunFrame( int levelTime ) {
+ 	CheckTournament();
+ 
+ 	// see if it is time to end the level
+-	CheckExitRules();
++	if (level.framenum % 20 == 0) {
++        int agent;
++        for (agent=0; agent<level.maxclients; agent++) {
++            gclient_t *c = &level.clients[agent];
++            if (c->pers.connected == CON_CONNECTED) {
++                G_Printf("TRACE %d %d %d %.1f %.1f %.1f %d %d\n", level.time, agent, c->ps.weapon, c->ps.origin[0], c->ps.origin[1], c->ps.origin[2], c->ps.stats[STAT_HEALTH], c->ps.persistant[PERS_SCORE]);
++            }
++        }
++    }
++    CheckExitRules();
+ 
+ 	// update to team status?
+ 	CheckTeamStatus();

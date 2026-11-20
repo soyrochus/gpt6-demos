@@ -1,0 +1,38 @@
+{
+  "pkg/temblor_bg.wasm": {
+    "shipping": "025c76a0e9901c9d5d6d64d6458437166049f35c0995a069d64b744bcc95d676",
+    "clean": "025c76a0e9901c9d5d6d64d6458437166049f35c0995a069d64b744bcc95d676"
+  },
+  "pkg/temblor.js": {
+    "shipping": "81d4542359ae44f12aab883d9df2a56afb242a5afe781e1d710a9b248482bad2",
+    "clean": "81d4542359ae44f12aab883d9df2a56afb242a5afe781e1d710a9b248482bad2"
+  },
+  "arena.pk3": {
+    "shipping": "ff075a1895c4c0ab6557360370dc2e6c326303f7d605e27270c1eb3c3ab4626b",
+    "clean": "ff075a1895c4c0ab6557360370dc2e6c326303f7d605e27270c1eb3c3ab4626b"
+  },
+  "audio.js": {
+    "shipping": "fc3b270ebcbbb502f919a434922c06dbcf3fd68da0095003373708da2a5961ae",
+    "clean": "fc3b270ebcbbb502f919a434922c06dbcf3fd68da0095003373708da2a5961ae"
+  },
+  "host.js": {
+    "shipping": "71d2c9c57e53f315b0928be8b5e0bb68ce0ca65c6a700264b614965617b86eb9",
+    "clean": "71d2c9c57e53f315b0928be8b5e0bb68ce0ca65c6a700264b614965617b86eb9"
+  },
+  "index.html": {
+    "shipping": "2de7bef14390dca553c1ae6b3542f446f9719e22b5763f99825930563786da05",
+    "clean": "2de7bef14390dca553c1ae6b3542f446f9719e22b5763f99825930563786da05"
+  },
+  "arena.css": {
+    "shipping": "122b71b4726c11e610bb3e71dfd7472a79cdcb48df46862d6c7f02cd1dc8968f",
+    "clean": "122b71b4726c11e610bb3e71dfd7472a79cdcb48df46862d6c7f02cd1dc8968f"
+  },
+  "temblor-source.tar.gz": {
+    "shipping": "6df5c22e76008710db7feaaebbcb7de0ef3f9fcba1b61e9d25e0524d4adb0dfb",
+    "clean": "6df5c22e76008710db7feaaebbcb7de0ef3f9fcba1b61e9d25e0524d4adb0dfb"
+  },
+  "build.json": {
+    "shipping": "901960a08e8222c3dabd7d4c5229c2a26503ef79e754849362d5fd8743ab45e3",
+    "clean": "901960a08e8222c3dabd7d4c5229c2a26503ef79e754849362d5fd8743ab45e3"
+  }
+}

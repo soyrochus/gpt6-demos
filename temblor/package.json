@@ -1,0 +1,13 @@
+{
+  "name": "temblor-browser-checks",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun scripts/serve.ts",
+    "demo": "python3 -m http.server 8080 --bind 127.0.0.1 --directory release",
+    "test:browser": "node tests/browser.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.65.1"
+  }
+}

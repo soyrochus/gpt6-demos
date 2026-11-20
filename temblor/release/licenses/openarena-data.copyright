@@ -1,0 +1,69 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: OpenArena
+Upstream-Contact: https://openarena.ws/
+Source:
+  https://openarena.ws/download.php?view.2 (oa081.zip)
+  https://openarena.ws/download.php?view.3 (oa085p.zip)
+  https://openarena.ws/download.php?view.5 (oa088p.zip)
+  https://openarena.ws/svn/source/assets/ (source files)
+  https://www.moddb.com/members/neon-knight/addons/openarena-community-mappack-volume-1-v3-re-release (oacmp-volume1-v3.zip)
+  .
+  The "orig" tarballs are derived from the downloadable files listed above,
+  with the engine, non-free files etc. removed, the PK3 files unpacked, and
+  source files added (where the files from the PK3 are not themselves the
+  preferred form for modification). See README.source for full details.
+
+Files: *
+Copyright:
+  © 2005-2012 OpenArena Team (see CREDITS, CREDITS-0.8.5, CREDITS-0.8.8)
+  © 1997-2006 id Software, Inc.
+  © Seth and Ulrich Galbraith (no year specified)
+  © 2003 Robert P. Gove Jr. (R.P.G.)
+  © 2006 jzero
+  © 2006-2008 leileilol
+  © 2006-2007 Bob Isaac (Dmn_clown)
+  © 2007 Cestmir Houska (Czestmyr)
+  © 2007 Enki
+  © 2006-2008 Chris Holden
+  © 2007-2008 Blake John Heatly
+  © 2008 Fuzztooth (mancubus.net)
+  © 2010 Poul Sander (Sago007)
+  © 2010 Zimmermann Gyula
+  © 2010 Jens Loehr
+  © 2013 Gig
+  © 2013 Jan Groothuijse
+  © 2014 Cosimo Pederiva (Akom74)
+  © 2014 Luciano Balducchi (Neon_Knight)
+  © 2014 Moixie
+  © Yves Allaire (evillair)
+  © Simon O'Callaghan (sock)
+License: GPL-2+
+
+Files: debian/*
+Copyright:
+  © 2010 Bruno Kleinert
+  © 2010-2015 Simon McVittie
+License: GPL-2+
+
+Files:
+ debian/list-pk3.pl
+ debian/qvmbrute.c
+Copyright:
+ © 2010 Simon McVittie <smcv@debian.org>
+License: permissive
+ Copying and distribution of this file, with or without modification, are
+ permitted in any medium without royalty provided this notice is preserved.
+ This file is offered as-is, without any warranty.
+
+License: GPL-2+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU General Public License
+  as published by the Free Software Foundation; either version 2
+  of the License, or (at your option) any later version.
+  .
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+  .
+  You can find the GPL license text on a Debian system under
+  /usr/share/common-licenses/GPL-2.

@@ -14,6 +14,7 @@ Each project tests a different part of software development.
 
 | Case study | Engineering focus | AI use while running the application |
 | --- | --- | --- |
+| Temblor | Reproducing Quake III movement and running a full bot match on an existing OpenArena map | The bot runs locally in Rust/Wasm |
 | Dipper | Transforming real astronomical catalogues and checking the view against independent ephemerides | Runs locally in the browser |
 | Fuel Left | Translating a photographed table and written rules into an original 3D pinball game | Runs locally in the browser |
 | Elfspace | Building an interactive 3D scene and a responsive score in 15 minutes | Runs locally in the browser |
@@ -22,6 +23,10 @@ Each project tests a different part of software development.
 | Assemblavatar | Generating executable modelling code, inspecting rendered results, and managing refinement | GPT-6 Astra generates and evaluates models; handwritten examples and manual source builds work without an API key |
 
 The repository presents these applications as demonstrations of GPT6-assisted software development. Exact development-model attribution, original prompts, elapsed effort, and the division of human and agent work still need to be supplied for Digital Logic Laboratory, NotAVirus, and Assemblavatar. Assemblavatar's documented runtime model is a separate fact from the models used to build the application.
+
+## Temblor
+
+Temblor is a Rust-based engine for Quake III Arena maps. It loads the bundled OpenArena map *Trial by Error* from a PK3 archive, reads its BSP geometry, and uses its AAS reachability data to guide the bot. The player and bot issue commands to the same Rust simulation every eight milliseconds, while WebGPU draws the arena. Movement tests replay commands against recorded output from the original Quake III code. Browser tests picked up weapons and played six matches to the frag limit, with three wins on each side. The retail map test remains open pending an owner’s local files. [Engine specification](./temblor/specs/spec-quake3-engine.md) · [Match logs and verification](./temblor/evidence/README.md)
 
 ## Dipper
 

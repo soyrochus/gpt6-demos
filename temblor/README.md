@@ -1,0 +1,40 @@
+# Temblor
+
+Temblor is a Rust-based engine for playing Quake III Arena maps in a browser. It compiles to WebAssembly and renders with WebGPU. The demo bundles OpenArena’s *Trial by Error* for a first-to-five match against a local bot.
+
+Run **`./play`**, open **http://127.0.0.1:8080**, and click **Play** in desktop Chromium with hardware WebGPU. The checked-in release needs only Python 3 to serve it. Any HTTPS static host can serve the contents of `release/`.
+
+From the GPT6 Demos repository root, run `./run-all.sh` and choose **Temblor** in the [preview gallery](http://localhost:3000/portal/). The shared launcher serves the game at base port + 15. To run just that service, use `bun run dev` from this directory and open [localhost:3015](http://localhost:3015/). Set `PORT` to choose another port.
+
+![The rocket launcher and orange pickups inside Trial by Error during a browser match](evidence/release-fight.png)
+
+Fight one bot to five frags in **Trial by Error**. Move with WASD, aim with the mouse, fire with the primary button, jump with Space and crouch with C. Switch weapons with the number row or wheel, hold Tab for scores and press Escape to pause. Controls includes sensitivity and volume. Collect the orange rocket launcher near the starting corridor and use the pillars for cover. Both actors respawn after a frag. Click **Rematch** on the final score.
+
+| Content | Runtime coverage |
+| --- | --- |
+| OpenArena `maps/oa_rpg3dm2.bsp` | Real BSP and AAS, four starts, one inline jump pad, shallow and deep water, health, armor, ammunition and spatial ambient speakers. Gauntlet, machinegun, shotgun, grenade launcher, rocket launcher and lightning gun. |
+| Retail `maps/q3dm1.bsp` | Local PK3 import, base and patch precedence, map selection and shared runtime. Retail gameplay acceptance remains open pending an owner's licensed files. |
+| Desktop Chromium / WebGPU | Single-threaded Rust/Wasm with wgpu. See [acceptance evidence](evidence/README.md) for the browser, adapter, frame timing and outstanding observations. |
+
+## Local Quake III Arena files
+
+Pause and choose **Load local game files**. Select `baseq3/pak0.pk3` and installed patch PK3s together, choose `maps/q3dm1.bsp`, then **Play selected map**. The picker reads bytes locally. The engine mounts the selected packages into a fresh filesystem. Higher numeric patches override earlier ones, then map packages override patches in lexical order. **Map details** in the pause menu lists entities, handling, materials and archive origins. A failed import preserves the previous session. Run `node tests/match.mjs --retail /path/to/baseq3` with the release server running for the automated retail match. The driver writes retail evidence to a private temporary directory. For human verification, complete the route, item, frag, defeat and rematch procedure in [the acceptance notes](evidence/README.md). Keep licensed archives and captures private.
+
+## Build and check
+
+Use Rust 1.100.0, Python 3.11+, the wasm32-unknown-unknown target and wasm-bindgen-cli 0.2.114. For browser tests install Bun and Google Chrome.
+
+```sh
+rustup target add wasm32-unknown-unknown
+cargo install wasm-bindgen-cli --version 0.2.114 --locked
+./scripts/build.sh
+./play
+```
+
+`WASM_BINDGEN=/path/to/wasm-bindgen` selects an existing matching CLI. If the system Python predates 3.11, set `PYTHON=python3.14` or another installed 3.11+ interpreter. The build checks every content input in `assets/manifest.json`, packages the static application and places complete corresponding source beside it. For native development run `cargo test --release --locked`. Inspect the map with `cargo run --release --example inspect -- maps/oa_rpg3dm2.bsp assets/arena.pk3` and replay a seeded match with `cargo run --release --example replay`.
+
+With the release server running, use `bun install --frozen-lockfile`, then `npm run test:browser`, `node tests/import.mjs`, `node tests/route.mjs` and `MATCHES=6 node tests/match.mjs`. Set `HEADLESS=1` for a headless hardware run. The match driver uses real keyboard and relative mouse input. Set `TEMBLOR_URL` to test another static deployment. Build output hashes are in [release/build.json](release/build.json). Package provenance and source revisions are in [notices/ENGINE.md](notices/ENGINE.md).
+
+Simulation runs in 8 ms steps, with 320 units/s ground speed, gravity 800, friction 6, ground acceleration 10 and air acceleration 1. The host consumes timestamped input at step boundaries, interpolates actor positions and caps accumulated frame debt at 120 ms. Focus loss clears controls and freezes simulation time. Tests exercise the same command interface as the player and bot.
+
+Original project code is GPL-2.0-or-later. The **Licenses** and **Corresponding source** links on the launch screen accompany the exact deployed Wasm.
