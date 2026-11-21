@@ -1,10 +1,32 @@
 # Temblor
 
-Temblor is a Rust-based engine for playing Quake III Arena maps in a browser. It compiles to WebAssembly and renders with WebGPU. The demo bundles OpenArena’s *Trial by Error* for a first-to-five match against a local bot.
+Temblor is a first-person arena shooter for desktop browsers on Linux and macOS. Play a one-on-one match against a local bot in OpenArena’s *Trial by Error*. Collect weapons, health and armor, and score five frags to win. The engine is written in Rust, runs as WebAssembly and draws the arena with WebGPU. The bundled match requires no extra downloads or retail game files.
+
+## Play
 
 Run **`./play`**, open **http://127.0.0.1:8080**, and click **Play** in desktop Chromium with hardware WebGPU. The checked-in release needs only Python 3 to serve it. Any HTTPS static host can serve the contents of `release/`.
 
 From the GPT6 Demos repository root, run `./run-all.sh` and choose **Temblor** in the [preview gallery](http://localhost:3000/portal/). The shared launcher serves the game at base port + 15. To run just that service, use `bun run dev` from this directory and open [localhost:3015](http://localhost:3015/). Set `PORT` to choose another port.
+
+## Where to download free PK3 files
+
+A `.pk3` is a ZIP-format archive for game data. A map’s `.bsp` describes its geometry, lighting and item placement. The textures, shaders and sounds it uses can be in the same PK3 or in companion archives.
+
+| Download | What you get | Use with Temblor |
+| --- | --- | --- |
+| [Trial by Error — arena.pk3](release/arena.pk3?raw=true) | The self-contained 3.7 MiB OpenArena package shipped with Temblor. | Use this file for a first import. It contains the tested map and all its dependencies. |
+| [OpenArena 0.8.8 full download](https://sourceforge.net/projects/oarena/files/openarena-0.8.8.zip/download) | The free OpenArena distribution. Extract the outer ZIP and open the `baseoa/` folder to find its PK3s. | For *Trial by Error*, select the map and companion data archives together. Temblor’s bundled version draws from `pak0`, `pak1-maps`, `pak4-textures` and `pak6-misc`. |
+| [OpenArena community PK3 directory](https://download.tuxfamily.org/openarena/autodownload/baseoa/) | Individual map downloads, including [Community Mappack Volume 1](https://download.tuxfamily.org/openarena/autodownload/baseoa/z_oacmp-volume1-v3.pk3). | These are additional maps for OpenArena. Temblor’s current picker lists only `maps/oa_rpg3dm2.bsp` and the retail `maps/q3dm1.bsp`. |
+
+### Import a downloaded arena
+
+1. Start Temblor, click **Play**, then press **Escape** to pause.
+2. Click **Load local game files** → **Choose PK3 archives**. For the tested example, select `arena.pk3`. For a split distribution, select all required PK3s in one file selection. Leave each PK3 intact.
+3. Choose `maps/oa_rpg3dm2.bsp` and click **Play selected map**. Files are read locally in your browser.
+
+If the picker reports **No supported map found**, the selected archives contain neither supported BSP path. If it names a missing texture, select the map PK3 again together with its companion data packs.
+
+## Browser setup and controls
 
 **Ubuntu and “No WebGPU adapter.”** In Chrome, open `chrome://flags/#enable-vulkan`, set **Vulkan** to **Enabled**, and click **Relaunch**. Reopen Temblor and click **Play**. On Ubuntu 26.04.1 with AMD Radeon Vega graphics and Chrome 158, graphics acceleration was already active and enabling Vulkan made the hardware adapter available. If the message persists, check **Use graphics acceleration when available** in `chrome://settings/system` and the WebGPU diagnostics in `chrome://gpu`.
 
