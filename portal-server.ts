@@ -26,6 +26,7 @@ const assets = new Map([
     "fuel-left.png",
     "dipper.png",
     "temblor.png",
+    "temblor-atrium.png",
   ].map((name) => [`/images/${name}`, `images/${name}`]),
 ]);
 

@@ -10,6 +10,8 @@ Run **`./play`**, open **http://127.0.0.1:8080**, and click **Play** in desktop 
 
 From the GPT6 Demos repository root, run `./run-all.sh` and choose **Temblor** in the [preview gallery](http://localhost:3000/portal/). The shared launcher serves the game at base port + 15. To run just that service, use `bun run dev` from this directory and open [localhost:3015](http://localhost:3015/). Set `PORT` to choose another port.
 
+![A first-person view from the upper walkway, with a grenade launcher in hand and water below the red arena banner](../images/temblor-atrium.png)
+
 ## Where to download free PK3 files
 
 A `.pk3` is a ZIP-format archive for game data. A map’s `.bsp` describes its geometry, lighting and item placement. The textures, shaders and sounds it uses can be in the same PK3 or in companion archives.
@@ -32,7 +34,7 @@ If the picker reports **No supported map found**, the selected archives contain 
 
 **Ubuntu and “No WebGPU adapter.”** In Chrome, open `chrome://flags/#enable-vulkan`, set **Vulkan** to **Enabled**, and click **Relaunch**. Reopen Temblor and click **Play**. On Ubuntu 26.04.1 with AMD Radeon Vega graphics and Chrome 158, graphics acceleration was already active and enabling Vulkan made the hardware adapter available. If the message persists, check **Use graphics acceleration when available** in `chrome://settings/system` and the WebGPU diagnostics in `chrome://gpu`.
 
-![Major and the equipped weapon during a match in Trial by Error](evidence/release-fight.png)
+![A blue lightning beam hits Major on the metal walkway in Trial by Error](../images/temblor.png)
 
 Fight one bot to five frags in **Trial by Error**. Move with WASD, aim with the mouse, fire with the primary button, jump with Space and crouch with C. Switch weapons with the number row or wheel, hold Tab for scores and press Escape to pause. In **Controls**, choose **Native** (the default) for the display’s physical resolution, or **Performance** to cap rendering at 1,280 pixels wide. Mouse sensitivity and HUD size are the same in both modes. Collect the rocket launcher near the starting corridor and use the pillars for cover. Both actors respawn after a frag. Click **Rematch** on the final score.
 

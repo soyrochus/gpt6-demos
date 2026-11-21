@@ -303,7 +303,7 @@ Temblor brings Quake III Arena maps to the browser using Rust, WebAssembly, and 
 
 **Ubuntu setup.** If Temblor reports “No WebGPU adapter,” open `chrome://flags/#enable-vulkan` in Chrome, set **Vulkan** to **Enabled**, and click **Relaunch**. Reopen Temblor and click **Play**.
 
-<a href="./temblor/README.md"><img src="./images/temblor.png" alt="Rocket launcher and orange pickups on a grated walkway in Trial by Error" width="480"></a>
+<a href="./temblor/README.md"><img src="./images/temblor.png" alt="A blue lightning beam hits Major on the metal walkway in Trial by Error" width="480"></a>
 
 [Source, controls and setup](./temblor/README.md) · [Engine specification](./temblor/specs/spec-quake3-engine.md) · [Test results and map compatibility](./temblor/evidence/README.md)
 

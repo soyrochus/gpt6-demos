@@ -34,7 +34,7 @@ test("portal routing retains redirect, HEAD, and source-file protection", async 
   expect(redirect.headers.get("Location")).toBe("/portal/");
   expect(await (await get("/portal/", "HEAD")).text()).toBe("");
   expect((await get("/run-all.sh")).status).toBe(404);
-  for (const name of ["not-a-virus", "tracework", "dmt-experience", "fuel-left", "dipper", "temblor"]) expect((await get(`/images/${name}.png`)).status).toBe(200);
+  for (const name of ["not-a-virus", "tracework", "dmt-experience", "fuel-left", "dipper", "temblor", "temblor-atrium"]) expect((await get(`/images/${name}.png`)).status).toBe(200);
   expect((await get("/%zz")).status).toBe(400);
   expect((await get("/", "POST")).status).toBe(405);
   for (const value of [0, -1, 65521, 3000.5, NaN]) expect(() => validateBasePort(value)).toThrow();
