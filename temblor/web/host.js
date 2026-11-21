@@ -35,7 +35,7 @@ let engine,
   hitUntil = 0;
 const seed =
   Number(new URLSearchParams(location.search).get("seed") || 1813) >>> 0;
-const named = () => info?.title || "Trial by Error";
+const named = () => info?.title || info?.map || "Arena";
 const status = (text) => {
   $("status").textContent = text;
 };
@@ -171,7 +171,8 @@ async function play(local = false) {
         const r = await fetch("arena.pk3");
         if (!r.ok) throw Error("Arena download failed. Click Play to retry.");
         pack.mount("temblor-arena.pk3", new Uint8Array(await r.arrayBuffer()));
-        name = "maps/oa_rpg3dm2.bsp";
+        [name] = JSON.parse(pack.maps());
+        if (!name) throw Error("The bundled arena archive contains no maps.");
       }
       const speakers = JSON.parse(pack.speakers(name));
       const sounds = await audio.prepare(speakers, pack);
@@ -266,12 +267,10 @@ $("archives").onchange = async (e) => {
       packs.mount(f.name, new Uint8Array(await f.arrayBuffer()));
     }
     if (token !== selection) return;
-    const maps = JSON.parse(packs.maps()).filter(
-      (m) => m === "maps/q3dm1.bsp" || m === "maps/oa_rpg3dm2.bsp",
-    );
+    const maps = JSON.parse(packs.maps());
     if (!maps.length)
       throw Error(
-        "No supported map found. Select the archives containing maps/q3dm1.bsp or maps/oa_rpg3dm2.bsp.",
+        "No maps found. Select a PK3 containing a .bsp file in its maps/ folder.",
       );
     $("maps").replaceChildren(...maps.map((m) => new Option(m, m)));
     pending = packs;

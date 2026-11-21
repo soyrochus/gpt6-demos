@@ -8,6 +8,7 @@ colors:
   panel: "#171b19"
 typography:
   display:
+    fontFamily: "Arial Narrow, Helvetica Neue, sans-serif"
     fontSize: "clamp(4rem, 11vw, 10rem)"
     fontWeight: 950
     lineHeight: 0.93

@@ -1,49 +1,55 @@
 {
   "checks": [
     "corrupt PK3",
+    "archive without maps",
     "bad-bsp",
     "wrong-version",
     "missing",
     "pak2 then pak0",
-    "pak0 then pak2"
+    "pak0 then pak2",
+    "load a custom map by name after a sibling fails"
   ],
   "errors": [],
   "requests": [
     {
       "method": "GET",
-      "url": "http://127.0.0.1:3015/"
+      "url": "http://127.0.0.1:49267/"
     },
     {
       "method": "GET",
-      "url": "http://127.0.0.1:3015/arena.css"
+      "url": "http://127.0.0.1:49267/arena.css"
     },
     {
       "method": "GET",
-      "url": "http://127.0.0.1:3015/host.js"
+      "url": "http://127.0.0.1:49267/host.js"
     },
     {
       "method": "GET",
-      "url": "http://127.0.0.1:3015/arena.jpg"
+      "url": "http://127.0.0.1:49267/arena.jpg"
     },
     {
       "method": "GET",
-      "url": "http://127.0.0.1:3015/pkg/temblor.js"
+      "url": "http://127.0.0.1:49267/pkg/temblor.js"
     },
     {
       "method": "GET",
-      "url": "http://127.0.0.1:3015/audio.js"
+      "url": "http://127.0.0.1:49267/peek.js"
     },
     {
       "method": "GET",
-      "url": "http://127.0.0.1:3015/pkg/temblor_bg.wasm"
+      "url": "http://127.0.0.1:49267/audio.js"
     },
     {
       "method": "GET",
-      "url": "http://127.0.0.1:3015/arena.pk3"
+      "url": "http://127.0.0.1:49267/pkg/temblor_bg.wasm"
     },
     {
       "method": "GET",
-      "url": "http://127.0.0.1:3015/actors.pk3"
+      "url": "http://127.0.0.1:49267/arena.pk3"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:49267/actors.pk3"
     }
   ]
 }

@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 use crate::{
+    batches::{append_range, layer_lookup, DrawRange, TextureBatches, COLOR_SLOTS},
     bsp::Map,
     draw::{self, Vertex},
     game::Game,
@@ -8,7 +9,6 @@ use crate::{
 };
 use glam::{Mat4, Vec3};
 use wgpu::util::DeviceExt;
-const BANKS: usize = 15; // WebGPU guarantees 16 sampled textures, including the lightmaps.
 pub struct Renderer {
     surface: wgpu::Surface<'static>,
     device: wgpu::Device,
@@ -27,12 +27,40 @@ pub struct Scene {
     pub peek_mesh: Vec<f32>,
     actors: crate::models::Actors,
     lighting: crate::models::LightGrid,
-    bind: wgpu::BindGroup,
+    groups: Vec<wgpu::BindGroup>,
+    material_group: Vec<usize>,
+    single_actor_group: bool,
     verts: wgpu::Buffer,
     indices: wgpu::Buffer,
-    opaque: u32,
-    total: u32,
+    opaque: Vec<DrawRange>,
+    translucent: Vec<DrawRange>,
     offsets: wgpu::Buffer,
+}
+impl Scene {
+    fn draw_world(&self, pass: &mut wgpu::RenderPass<'_>, ranges: &[DrawRange]) {
+        pass.set_vertex_buffer(0, self.verts.slice(..));
+        pass.set_index_buffer(self.indices.slice(..), wgpu::IndexFormat::Uint32);
+        for range in ranges {
+            pass.set_bind_group(0, &self.groups[range.group], &[]);
+            pass.draw_indexed(range.indices.clone(), 0, 0..1);
+        }
+    }
+
+    fn draw_actors(&self, pass: &mut wgpu::RenderPass<'_>, vertices: &[Vertex], first: u32) {
+        if self.single_actor_group {
+            pass.set_bind_group(0, &self.groups[0], &[]);
+            pass.draw(first..first + vertices.len() as u32, 0..1);
+            return;
+        }
+        let group = |v: &Vertex| self.material_group[v.material()];
+        let mut start = first;
+        for run in vertices.chunk_by(|a, b| group(a) == group(b)) {
+            let end = start + run.len() as u32;
+            pass.set_bind_group(0, &self.groups[group(&run[0])], &[]);
+            pass.draw(start..end, 0..1);
+            start = end;
+        }
+    }
 }
 fn depth(d: &wgpu::Device, c: &wgpu::SurfaceConfiguration) -> wgpu::TextureView {
     d.create_texture(&wgpu::TextureDescriptor {
@@ -156,7 +184,7 @@ impl Renderer {
                 },
             ),
         ];
-        entries.extend((0..BANKS).map(|i| entry(6 + i as u32, S::FRAGMENT, tex)));
+        entries.extend((0..COLOR_SLOTS).map(|i| entry(6 + i as u32, S::FRAGMENT, tex)));
         let layout = device.create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {
             label: Some("Arena materials"),
             entries: &entries,
@@ -278,25 +306,25 @@ impl Renderer {
         // Only equal-sized images share an array. The layer table also handles
         // animated shader stages whose successive frames have different sizes.
         let mut banks: Vec<((u32, u32), Vec<&[u8]>)> = Vec::new();
-        let mut indices = Vec::new();
+        let mut image_layers = Vec::new();
         for texture in &p.layers {
             let dims = texture.image.dimensions();
             let bank = match banks.iter().position(|(d, _)| *d == dims) {
                 Some(i) => i,
-                None if banks.len() < BANKS => {
+                None => {
                     banks.push((dims, Vec::new()));
                     banks.len() - 1
                 }
-                None => {
-                    return Err(format!(
-                        "{}: exceeds {BANKS} distinct texture sizes",
-                        texture.name
-                    ))
-                }
             };
-            indices.push([bank as u32, banks[bank].1.len() as u32]);
+            image_layers.push([bank as u32, banks[bank].1.len() as u32]);
             banks[bank].1.push(texture.image.as_raw());
         }
+        let first_skin = m.materials.len() + 1;
+        let plan = TextureBatches::plan(banks.len(), &image_layers, &p.materials, first_skin)
+            .map_err(|id| {
+                // Skins have a single texture stage. Only BSP materials can overflow.
+                format!("{}: one material exceeds {COLOR_SLOTS} distinct texture sizes across its stages and animation frames", m.materials[id - 1].name)
+            })?;
         let views: Vec<_> = banks
             .iter()
             .map(|((w, h), layers)| self.array(*w, *h, layers, true))
@@ -319,7 +347,7 @@ impl Renderer {
             mipmap_filter: wgpu::FilterMode::Linear,
             ..Default::default()
         });
-        let make = |label, contents, usage| {
+        let make = |label, contents: &[u8], usage| {
             self.device
                 .create_buffer_init(&wgpu::util::BufferInitDescriptor {
                     label: Some(label),
@@ -338,40 +366,48 @@ impl Renderer {
             (m.models.len() * 16) as u64,
             wgpu::BufferUsages::STORAGE,
         );
-        let entry = |binding, resource| wgpu::BindGroupEntry { binding, resource };
-        let lookup = make(
-            "Texture layers",
-            bytemuck::cast_slice(&indices),
-            wgpu::BufferUsages::STORAGE,
-        );
-        let mut entries = vec![
-            entry(0, self.uniform.as_entire_binding()),
-            entry(1, lookup.as_entire_binding()),
-            entry(2, wgpu::BindingResource::TextureView(&lights)),
-            entry(3, wgpu::BindingResource::Sampler(&sampler)),
-            entry(4, mat.as_entire_binding()),
-            entry(5, offsets.as_entire_binding()),
-        ];
-        entries.extend((0..BANKS).map(|i| {
-            entry(
-                6 + i as u32,
-                wgpu::BindingResource::TextureView(views.get(i).unwrap_or(&views[0])),
-            )
-        }));
-        let bind = self.device.create_bind_group(&wgpu::BindGroupDescriptor {
-            label: None,
-            layout: &self.layout,
-            entries: &entries,
-        });
+        let mut groups = Vec::new();
+        for banks in &plan.groups {
+            let entry = |binding, resource| wgpu::BindGroupEntry { binding, resource };
+            let lookup = make(
+                "Batch texture layers",
+                bytemuck::cast_slice(&layer_lookup(banks, &image_layers)),
+                wgpu::BufferUsages::STORAGE,
+            );
+            let mut entries = vec![
+                entry(0, self.uniform.as_entire_binding()),
+                entry(1, lookup.as_entire_binding()),
+                entry(2, wgpu::BindingResource::TextureView(&lights)),
+                entry(3, wgpu::BindingResource::Sampler(&sampler)),
+                entry(4, mat.as_entire_binding()),
+                entry(5, offsets.as_entire_binding()),
+            ];
+            entries.extend((0..COLOR_SLOTS).map(|i| {
+                entry(
+                    6 + i as u32,
+                    wgpu::BindingResource::TextureView(
+                        &views[banks.get(i).copied().unwrap_or(0) as usize],
+                    ),
+                )
+            }));
+            groups.push(self.device.create_bind_group(&wgpu::BindGroupDescriptor {
+                label: Some("Arena texture batch"),
+                layout: &self.layout,
+                entries: &entries,
+            }));
+        }
         let mut v = vec![];
         let mut ix = vec![];
+        let mut translucent_indices = vec![];
+        let mut opaque = vec![];
         let mut translucent = vec![];
         let mut models = vec![0u32; m.faces.len()];
         for (i, model) in m.models.iter().enumerate() {
             models[model.faces.clone()].fill(i as u32)
         }
         for (fi, f) in m.faces.iter().enumerate() {
-            if f.indices.is_empty() || m.materials[f.material].flags & 0x80 != 0 {
+            let material = f.material + 1;
+            if f.indices.is_empty() || p.materials[material].meta[0] == 0 {
                 continue;
             }
             let base = v.len() as u32;
@@ -382,15 +418,24 @@ impl Renderer {
                     (f.light + 1).max(0) as u32 | (models[fi] << 16),
                 ))
             }
-            let target = if p.materials[f.material + 1].meta[1] == 1 {
-                &mut translucent
+            let (target, ranges) = if p.materials[material].meta[1] == 1 {
+                (&mut translucent_indices, &mut translucent)
             } else {
-                &mut ix
+                (&mut ix, &mut opaque)
             };
+            let start = target.len() as u32;
             target.extend(f.indices.iter().map(|i| base + i));
+            append_range(
+                ranges,
+                plan.material_group[material],
+                start..target.len() as u32,
+            );
         }
-        let opaque = ix.len() as u32;
-        ix.extend(translucent);
+        let split = ix.len() as u32;
+        for range in &mut translucent {
+            range.indices = split + range.indices.start..split + range.indices.end;
+        }
+        ix.extend(translucent_indices);
         if ix.is_empty() {
             return Err("No drawable map surfaces".into());
         }
@@ -398,7 +443,9 @@ impl Renderer {
             peek_mesh: crate::peek::mesh(m, &models),
             actors,
             lighting: crate::models::LightGrid::new(m),
-            bind,
+            groups,
+            single_actor_group: plan.material_group[first_skin..].iter().all(|&g| g == 0),
+            material_group: plan.material_group,
             offsets,
             verts: make(
                 "Map vertices",
@@ -411,7 +458,7 @@ impl Renderer {
                 wgpu::BufferUsages::INDEX,
             ),
             opaque,
-            total: ix.len() as u32,
+            translucent,
         })
     }
     pub fn limit(&self) -> u32 {
@@ -498,21 +545,17 @@ impl Renderer {
                 timestamp_writes: None,
                 occlusion_query_set: None,
             });
-            pass.set_bind_group(0, &s.bind, &[]);
             if overlay {
                 pass.set_pipeline(&self.weapon);
                 pass.set_vertex_buffer(0, self.dynamic.slice(..));
-                pass.draw(n as u32..v.len() as u32, 0..1)
+                s.draw_actors(&mut pass, &v[n..], n as u32);
             } else {
                 pass.set_pipeline(&self.pipeline);
-                pass.set_vertex_buffer(0, s.verts.slice(..));
-                pass.set_index_buffer(s.indices.slice(..), wgpu::IndexFormat::Uint32);
-                pass.draw_indexed(0..s.opaque, 0, 0..1);
+                s.draw_world(&mut pass, &s.opaque);
                 pass.set_vertex_buffer(0, self.dynamic.slice(..));
-                pass.draw(0..n as u32, 0..1);
+                s.draw_actors(&mut pass, &v[..n], 0);
                 pass.set_pipeline(&self.water);
-                pass.set_vertex_buffer(0, s.verts.slice(..));
-                pass.draw_indexed(s.opaque..s.total, 0, 0..1)
+                s.draw_world(&mut pass, &s.translucent);
             }
         }
         self.queue.submit(Some(enc.finish()));

@@ -46,7 +46,7 @@ The public BSP SHA-256 is `0f8cca68b7c2eecff3815dfd7c3733377eb0ab56f1461b9b71c5e
 
 `tests/route.mjs` drives a real browser from the first deathmatch start through the rocket pickup and the inline jump pad. It also exercises an unsupported adapter and a denied pointer-lock attempt followed by a successful retry. The import test reconstructs two temporary PK3s from the public fixture, checks both selection orders and verifies that errors leave the prior arena playable. The retail procedure can be run with `node tests/match.mjs --retail /path/to/baseq3`. Only that run uses the owner's archives.
 
-The target covers local free-for-all on the supported maps. Input code accepts additional BSPs through the native inspector. A complete Quake shader interpreter, third-party mods, additional game types and network play are outside the current release.
+The browser importer and native inspector accept Quake III Arena IBSP version 46 maps by their contents. The match and movement observations above apply to the named fixtures. A complete Quake shader interpreter, third-party game-code mods, additional game types and network play are outside the current release.
 
 ## Character, weapon and resolution checks
 
@@ -104,3 +104,19 @@ In a separate rocket encounter, Veteran and Expert each hit a steady strafe for 
 `node tests/peek.mjs` checks keyboard level selection, the paused clock and pose, drag, zoom, held P, movement after closing, level changes, rematch and local PK3 import. It opens the map from both play and paused Controls. The import uses the bundled OpenArena fixture through the file picker. [Peek in Trial by Error](peek.png)
 
 Human tuning remains open. First-time players should try Rookie and Easy. For experienced Quake duelists, alternate Standard, Veteran and Expert after a warm-up and keep each measured match at one level. Record final scores and which mistakes were punished. The Veteran target is 40–60% wins against this group, with Expert winning more often. Licensed retail map verification also remains open.
+
+## Texture batching
+
+Chrome 158 on Linux with AMD GCN 5 graphics imported Arena Gate from the Quake III Arena demo. The scene, including the bundled actor skins and white fallback, used 18 distinct image dimensions in two bind groups. Map details reported the original 66 × 640 column texture. The torch cycled through flame images and the lava channel displayed its lava texture. The torch still showed a dark rectangular edge. The material interpreter also reported unsupported flame brightness waveforms and lava UV turbulence.
+
+The standard match driver completed two rounds on Arena Gate, both won by the bot. In a separate keyboard-and-mouse run, the driver pursued the nearby shotgun and won 5–1 on Rookie. The rematch reset both scores to zero and the Standard bot won 5–0 against an idle player. Both rounds retained the same two bind groups. The demo PK3 and its captures stayed private.
+
+Run `node tests/texture-batches.mjs` against the release to reproduce the public rendering comparison. It builds two versions of Trial by Error with identical solid colors and animated frames. Four camera views matched pixel for pixel between scenes using 5 and 38 image dimensions. A third fixture put 16 sizes into one animated material. The load error named the material, and redrawing the previous scene produced the same pixels.
+
+## Map discovery and compatibility
+
+Chrome listed all four maps in the unmodified Quake III demo PK3. Arena Gate, The Longest Yard, Temple of Retribution and The Proving Grounds each entered a match, accepted movement, opened Peek with the correct map title and resumed play. Temple of Retribution contains a fog material with no image stages. Temblor skips drawing that volume and reports the missing fog effect in **Map details**.
+
+A separate native replay used seed 1813 and a scripted player that pursued and fired at the Standard bot. Arena Gate, Temple of Retribution and The Proving Grounds reached five frags and reset the scores on rematch. The Longest Yard reached 1 to −1 after ten simulated minutes. A second run with an idle player also ended the ten-minute observation window below the frag limit on The Longest Yard and The Proving Grounds.
+
+The public import regression builds a PK3 with a renamed arena and an incompatible sibling. It selects the incompatible level, checks the version error, then starts the valid one from the same archive. It also checks an archive with no maps and both archive selection orders. [Import test](../tests/import.mjs) · [Results](import.json)

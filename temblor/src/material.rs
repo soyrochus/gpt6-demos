@@ -174,6 +174,16 @@ impl Palette {
             let sky = m.flags & 4 != 0;
             let mut stages = vec![];
             if let Some(s) = script {
+                // A fog-only shader describes a volume and has no surface image.
+                let fog = m.contents & 0x40 != 0
+                    || s.outer
+                        .iter()
+                        .any(|line| line.first().is_some_and(|token| token == "fogparms"));
+                if fog && s.stages.is_empty() {
+                    p.warnings
+                        .push(format!("{}: fog volume shading is unsupported", m.name));
+                    continue;
+                }
                 mat.meta[1] = s
                     .outer
                     .iter()

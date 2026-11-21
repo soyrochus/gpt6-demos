@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 pub mod aas;
+#[cfg(any(test, target_arch = "wasm32"))]
+mod batches;
 mod bot;
 #[cfg(target_arch = "wasm32")]
 mod browser;

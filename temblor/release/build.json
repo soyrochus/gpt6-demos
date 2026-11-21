@@ -1,6 +1,6 @@
 {
   "engine": "Temblor 0.1.0",
-  "sourceRevision": "64fbbb55ab6e65be0694987b1458d8f0d29b9a7e16d382b25b5380b9eff42e3a",
+  "sourceRevision": "86aaab8e25d67d2eeb7e1c6fccf0141000abc0fb0ead2d5acfb8c1df76dafa87",
   "rustc": "rustc 1.100.0 (0ef1bc386 2026-11-09)",
   "bindgen": "0.2.114",
   "files": {
@@ -29,12 +29,12 @@
       "sha256": "450b49f6a63e0ecb8427581ff4067223fd44022550f81f65f73358ad4881914e"
     },
     "host.js": {
-      "bytes": 15128,
-      "sha256": "7722a3b102ad6d433be2cce16fd07cab68a04747946ba8ec7f9c73d43f497819"
+      "bytes": 15111,
+      "sha256": "003722503a29b7474b8a1fecbd747deccfd2185c59f7f52f693a790751cfb95d"
     },
     "index.html": {
-      "bytes": 5975,
-      "sha256": "17a7d37aec65b8360fb9ed51f79891bbc8bf746bc458bd2abd695b7fe38a9005"
+      "bytes": 5976,
+      "sha256": "d69abcf1706daaa996564a8b311a24ffcbc6316eb0034a814c81b9d6f9992cbc"
     },
     "licenses/COPYING": {
       "bytes": 15148,
@@ -138,11 +138,11 @@
     },
     "pkg/temblor.js": {
       "bytes": 75018,
-      "sha256": "68760f68619a43115688dcf44b070500272f034a3238f71b456cd53c7b49a767"
+      "sha256": "3f42a0b855fa0f14438d1a9f9cf2968fc7365b6c7df0cbb7ce8fec891eebf6dd"
     },
     "pkg/temblor_bg.wasm": {
-      "bytes": 908925,
-      "sha256": "20cf2e049d94997cf19c2745bcd4da731fa663d7cf9631b4ab9104f581a17b00"
+      "bytes": 914324,
+      "sha256": "0a68f6d293bdc46c17b1ec958db8fcdc66ea77227ed81d77e1c8bb7a70dc8980"
     }
   }
 }

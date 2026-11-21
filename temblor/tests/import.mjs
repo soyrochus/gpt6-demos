@@ -19,6 +19,13 @@ with zipfile.ZipFile(d/'pak0.pk3','w') as a,zipfile.ZipFile(d/'pak2.pk3','w') as
   if n==bsp or n.startswith('textures/base_light/'):b.writestr(n,f)
 for name,data in [('bad-bsp',b'invalid'),('wrong-version',b'IBSP'+(47).to_bytes(4,'little')+bytes(150)),('missing',z.read(bsp))]:
  with zipfile.ZipFile(d/(name+'.pk3'),'w') as a:a.writestr(bsp,data)
+with zipfile.ZipFile(d/'community.pk3','w') as a:
+ for name in z.namelist():
+  if name != 'textures/base_floor/metalbridge04d.jpg':
+   a.writestr(name.replace('maps/oa_rpg3dm2.', 'Maps/Community-Duel.'),z.read(name))
+ a.writestr('scripts/test_fog.shader','textures/base_floor/metalbridge04d { fogparms ( 1 1 1 ) 800 }')
+ a.writestr('maps/incompatible.bsp',b'IBSP'+(47).to_bytes(4,'little')+bytes(150))
+with zipfile.ZipFile(d/'assets-only.pk3','w') as a:a.writestr('notes/example.bsp',b'')
 (d/'corrupt.pk3').write_bytes(b'bad archive')`,
     dir,
   ]);
@@ -56,6 +63,14 @@ for name,data in [('bad-bsp',b'invalid'),('wrong-version',b'IBSP'+(47).to_bytes(
     document.querySelector("#importStatus").textContent.includes("Invalid PK3"),
   );
   checks.push("corrupt PK3");
+  await choose(["assets-only"]);
+  await page.waitForFunction(() =>
+    document
+      .querySelector("#importStatus")
+      .textContent.includes("No maps found"),
+  );
+  assert.equal(await page.locator("#enter").isDisabled(), true);
+  checks.push("archive without maps");
   for (const [file, expected] of [
     ["bad-bsp", "IBSP"],
     ["wrong-version", "version"],
@@ -92,6 +107,33 @@ for name,data in [('bad-bsp',b'invalid'),('wrong-version',b'IBSP'+(47).to_bytes(
     await pause();
     checks.push(order.join(" then "));
   }
+  await choose(["community"]);
+  await page.locator("#maprow").waitFor();
+  assert.deepEqual(
+    await page
+      .locator("#maps option")
+      .evaluateAll((options) => options.map((o) => o.value)),
+    ["maps/community-duel.bsp", "maps/incompatible.bsp"],
+  );
+  await page.selectOption("#maps", "maps/incompatible.bsp");
+  await page.click("#enter");
+  await page.waitForFunction(() =>
+    document
+      .querySelector("#importStatus")
+      .textContent.includes("Unsupported BSP version 47"),
+  );
+  await page.selectOption("#maps", "maps/community-duel.bsp");
+  await page.click("#enter");
+  await page.waitForFunction(
+    () => temblorReport.active && temblorReport.state.ms > 0,
+  );
+  const custom = await page.evaluate(() => temblorReport.info);
+  assert.equal(custom.map, "maps/community-duel.bsp");
+  const stages = (name) => custom.materials.find((m) => m.name === name).stages;
+  assert.equal(stages("textures/base_floor/metalbridge04d"), 0);
+  assert.ok(stages("textures/liquids/vorwater") > 0);
+  assert.ok(custom.warnings.some((w) => w.includes("fog volume shading")));
+  checks.push("load a custom map by name after a sibling fails");
   assert(
     requests.every(
       (r) =>

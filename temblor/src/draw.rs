@@ -15,6 +15,10 @@ pub struct Vertex {
     ids: [u32; 2],
 }
 impl Vertex {
+    #[cfg(target_arch = "wasm32")]
+    pub(crate) fn material(&self) -> usize {
+        self.ids[0] as usize
+    }
     pub fn world(p: Point, m: u32, l: u32) -> Self {
         Self {
             p: p.pos.to_array(),
