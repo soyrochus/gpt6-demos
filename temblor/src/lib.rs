@@ -9,6 +9,8 @@ pub mod draw;
 pub mod game;
 pub mod inventory;
 pub mod material;
+pub mod md3;
+pub mod models;
 pub mod movement;
 pub mod mover;
 pub mod nav;

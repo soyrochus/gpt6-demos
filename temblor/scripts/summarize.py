@@ -10,12 +10,13 @@ import statistics
 parser = argparse.ArgumentParser()
 parser.add_argument("--machine", required=True)
 parser.add_argument("--os", required=True)
+parser.add_argument("--evidence-dir", default="evidence")
 args = parser.parse_args()
 root = Path(__file__).resolve().parents[1]
-evidence = root / "evidence"
+evidence = root / args.evidence_dir
 run = json.loads((evidence / "release-matches.json").read_text())
 build = json.loads((root / "release/build.json").read_text())
-for name in ("pkg/temblor_bg.wasm", "arena.pk3", "pkg/temblor.js", "host.js", "audio.js"):
+for name in ("pkg/temblor_bg.wasm", "actors.pk3", "arena.pk3", "pkg/temblor.js", "host.js", "audio.js"):
     assert build["files"][name] == run["build"]["files"][name], name
 matches = run["matches"]
 assert len(matches) == 6 and {m["state"]["winner"] for m in matches} == {0, 1}
@@ -57,6 +58,8 @@ observations = {
     "os": args.os,
     "browser": run["browser"],
     "device": run["device"],
+    "sourceRevision": build["sourceRevision"],
+    "actors": build["files"]["actors.pk3"],
     "wasm": build["files"]["pkg/temblor_bg.wasm"],
     "arena": build["files"]["arena.pk3"],
     "coldNavigationToControlMs": round(run["coldToControlMs"], 1),
@@ -75,7 +78,7 @@ observations = {
         "longestFrameMs": round(max(frames), 1),
         "framesOver50Ms": sum(dt > 50 for dt in frames),
         "longestFrameAcrossSixMatchesMs": round(max(max(m["frames"]) for m in matches), 1),
-        "targetPassed": median <= 16.7 and p95 <= 33.3,
+        "targetPassed": (median <= 16.7 and p95 <= 33.3) if run["device"]["resolution"] == [1280,720] else None,
     },
     "retail": "Open: licensed baseq3 files unavailable",
     "humanPlaytest": "Open: no feedback received",

@@ -86,6 +86,7 @@ pub struct Map {
     pub models: Vec<Model>,
     pub faces: Vec<Face>,
     pub lights: Vec<u8>,
+    pub light_grid: Vec<u8>,
 }
 fn entities(data: &[u8]) -> Result<Vec<Entity>> {
     let text = String::from_utf8_lossy(data);
@@ -366,6 +367,7 @@ impl Map {
             models,
             faces,
             lights: l[14].to_vec(),
+            light_grid: l[15].to_vec(),
         })
     }
 }

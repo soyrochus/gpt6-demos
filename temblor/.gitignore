@@ -7,5 +7,7 @@
 *.pk3
 !assets/arena.pk3
 !release/arena.pk3
+!assets/actors.pk3
+!release/actors.pk3
 *.bsp
 !assets/source/maps/oa_rpg3dm2.bsp

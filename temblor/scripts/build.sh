@@ -9,6 +9,6 @@ test "$("$bindgen" --version)" = "wasm-bindgen 0.2.114" || { echo "Install wasm-
 mkdir -p release/pkg
 "$bindgen" --target web --no-typescript --out-dir release/pkg target/wasm32-unknown-unknown/release/temblor.wasm
 cp web/index.html web/arena.css web/host.js web/audio.js release/
-cp assets/arena.pk3 release/
+cp assets/actors.pk3 assets/arena.pk3 release/
 cp assets/source/levelshots/oa_rpg3dm2.jpg release/arena.jpg
 "${PYTHON:-python3}" scripts/source.py

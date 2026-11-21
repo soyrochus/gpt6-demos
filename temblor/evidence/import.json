@@ -11,35 +11,39 @@
   "requests": [
     {
       "method": "GET",
-      "url": "http://127.0.0.1:8080/"
+      "url": "http://127.0.0.1:3015/"
     },
     {
       "method": "GET",
-      "url": "http://127.0.0.1:8080/arena.css"
+      "url": "http://127.0.0.1:3015/arena.css"
     },
     {
       "method": "GET",
-      "url": "http://127.0.0.1:8080/host.js"
+      "url": "http://127.0.0.1:3015/host.js"
     },
     {
       "method": "GET",
-      "url": "http://127.0.0.1:8080/pkg/temblor.js"
+      "url": "http://127.0.0.1:3015/arena.jpg"
     },
     {
       "method": "GET",
-      "url": "http://127.0.0.1:8080/audio.js"
+      "url": "http://127.0.0.1:3015/pkg/temblor.js"
     },
     {
       "method": "GET",
-      "url": "http://127.0.0.1:8080/arena.jpg"
+      "url": "http://127.0.0.1:3015/audio.js"
     },
     {
       "method": "GET",
-      "url": "http://127.0.0.1:8080/pkg/temblor_bg.wasm"
+      "url": "http://127.0.0.1:3015/pkg/temblor_bg.wasm"
     },
     {
       "method": "GET",
-      "url": "http://127.0.0.1:8080/arena.pk3"
+      "url": "http://127.0.0.1:3015/arena.pk3"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3015/actors.pk3"
     }
   ]
 }

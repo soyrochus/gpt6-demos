@@ -11,20 +11,32 @@
       1280,
       720
     ],
+    "mode": "performance",
+    "css": [
+      1280,
+      720
+    ],
+    "limit": 16384,
+    "fovY": 76,
     "dpr": 1,
     "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36"
   },
+  "sourceRevision": "94cf0912733dab7694051f9fde0d4cddb7b77e0eab3ca40acead8f0c16a266f4",
+  "actors": {
+    "bytes": 4126490,
+    "sha256": "57e76a0a60fcddae4488141f4317c8a8d5fe1e77907556c2d472edad68e2db9b"
+  },
   "wasm": {
-    "bytes": 853009,
-    "sha256": "025c76a0e9901c9d5d6d64d6458437166049f35c0995a069d64b744bcc95d676"
+    "bytes": 897111,
+    "sha256": "24a8c2d06b7140b55a31c208bcd99fa563f04c51202d30d91fa070b5486a7587"
   },
   "arena": {
     "bytes": 3891059,
     "sha256": "ff075a1895c4c0ab6557360370dc2e6c326303f7d605e27270c1eb3c3ab4626b"
   },
-  "coldNavigationToControlMs": 538.4,
-  "playToControlMs": 456.2,
-  "resourceTransferBytesExcludingNavigation": 4849940,
+  "coldNavigationToControlMs": 747.1,
+  "playToControlMs": 555.2,
+  "resourceTransferBytesExcludingNavigation": 9027965,
   "finalScoresHumanBot": [
     [
       5,
@@ -35,8 +47,8 @@
       5
     ],
     [
-      5,
-      2
+      4,
+      5
     ],
     [
       0,
@@ -44,7 +56,7 @@
     ],
     [
       5,
-      4
+      3
     ],
     [
       0,
@@ -53,7 +65,7 @@
   ],
   "rematches": 5,
   "stableObservedCountsAfterGC": {
-    "hostListeners": 43,
+    "hostListeners": 45,
     "ambientLoops": 31,
     "gpu": {
       "createTexture": 0,
@@ -68,13 +80,13 @@
       3
     ],
     "warmupMsPerMatch": 5000,
-    "sampleDurationMs": 120011.9,
+    "sampleDurationMs": 120011.8,
     "frames": 7201,
     "medianMs": 16.7,
-    "p95Ms": 16.8,
+    "p95Ms": 16.7,
     "longestFrameMs": 16.8,
     "framesOver50Ms": 0,
-    "longestFrameAcrossSixMatchesMs": 133.3,
+    "longestFrameAcrossSixMatchesMs": 249.9,
     "targetPassed": true
   },
   "retail": "Open: licensed baseq3 files unavailable",

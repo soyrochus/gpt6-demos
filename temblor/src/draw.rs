@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
-//! Game-owned articulated armour, pickups, view weapon and effects.
+//! World actors, pickups, first-person equipment and combat effects.
+use crate::models::{shot_age, Actors, LightGrid};
 use crate::{bsp::Point, game::Game, movement::direction};
 use bytemuck::{Pod, Zeroable};
-use glam::{Mat3, Vec3, Vec4};
+use glam::{Affine3A, Mat3, Vec2, Vec3};
 #[repr(C)]
 #[derive(Clone, Copy, Pod, Zeroable)]
 pub struct Vertex {
@@ -24,7 +25,17 @@ impl Vertex {
             ids: [m, l],
         }
     }
-    fn tint(p: Vec3, color: Vec3) -> Self {
+    pub(crate) fn model(pos: Vec3, uv: Vec2, normal: Vec3, light: Vec3, material: u32) -> Self {
+        Self {
+            p: pos.to_array(),
+            uv: uv.to_array(),
+            normal: normal.to_array(),
+            color: light.extend(1.).to_array(),
+            ids: [material, 0],
+            lm: [0.; 2],
+        }
+    }
+    pub(crate) fn tint(p: Vec3, color: Vec3) -> Self {
         Self {
             p: p.to_array(),
             color: color.extend(1.).to_array(),
@@ -157,53 +168,31 @@ fn gun(m: &mut Model, g: usize, scale: f32) {
     }
     m.basis = old;
 }
-pub fn geometry(g: &Game, alpha: f32, eye: Vec3, front: Vec3) -> (Vec<Vertex>, usize) {
+pub fn geometry(
+    g: &Game,
+    alpha: f32,
+    eye: Vec3,
+    front: Vec3,
+    actors: &Actors,
+    grid: &LightGrid,
+) -> (Vec<Vertex>, usize) {
     let mut v = Vec::new();
     let t = g.time as f32 * 0.001;
     let bot = &g.actors[1];
-    let yaw = Mat3::from_rotation_z(bot.body.yaw);
-    let death = if bot.hp <= 0 {
-        (1. - (bot.respawn.saturating_sub(g.time) as f32 / 1700.))
-            .mul_add(4., 0.)
-            .min(1.)
+    let (hand, light) = actors.opponent(&mut v, bot, g.time, alpha, grid);
+    let mut muzzle = [None, None];
+    if (1..=6).contains(&bot.gun) {
+        muzzle[1] = Some(actors.weapon(&mut v, bot.gun, hand, &light, shot_age(bot, g.time)));
     } else {
-        0.
-    };
-    let mut m = Model {
-        v: &mut v,
-        center: bot.previous.lerp(bot.body.pos, alpha) - Vec3::Z * death * 16.,
-        basis: yaw * Mat3::from_rotation_y(death * 1.45),
-    };
-    let pain = bot.pain > 0 && g.time - bot.pain < 120;
-    let armor = if pain { Vec3::ONE } else { ORANGE };
-    for side in [-1., 1.] {
-        let swing = (t * 10.).sin() * (bot.body.vel.truncate().length() / 320.).min(1.) * side * 5.;
-        m.plate(
-            Vec3::new(swing, side * 6., -9.),
-            Vec3::new(5., 4., 7.),
-            STEEL,
+        gun(
+            &mut Model {
+                v: &mut v,
+                center: hand.translation.into(),
+                basis: hand.matrix3.into(),
+            },
+            bot.gun,
+            0.7,
         );
-        m.block(
-            Vec3::new(swing + 1., side * 6., -19.),
-            Vec3::new(12., 7., 8.),
-            DARK,
-        );
-        m.plate(Vec3::new(0., side * 11., 13.), Vec3::new(5., 5., 5.), armor);
-        m.block(Vec3::new(3., side * 11., 5.), Vec3::new(6., 6., 12.), STEEL)
-    }
-    m.plate(Vec3::new(0., 0., 2.), Vec3::new(8., 10., 6.), DARK);
-    m.plate(Vec3::new(0., 0., 11.), Vec3::new(10., 12., 7.), armor);
-    m.block(Vec3::new(8., 0., 12.), Vec3::new(3., 12., 5.), STEEL);
-    m.plate(Vec3::new(0., 0., 24.), Vec3::new(7., 7., 6.), STEEL);
-    m.block(
-        Vec3::new(6., 0., 25.),
-        Vec3::new(2., 10., 3.),
-        Vec3::new(0.8, 1., 0.2),
-    );
-    m.center += yaw * Vec3::new(10., -10., 9.);
-    gun(&mut m, bot.gun, 0.7);
-    if bot.shot > 0 && g.time - bot.shot < 55 {
-        m.block(Vec3::X * 14., Vec3::new(8., 4., 4.), LIGHT)
     }
     for it in &g.items {
         if it.next > g.time {
@@ -219,7 +208,17 @@ pub fn geometry(g: &Game, alpha: f32, eye: Vec3, front: Vec3) -> (Vec<Vertex>, u
             .iter()
             .position(|w| Some(*w) == c.strip_prefix("weapon_"))
         {
-            gun(&mut m, i, 1.4)
+            if (1..=6).contains(&i) {
+                actors.weapon(
+                    m.v,
+                    i,
+                    Affine3A::from_mat3_translation(m.basis, m.center),
+                    &grid.sample(m.center),
+                    u32::MAX,
+                );
+            } else {
+                gun(&mut m, i, 1.4)
+            }
         } else if c.starts_with("item_health") {
             let color = if c.ends_with("mega") {
                 Vec3::new(0.25, 0.67, 1.)
@@ -257,6 +256,33 @@ pub fn geometry(g: &Game, alpha: f32, eye: Vec3, front: Vec3) -> (Vec<Vertex>, u
         m.plate(Vec3::ZERO, Vec3::splat(4.), ORANGE);
         m.block(-r.vel.normalize_or_zero() * 7., Vec3::splat(4.), LIGHT)
     }
+    let a = &g.actors[0];
+    let mut overlay = vec![];
+    if a.hp > 0 {
+        let right = direction(a.body.yaw, 0.).cross(Vec3::Z);
+        let up = right.cross(front);
+        let basis = Mat3::from_cols(front, -right, up);
+        let elapsed = shot_age(a, g.time);
+        let recoil = (1. - elapsed as f32 / 120.).max(0.);
+        let bob = (t * 9.).sin() * (a.body.vel.truncate().length() / 320.).min(1.) * 0.25;
+        if (1..=6).contains(&a.gun) {
+            let view = Affine3A::from_mat3_translation(
+                basis,
+                eye + front * (5. - recoil) + up * (2. - bob),
+            ) * actors.view(a.gun, elapsed);
+            muzzle[0] = Some(actors.weapon(&mut overlay, a.gun, view, &grid.sample(eye), elapsed));
+        } else {
+            gun(
+                &mut Model {
+                    v: &mut overlay,
+                    center: eye + front * (11. - recoil) + right * 4.6 - up * (4.8 + bob),
+                    basis,
+                },
+                a.gun,
+                0.48,
+            );
+        }
+    }
     for e in &g.effects {
         if e.a == e.b {
             let mut m = Model {
@@ -272,7 +298,9 @@ pub fn geometry(g: &Game, alpha: f32, eye: Vec3, front: Vec3) -> (Vec<Vertex>, u
         } else {
             let d = (e.b - e.a).normalize_or_zero();
             let side = d.cross(Vec3::Z).normalize_or_zero() * if e.gun == 6 { 1.4 } else { 0.45 };
-            let p = e.a + 8. * d;
+            let p = muzzle[e.owner]
+                .filter(|_| g.actors[e.owner].gun == e.gun)
+                .unwrap_or(e.a);
             let col = if e.gun == 6 {
                 Vec3::new(0.32, 0.76, 1.)
             } else {
@@ -291,29 +319,6 @@ pub fn geometry(g: &Game, alpha: f32, eye: Vec3, front: Vec3) -> (Vec<Vertex>, u
         }
     }
     let world = v.len();
-    let a = &g.actors[0];
-    if a.hp > 0 {
-        let right = direction(a.body.yaw, 0.).cross(Vec3::Z);
-        let up = right.cross(front);
-        let recoil = if a.shot > 0 {
-            (1. - (g.time - a.shot) as f32 / 120.).max(0.)
-        } else {
-            0.
-        };
-        let bob = (t * 9.).sin() * (a.body.vel.truncate().length() / 320.).min(1.) * 0.25;
-        let mut m = Model {
-            v: &mut v,
-            center: eye + front * (11. - recoil) + right * 4.6 - up * (4.8 + bob),
-            basis: Mat3::from_cols(front, -right, up),
-        };
-        gun(&mut m, a.gun, 0.48);
-        if recoil > 0.6 {
-            m.block(
-                Vec3::X * 11.,
-                Vec3::splat(1.8),
-                Vec4::new(1., 0.73, 0.21, 1.).truncate(),
-            )
-        }
-    }
+    v.extend(overlay);
     (v, world)
 }

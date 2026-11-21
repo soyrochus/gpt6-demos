@@ -13,7 +13,8 @@ if (retailIndex >= 0 && !retail)
   throw Error("Usage: node tests/match.mjs --retail PATH_TO_BASEQ3");
 const evidence = retail
   ? await fs.mkdtemp(path.join(tmpdir(), "temblor-retail-"))
-  : "evidence";
+  : process.env.EVIDENCE_DIR || "evidence";
+await fs.mkdir(evidence, { recursive: true });
 const record = (name) => path.join(evidence, name);
 const browser = await launchChrome({
   headless: process.env.HEADLESS === "1",
@@ -26,7 +27,10 @@ const result = { browser: browser.version(), matches: [], errors: [] },
   base = process.env.TEMBLOR_URL || "http://127.0.0.1:8080";
 try {
   const page = await browser.newPage({
-      viewport: { width: 1280, height: 720 },
+      viewport: {
+        width: Number(process.env.VIEW_WIDTH || 1280),
+        height: Number(process.env.VIEW_HEIGHT || 720),
+      },
     }),
     cdp = await page.context().newCDPSession(page);
   page.on("pageerror", (e) => result.errors.push(String(e)));
@@ -56,6 +60,11 @@ try {
     "Adapter probe:",
     (await page.locator("#status").textContent()) || "ready",
   );
+  if (process.env.RENDER_MODE) {
+    await page.click("#help");
+    await page.selectOption("#resolution", process.env.RENDER_MODE);
+    await page.locator("#controls .close").click();
+  }
   await page.bringToFront();
   const coldAt = performance.now();
   if (retail) {
@@ -99,7 +108,8 @@ try {
     return {
       gpu: a.info.vendor,
       architecture: a.info.architecture,
-      resolution: [1280, 720],
+      resolution: temblorReport.resolution,
+      ...temblorReport.display,
       dpr: devicePixelRatio,
       userAgent: navigator.userAgent,
     };
@@ -271,6 +281,13 @@ try {
         await fire(engage);
         if (engage && !captured) {
           await page.screenshot({ path: record("release-fight.png") });
+          result.fightCamera = await page.evaluate(() => ({
+            position: temblorReport.state.pos,
+            yaw: temblorReport.state.yaw,
+            pitch: temblorReport.state.pitch,
+            resolution: temblorReport.resolution,
+            fovY: temblorReport.display.fovY,
+          }));
           captured = true;
         }
       } else {

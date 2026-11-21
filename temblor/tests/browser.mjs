@@ -11,7 +11,8 @@ const browser = await launchChrome({
 });
 try {
   const page = await browser.newPage({
-    viewport: { width: 1280, height: 720 },
+    viewport:
+      process.env.HEADLESS === "1" ? { width: 1280, height: 720 } : null,
   });
   const errors = [];
   page.on("pageerror", (e) => {
@@ -95,7 +96,12 @@ try {
     browser: browser.version(),
     gpu,
     wasm: manifest.files["pkg/temblor_bg.wasm"].sha256,
-    verifiedSource: hash,
+    sourceMatchesBuildManifest: true,
+    sourceRevision: manifest.sourceRevision,
+    display: await page.evaluate(() => ({
+      ...temblorReport.display,
+      surface: temblorReport.resolution,
+    })),
     errors,
     spawn: before,
     pause: paused,

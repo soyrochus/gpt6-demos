@@ -3,11 +3,12 @@ use crate::{
     bsp::Map,
     draw::{self, Vertex},
     game::Game,
-    material::{Palette, TILE},
+    material::Palette,
     movement::direction,
 };
 use glam::{Mat4, Vec3};
 use wgpu::util::DeviceExt;
+const BANKS: usize = 15; // WebGPU guarantees 16 sampled textures, including the lightmaps.
 pub struct Renderer {
     surface: wgpu::Surface<'static>,
     device: wgpu::Device,
@@ -23,6 +24,8 @@ pub struct Renderer {
     capacity: u64,
 }
 pub struct Scene {
+    actors: crate::models::Actors,
+    lighting: crate::models::LightGrid,
     bind: wgpu::BindGroup,
     verts: wgpu::Buffer,
     indices: wgpu::Buffer,
@@ -76,7 +79,10 @@ impl Renderer {
             .request_device(
                 &wgpu::DeviceDescriptor {
                     label: Some("Temblor"),
-                    required_limits: wgpu::Limits::default(),
+                    required_limits: wgpu::Limits {
+                        max_texture_dimension_2d: adapter.limits().max_texture_dimension_2d,
+                        ..wgpu::Limits::default()
+                    },
                     ..Default::default()
                 },
                 None,
@@ -105,44 +111,54 @@ impl Renderer {
             view_dimension: wgpu::TextureViewDimension::D2Array,
             multisampled: false,
         };
+        let mut entries = vec![
+            entry(
+                0,
+                S::VERTEX_FRAGMENT,
+                B::Buffer {
+                    ty: T::Uniform,
+                    has_dynamic_offset: false,
+                    min_binding_size: None,
+                },
+            ),
+            entry(
+                1,
+                S::FRAGMENT,
+                B::Buffer {
+                    ty: T::Storage { read_only: true },
+                    has_dynamic_offset: false,
+                    min_binding_size: None,
+                },
+            ),
+            entry(2, S::FRAGMENT, tex),
+            entry(
+                3,
+                S::FRAGMENT,
+                B::Sampler(wgpu::SamplerBindingType::Filtering),
+            ),
+            entry(
+                4,
+                S::FRAGMENT,
+                B::Buffer {
+                    ty: T::Storage { read_only: true },
+                    has_dynamic_offset: false,
+                    min_binding_size: None,
+                },
+            ),
+            entry(
+                5,
+                S::VERTEX,
+                B::Buffer {
+                    ty: T::Storage { read_only: true },
+                    has_dynamic_offset: false,
+                    min_binding_size: None,
+                },
+            ),
+        ];
+        entries.extend((0..BANKS).map(|i| entry(6 + i as u32, S::FRAGMENT, tex)));
         let layout = device.create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {
             label: Some("Arena materials"),
-            entries: &[
-                entry(
-                    0,
-                    S::VERTEX_FRAGMENT,
-                    B::Buffer {
-                        ty: T::Uniform,
-                        has_dynamic_offset: false,
-                        min_binding_size: None,
-                    },
-                ),
-                entry(1, S::FRAGMENT, tex),
-                entry(2, S::FRAGMENT, tex),
-                entry(
-                    3,
-                    S::FRAGMENT,
-                    B::Sampler(wgpu::SamplerBindingType::Filtering),
-                ),
-                entry(
-                    4,
-                    S::FRAGMENT,
-                    B::Buffer {
-                        ty: T::Storage { read_only: true },
-                        has_dynamic_offset: false,
-                        min_binding_size: None,
-                    },
-                ),
-                entry(
-                    5,
-                    S::VERTEX,
-                    B::Buffer {
-                        ty: T::Storage { read_only: true },
-                        has_dynamic_offset: false,
-                        min_binding_size: None,
-                    },
-                ),
-            ],
+            entries: &entries,
         });
         let pipeline_layout = device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
             label: None,
@@ -183,16 +199,16 @@ impl Renderer {
             capacity,
         })
     }
-    fn array(&self, w: u32, layers: &[Vec<u8>]) -> wgpu::TextureView {
-        let size = wgpu::Extent3d {
-            width: w,
-            height: w,
-            depth_or_array_layers: layers.len() as u32,
-        };
+    fn array(&self, w: u32, h: u32, layers: &[&[u8]], mipmaps: bool) -> wgpu::TextureView {
+        let levels = if mipmaps { w.max(h).ilog2() + 1 } else { 1 };
         let tex = self.device.create_texture(&wgpu::TextureDescriptor {
-            label: Some("Arena texture array"),
-            size,
-            mip_level_count: w.ilog2() + 1,
+            label: Some("Material images"),
+            size: wgpu::Extent3d {
+                width: w,
+                height: h,
+                depth_or_array_layers: layers.len() as u32,
+            },
+            mip_level_count: levels,
             sample_count: 1,
             dimension: wgpu::TextureDimension::D2,
             format: wgpu::TextureFormat::Rgba8Unorm,
@@ -200,9 +216,9 @@ impl Renderer {
             view_formats: &[],
         });
         for (i, layer) in layers.iter().enumerate() {
-            let mut pixels = layer.clone();
-            let mut width = w;
-            for level in 0..=w.ilog2() {
+            let mut pixels = std::borrow::Cow::Borrowed(*layer);
+            let (mut width, mut height) = (w, h);
+            for level in 0..levels {
                 self.queue.write_texture(
                     wgpu::TexelCopyTextureInfo {
                         texture: &tex,
@@ -218,30 +234,32 @@ impl Renderer {
                     wgpu::TexelCopyBufferLayout {
                         offset: 0,
                         bytes_per_row: Some(width * 4),
-                        rows_per_image: Some(width),
+                        rows_per_image: Some(height),
                     },
                     wgpu::Extent3d {
                         width,
-                        height: width,
+                        height,
                         depth_or_array_layers: 1,
                     },
                 );
-                if width > 1 {
-                    let next = width / 2;
-                    for y in 0..next {
-                        for x in 0..next {
-                            for c in 0..4 {
-                                let at = |dx, dy| {
-                                    pixels[(((2 * y + dy) * width + 2 * x + dx) * 4 + c) as usize]
-                                        as u32
-                                };
-                                pixels[((y * next + x) * 4 + c) as usize] =
-                                    ((at(0, 0) + at(0, 1) + at(1, 0) + at(1, 1)) / 4) as u8;
-                            }
-                        }
-                    }
-                    width = next;
-                    pixels.truncate((width * width * 4) as usize)
+                if level + 1 < levels {
+                    let image = image::ImageBuffer::<image::Rgba<u8>, _>::from_raw(
+                        width,
+                        height,
+                        pixels.as_ref(),
+                    )
+                    .unwrap();
+                    width = (width / 2).max(1);
+                    height = (height / 2).max(1);
+                    pixels = std::borrow::Cow::Owned(
+                        image::imageops::resize(
+                            &image,
+                            width,
+                            height,
+                            image::imageops::FilterType::Triangle,
+                        )
+                        .into_raw(),
+                    );
                 }
             }
         }
@@ -250,17 +268,48 @@ impl Renderer {
             ..Default::default()
         })
     }
-    pub fn upload(&self, m: &Map, p: &Palette) -> Result<Scene, String> {
-        let tex = self.array(TILE, &p.layers);
+    pub fn upload(
+        &self,
+        m: &Map,
+        p: &Palette,
+        actors: crate::models::Actors,
+    ) -> Result<Scene, String> {
+        // Only equal-sized images share an array. The layer table also handles
+        // animated shader stages whose successive frames have different sizes.
+        let mut banks: Vec<((u32, u32), Vec<&[u8]>)> = Vec::new();
+        let mut indices = Vec::new();
+        for texture in &p.layers {
+            let dims = texture.image.dimensions();
+            let bank = match banks.iter().position(|(d, _)| *d == dims) {
+                Some(i) => i,
+                None if banks.len() < BANKS => {
+                    banks.push((dims, Vec::new()));
+                    banks.len() - 1
+                }
+                None => {
+                    return Err(format!(
+                        "{}: exceeds {BANKS} distinct texture sizes",
+                        texture.name
+                    ))
+                }
+            };
+            indices.push([bank as u32, banks[bank].1.len() as u32]);
+            banks[bank].1.push(texture.image.as_raw());
+        }
+        let views: Vec<_> = banks
+            .iter()
+            .map(|((w, h), layers)| self.array(*w, *h, layers, true))
+            .collect();
         let mut layers = vec![vec![255; 128 * 128 * 4]];
         for l in m.lights.chunks_exact(49152) {
             layers.push(
                 l.chunks_exact(3)
                     .flat_map(|rgb| [rgb[0], rgb[1], rgb[2], 255])
                     .collect(),
-            )
+            );
         }
-        let lights = self.array(128, &layers);
+        let light_layers: Vec<_> = layers.iter().map(Vec::as_slice).collect();
+        let lights = self.array(128, 128, &light_layers, false);
         let sampler = self.device.create_sampler(&wgpu::SamplerDescriptor {
             address_mode_u: wgpu::AddressMode::Repeat,
             address_mode_v: wgpu::AddressMode::Repeat,
@@ -289,17 +338,29 @@ impl Renderer {
             wgpu::BufferUsages::STORAGE,
         );
         let entry = |binding, resource| wgpu::BindGroupEntry { binding, resource };
+        let lookup = make(
+            "Texture layers",
+            bytemuck::cast_slice(&indices),
+            wgpu::BufferUsages::STORAGE,
+        );
+        let mut entries = vec![
+            entry(0, self.uniform.as_entire_binding()),
+            entry(1, lookup.as_entire_binding()),
+            entry(2, wgpu::BindingResource::TextureView(&lights)),
+            entry(3, wgpu::BindingResource::Sampler(&sampler)),
+            entry(4, mat.as_entire_binding()),
+            entry(5, offsets.as_entire_binding()),
+        ];
+        entries.extend((0..BANKS).map(|i| {
+            entry(
+                6 + i as u32,
+                wgpu::BindingResource::TextureView(views.get(i).unwrap_or(&views[0])),
+            )
+        }));
         let bind = self.device.create_bind_group(&wgpu::BindGroupDescriptor {
             label: None,
             layout: &self.layout,
-            entries: &[
-                entry(0, self.uniform.as_entire_binding()),
-                entry(1, wgpu::BindingResource::TextureView(&tex)),
-                entry(2, wgpu::BindingResource::TextureView(&lights)),
-                entry(3, wgpu::BindingResource::Sampler(&sampler)),
-                entry(4, mat.as_entire_binding()),
-                entry(5, offsets.as_entire_binding()),
-            ],
+            entries: &entries,
         });
         let mut v = vec![];
         let mut ix = vec![];
@@ -333,6 +394,8 @@ impl Renderer {
             return Err("No drawable map surfaces".into());
         }
         Ok(Scene {
+            actors,
+            lighting: crate::models::LightGrid::new(m),
             bind,
             offsets,
             verts: make(
@@ -349,9 +412,11 @@ impl Renderer {
             total: ix.len() as u32,
         })
     }
+    pub fn limit(&self) -> u32 {
+        self.device.limits().max_texture_dimension_2d
+    }
     pub fn resize(&mut self, w: u32, h: u32) {
-        let w = w.clamp(1, 2560);
-        let h = h.clamp(1, 1440);
+        debug_assert!((1..=self.limit()).contains(&w) && (1..=self.limit()).contains(&h));
         if self.config.width != w || self.config.height != h {
             self.config.width = w;
             self.config.height = h;
@@ -377,7 +442,7 @@ impl Renderer {
         u[16..].copy_from_slice(&eye.extend(g.time as f32 * 0.001).to_array());
         self.queue
             .write_buffer(&self.uniform, 0, bytemuck::cast_slice(&u));
-        let (v, n) = draw::geometry(g, alpha, eye, front);
+        let (v, n) = draw::geometry(g, alpha, eye, front, &s.actors, &s.lighting);
         let bytes = bytemuck::cast_slice(&v);
         if bytes.len() as u64 > self.capacity {
             self.capacity = bytes.len().next_power_of_two() as u64;

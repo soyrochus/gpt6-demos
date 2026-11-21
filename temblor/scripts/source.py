@@ -20,9 +20,9 @@ ARCHIVE = RELEASE / "temblor-source.tar.gz"
 HOST = ["index.html", "arena.css", "host.js", "audio.js"]
 NOTICES = [Path("COPYING"), Path("notices/ENGINE.md"), Path("assets/manifest.json"),
            Path("assets/source/editable/rpg3dm2source.txt")]
-for package in ("maps", "misc", "textures", "data"):
+for package in ("maps", "misc", "textures", "data", "players"):
     NOTICES.append(Path(f"notices/openarena-{package}.copyright"))
-for pack in ("pak0", "pak1-maps", "pak4-textures", "pak6-misc"):
+for pack in ("pak0", "pak1-maps", "pak2-players", "pak4-textures", "pak6-misc"):
     for notice in ("COPYING", "CREDITS", "CREDITS-0.8.5"):
         path = Path(f"notices/{pack}-{notice}")
         if path.exists():
@@ -40,7 +40,7 @@ def add_bytes(tar, name, data, mode=0o644):
 def project_inputs():
     files = {Path(name) for name in ["Cargo.toml", "Cargo.lock", "README.md", "play",
         "package.json", "bun.lock", ".gitignore", "PRODUCT.md", "DESIGN.md",
-        ".impeccable/design.json", "specs/spec-quake3-engine.md"]}
+        ".impeccable/design.json", "specs/001-quake3-engine.md", "specs/002-resolution-improvement.md"]}
     files.update(NOTICES)
     for pattern in ["src/*.rs", "src/*.wgsl", "examples/*.rs", "tests/*.rs",
                     "tests/*.mjs", "tests/reference/*.c", "tests/reference/*.patch",
@@ -56,6 +56,15 @@ def project_inputs():
         path = Path("evidence") / name
         if path.exists():
             files.add(path)
+    detail = Path("evidence/detail")
+    paired = ["floor-head-on", "floor-grazing", "spawn", "east-grate"] + [
+        "combat-" + pose for pose in ["close", "corridor", "shot", "pain", "death", "respawned"]]
+    images = [prefix + name for name in paired for prefix in ["", "before-"]]
+    images += ["weapon-" + str(i) for i in range(1, 7)] + ["rocket-shot", "display-native", "display-performance"]
+    for name in [n + ".jpg" for n in images] + ["combat.mp4", "observations.json", "native/acceptance.json",
+                   "native/release-matches.json", "native/release-fight.png", "native/release-intermission.png"]:
+        if (detail / name).is_file():
+            files.add(detail / name)
     return sorted({p.relative_to(ROOT) if p.is_absolute() else p for p in files})
 
 def add_dependencies(tar):
@@ -113,7 +122,7 @@ The archive includes the editable map, source media, build scripts and the Rust 
 <p><a href="temblor-source.tar.gz" download>Download corresponding source</a> · <a href="dependencies.json">Dependency licenses</a></p>
 <ul>""" + links + "</ul></main></html>")
 
-public = set(HOST + ["arena.pk3", "arena.jpg", "pkg/temblor.js", "pkg/temblor_bg.wasm",
+public = set(HOST + ["actors.pk3", "arena.pk3", "arena.jpg", "pkg/temblor.js", "pkg/temblor_bg.wasm",
                      "temblor-source.tar.gz", "dependencies.json", "notices.html"])
 public.update("licenses/" + p.name for p in NOTICES)
 actual = {p.relative_to(RELEASE).as_posix() for p in RELEASE.rglob("*")
