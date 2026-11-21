@@ -84,7 +84,23 @@ fn real_map_and_materials() {
             .count(),
         4
     );
-    let p = Palette::load(&m, &mut fs).unwrap();
+    let mut p = Palette::load(&m, &mut fs).unwrap();
+    for (name, dimensions) in [
+        ("textures/base_wall/concrete_dark.jpg", (512, 512)),
+        ("textures/base_wall/bluemetalsupport2e.jpg", (256, 128)),
+        ("textures/base_floor/metfloor1.jpg", (128, 128)),
+    ] {
+        let layer = p.layers.iter().find(|l| l.name == name).unwrap();
+        assert_eq!(layer.image.dimensions(), dimensions);
+    }
+    let mut actors = Vfs::default();
+    actors
+        .mount(
+            "actors.pk3",
+            include_bytes!("../assets/actors.pk3").to_vec(),
+        )
+        .unwrap();
+    temblor::models::Actors::load(&mut actors, &mut p).unwrap();
     assert!(p.layers.len() > 25);
     assert!(p.warnings.is_empty(), "{:?}", p.warnings);
     assert!(fs.origin("maps/oa_rpg3dm2.aas").is_some());

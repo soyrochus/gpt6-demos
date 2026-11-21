@@ -8,7 +8,22 @@ use std::{
     collections::{BTreeMap, BTreeSet},
     io::Cursor,
 };
-pub const TILE: u32 = 256;
+pub struct Texture {
+    pub name: String,
+    pub image: image::RgbaImage,
+}
+/// Total RGBA8 allocation for base images and their mip chains.
+fn mip_bytes(mut w: u32, mut h: u32) -> u64 {
+    let mut bytes = 0;
+    loop {
+        bytes += u64::from(w) * u64::from(h) * 4;
+        if (w, h) == (1, 1) {
+            return bytes;
+        }
+        w = (w / 2).max(1);
+        h = (h / 2).max(1);
+    }
+}
 #[repr(C)]
 #[derive(Clone, Copy, Pod, Zeroable, Debug)]
 pub struct Stage {
@@ -37,7 +52,8 @@ pub struct GpuMaterial {
     pub stages: [Stage; 8],
 }
 pub struct Palette {
-    pub layers: Vec<Vec<u8>>,
+    pub layers: Vec<Texture>,
+    allocated: u64,
     pub materials: Vec<GpuMaterial>,
     pub warnings: Vec<String>,
     pub origins: BTreeMap<String, String>,
@@ -132,7 +148,11 @@ impl Palette {
             parse_scripts(&String::from_utf8_lossy(&s), &mut scripts)
         }
         let mut p = Self {
-            layers: vec![vec![255; (TILE * TILE * 4) as usize]],
+            layers: vec![Texture {
+                name: "$whiteimage".into(),
+                image: image::RgbaImage::from_pixel(1, 1, image::Rgba([255; 4])),
+            }],
+            allocated: 4,
             materials: vec![GpuMaterial::default(); map.materials.len() + 1],
             warnings: vec![],
             origins: BTreeMap::new(),
@@ -271,6 +291,24 @@ impl Palette {
         }
         Ok(p)
     }
+    pub fn skin(
+        &mut self,
+        vfs: &mut Vfs,
+        name: &str,
+        cache: &mut BTreeMap<String, usize>,
+    ) -> Result<u32> {
+        let layer = self.texture(vfs, cache, name, false)?;
+        let mut mat = GpuMaterial::default();
+        mat.meta = [1, 0, 0, 1];
+        mat.stages[0].mode[0] = layer as f32;
+        mat.stages[0].rgb[3] = 1.;
+        if name.ends_with("/sight") {
+            mat.stages[0].mode[3] = 0.5;
+        }
+        let id = self.materials.len() as u32;
+        self.materials.push(mat);
+        Ok(id)
+    }
     fn texture(
         &mut self,
         vfs: &mut Vfs,
@@ -285,10 +323,20 @@ impl Palette {
             }
         }
         if self.layers.len() >= 250 {
-            return Err("Map uses more than 249 texture layers".into());
+            return Err(format!("{path}: exceeds the 249 texture layer budget"));
         }
         let bytes = vfs.read(&path)?;
         let format = image::ImageFormat::from_path(&path).map_err(|e| e.to_string())?;
+        let (w, h) = image::ImageReader::with_format(Cursor::new(&bytes), format)
+            .into_dimensions()
+            .map_err(|e| format!("{path}: {e}"))?;
+        if w == 0 || h == 0 || w > 4096 || h > 4096 {
+            return Err(format!("{path}: unsupported dimensions {w} x {h}"));
+        }
+        let allocated = self.allocated + mip_bytes(w, h);
+        if allocated > 192 << 20 {
+            return Err(format!("{path}: exceeds 192 MiB scene texture budget"));
+        }
         let mut reader = image::ImageReader::with_format(Cursor::new(bytes), format);
         let mut limits = image::Limits::default();
         limits.max_image_width = Some(4096);
@@ -298,10 +346,13 @@ impl Palette {
         let img = reader
             .decode()
             .map_err(|e| format!("{path}: {e}"))?
-            .resize_exact(TILE, TILE, image::imageops::FilterType::Triangle)
-            .to_rgba8();
+            .into_rgba8();
         let i = self.layers.len();
-        self.layers.push(img.into_raw());
+        self.allocated = allocated;
+        self.layers.push(Texture {
+            name: path.clone(),
+            image: img,
+        });
         cache.insert(path.clone(), i);
         self.origins
             .insert(path.clone(), vfs.origin(&path).unwrap().into());

@@ -68,16 +68,29 @@ impl Engine {
             session: None,
         })
     }
-    pub fn load(&mut self, packs: &mut Packages, name: &str, seed: u32) -> Result<String, String> {
+    pub fn load(
+        &mut self,
+        packs: &mut Packages,
+        actors: &mut Packages,
+        name: &str,
+        seed: u32,
+    ) -> Result<String, String> {
         let m = Map::parse(&packs.0.read(name)?)?;
-        let palette = Palette::load(&m, &mut packs.0)?;
+        let mut palette = Palette::load(&m, &mut packs.0)?;
         let mut game = Game::new(&m, seed)?;
         let aas = name.trim_end_matches(".bsp").to_owned() + ".aas";
         if packs.0.origin(&aas).is_some() {
             game.areas = Some(crate::aas::Areas::parse(&packs.0.read(&aas)?)?);
         }
-        let scene = self.gpu.upload(&m, &palette)?;
+        let assets = crate::models::Actors::load(&mut actors.0, &mut palette)?;
+        let scene = self.gpu.upload(&m, &palette, assets)?;
         let mut info = crate::inventory::report(&m, &palette, &packs.0, name);
+        info["textureSizes"] = palette
+            .layers
+            .iter()
+            .map(|l| (l.name.clone(), serde_json::json!(l.image.dimensions())))
+            .collect::<serde_json::Map<String, _>>()
+            .into();
         info["nodes"] = game.nav.points.len().into();
         self.session = Some((scene, game));
         Ok(info.to_string())
@@ -102,6 +115,9 @@ impl Engine {
             self.gpu.frame(s, g, alpha)?
         }
         Ok(())
+    }
+    pub fn surface_limit(&self) -> u32 {
+        self.gpu.limit()
     }
     pub fn resize(&mut self, w: u32, h: u32) {
         self.gpu.resize(w, h)

@@ -7,8 +7,22 @@
     "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
     "dpr": 1
   },
-  "wasm": "025c76a0e9901c9d5d6d64d6458437166049f35c0995a069d64b744bcc95d676",
-  "verifiedSource": "e27ad82e74ecbb87323079278b894c7048bf7bb66d65d2a27931dcb87d2419f6",
+  "wasm": "24a8c2d06b7140b55a31c208bcd99fa563f04c51202d30d91fa070b5486a7587",
+  "sourceMatchesBuildManifest": true,
+  "sourceRevision": "94cf0912733dab7694051f9fde0d4cddb7b77e0eab3ca40acead8f0c16a266f4",
+  "display": {
+    "mode": "native",
+    "css": [
+      1200,
+      919
+    ],
+    "limit": 16384,
+    "fovY": 76,
+    "surface": [
+      1200,
+      919
+    ]
+  },
   "errors": [],
   "spawn": {
     "ammo": 100,
@@ -35,7 +49,7 @@
       false
     ],
     "pain": 0,
-    "pitch": 0,
+    "pitch": 0.0989999994635582,
     "pos": [
       -480,
       208,
@@ -48,20 +62,20 @@
     "visible": false,
     "weapon": "Machinegun",
     "winner": null,
-    "yaw": 0.7853981852531433
+    "yaw": -0.7194017171859741
   },
   "pause": {
-    "ammo": 96,
+    "ammo": 98,
     "armor": 0,
     "bot": [
-      100.80499267578125,
-      1666.0054931640625,
+      98.23799896240234,
+      1665.7108154296875,
       280.0481872558594
     ],
     "botHealth": 129,
     "gun": 2,
     "health": 124,
-    "ms": 1576,
+    "ms": 1568,
     "owned": [
       false,
       true,
@@ -75,10 +89,10 @@
       false
     ],
     "pain": 0,
-    "pitch": -0.5478000044822693,
+    "pitch": 0.10559999942779541,
     "pos": [
-      -393.28466796875,
-      143.05018615722656,
+      -420.940673828125,
+      120.52137756347656,
       160.125
     ],
     "scores": [
@@ -88,6 +102,6 @@
     "visible": false,
     "weapon": "Machinegun",
     "winner": null,
-    "yaw": -0.6424018740653992
+    "yaw": -0.981201708316803
   }
 }

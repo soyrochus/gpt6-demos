@@ -5,6 +5,7 @@ const $ = (id) => document.getElementById(id),
   canvas = $("arena"),
   audio = new ArenaAudio();
 let engine,
+  actorPack,
   hasMap = false,
   active = false,
   loading = false,
@@ -29,13 +30,40 @@ const status = (text) => {
 };
 const pauseAudio = () => audio.pause();
 function size() {
-  const w = Math.min(1280, Math.round(innerWidth * devicePixelRatio)),
-    h = Math.max(1, Math.round((w * innerHeight) / innerWidth));
-  canvas.width = w;
-  canvas.height = h;
-  engine?.resize(w, h);
+  if (!engine) return;
+  const rect = canvas.getBoundingClientRect();
+  const width = Math.max(1, rect.width * devicePixelRatio);
+  const height = Math.max(1, rect.height * devicePixelRatio);
+  const limit = engine.surface_limit();
+  const maxWidth = $("resolution").value === "performance" ? Math.min(limit, 1280) : limit;
+  const scale = Math.min(1, maxWidth / width, limit / height);
+  const w = Math.max(1, Math.round(width * scale)), h = Math.max(1, Math.round(height * scale));
+  if (canvas.width !== w) canvas.width = w;
+  if (canvas.height !== h) canvas.height = h;
+  engine.resize(w, h);
 }
-addEventListener("resize", size);
+new ResizeObserver(size).observe(canvas);
+document.addEventListener("fullscreenchange", size);
+$("resolution").addEventListener("change", size);
+function watchScale() {
+  matchMedia(`(resolution: ${devicePixelRatio}dppx)`).addEventListener("change", () => {
+    size();
+    watchScale();
+  }, { once: true });
+}
+watchScale();
+async function actors() {
+  if (!actorPack) {
+    const response = await fetch("actors.pk3");
+    if (!response.ok) throw Error("Character download failed. Click Play to retry.");
+    const bytes = new Uint8Array(await response.arrayBuffer());
+    const pack = new Packages();
+    try { pack.mount("temblor-actors.pk3", bytes); }
+    catch (e) { pack.free(); throw e; }
+    actorPack = pack;
+  }
+  return actorPack;
+}
 function clearInput() {
   held.clear();
   queue = [];
@@ -135,7 +163,7 @@ async function play(local = false) {
       }
       const speakers = JSON.parse(pack.speakers(name));
       const sounds = await audio.prepare(speakers, pack);
-      info = JSON.parse(engine.load(pack, name, seed));
+      info = JSON.parse(engine.load(pack, await actors(), name, seed));
       info.speakers = speakers;
       $("details").hidden = false;
       audio.replace(sounds);
@@ -413,6 +441,7 @@ Object.defineProperty(window, "temblorReport", {
     get resolution() {
       return [canvas.width, canvas.height];
     },
+    get display() { return {mode: $("resolution").value, css: [canvas.clientWidth, canvas.clientHeight], limit: engine?.surface_limit(), fovY: 76}; },
     get dpr() {
       return devicePixelRatio;
     },

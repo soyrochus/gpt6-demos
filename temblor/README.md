@@ -2,6 +2,8 @@
 
 Temblor is a first-person arena shooter for desktop browsers on Linux and macOS. Play a one-on-one match against a local bot in OpenArena’s *Trial by Error*. Collect weapons, health and armor, and score five frags to win. The engine is written in Rust, runs as WebAssembly and draws the arena with WebGPU. The bundled match requires no extra downloads or retail game files.
 
+[Canonical source on GitHub](https://github.com/soyrochus/gpt6-demos/tree/main/temblor)
+
 ## Play
 
 Run **`./play`**, open **http://127.0.0.1:8080**, and click **Play** in desktop Chromium with hardware WebGPU. The checked-in release needs only Python 3 to serve it. Any HTTPS static host can serve the contents of `release/`.
@@ -30,15 +32,18 @@ If the picker reports **No supported map found**, the selected archives contain 
 
 **Ubuntu and “No WebGPU adapter.”** In Chrome, open `chrome://flags/#enable-vulkan`, set **Vulkan** to **Enabled**, and click **Relaunch**. Reopen Temblor and click **Play**. On Ubuntu 26.04.1 with AMD Radeon Vega graphics and Chrome 158, graphics acceleration was already active and enabling Vulkan made the hardware adapter available. If the message persists, check **Use graphics acceleration when available** in `chrome://settings/system` and the WebGPU diagnostics in `chrome://gpu`.
 
-![The rocket launcher and orange pickups inside Trial by Error during a browser match](evidence/release-fight.png)
+![Major and the equipped weapon during a match in Trial by Error](evidence/release-fight.png)
 
-Fight one bot to five frags in **Trial by Error**. Move with WASD, aim with the mouse, fire with the primary button, jump with Space and crouch with C. Switch weapons with the number row or wheel, hold Tab for scores and press Escape to pause. Controls includes sensitivity and volume. Collect the orange rocket launcher near the starting corridor and use the pillars for cover. Both actors respawn after a frag. Click **Rematch** on the final score.
+Fight one bot to five frags in **Trial by Error**. Move with WASD, aim with the mouse, fire with the primary button, jump with Space and crouch with C. Switch weapons with the number row or wheel, hold Tab for scores and press Escape to pause. In **Controls**, choose **Native** (the default) for the display’s physical resolution, or **Performance** to cap rendering at 1,280 pixels wide. Mouse sensitivity and HUD size are the same in both modes. Collect the rocket launcher near the starting corridor and use the pillars for cover. Both actors respawn after a frag. Click **Rematch** on the final score.
 
 | Content | Runtime coverage |
 | --- | --- |
 | OpenArena `maps/oa_rpg3dm2.bsp` | Real BSP and AAS, four starts, one inline jump pad, shallow and deep water, health, armor, ammunition and spatial ambient speakers. Gauntlet, machinegun, shotgun, grenade launcher, rocket launcher and lightning gun. |
+| Character and equipment | OpenArena’s Major uses animated lower, torso and head meshes. All six weapons use textured meshes with authored attachment tags. The bundled actor package loads for local maps as well. |
 | Retail `maps/q3dm1.bsp` | Local PK3 import, base and patch precedence, map selection and shared runtime. Retail gameplay acceptance remains open pending an owner's licensed files. |
 | Desktop Chromium / WebGPU | Single-threaded Rust/Wasm with wgpu. See [acceptance evidence](evidence/README.md) for the browser, adapter, frame timing and outstanding observations. |
+
+The renderer retains the source dimensions of each material and builds rectangular mip chains down to 1 × 1. Map details lists the base dimensions. A scene supports up to 249 image layers, 15 distinct image dimensions including the white fallback, 4,096 pixels on either image axis and 192 MiB of RGBA8 textures including their mips. Baked lightmaps use their original 128 × 128 samples.
 
 ## Local Quake III Arena files
 
@@ -55,10 +60,10 @@ cargo install wasm-bindgen-cli --version 0.2.114 --locked
 ./play
 ```
 
-`WASM_BINDGEN=/path/to/wasm-bindgen` selects an existing matching CLI. If the system Python predates 3.11, set `PYTHON=python3.14` or another installed 3.11+ interpreter. The build checks every content input in `assets/manifest.json`, packages the static application and places complete corresponding source beside it. For native development run `cargo test --release --locked`. Inspect the map with `cargo run --release --example inspect -- maps/oa_rpg3dm2.bsp assets/arena.pk3` and replay a seeded match with `cargo run --release --example replay`.
+`WASM_BINDGEN=/path/to/wasm-bindgen` selects an existing matching CLI. If the system Python predates 3.11, set `PYTHON=python3.14` or another installed 3.11+ interpreter. The build checks every content input in `assets/manifest.json`, packages the static application and records the source URL and checksum for each Rust dependency. For native development run `cargo test --release --locked`. Inspect the map with `cargo run --release --example inspect -- maps/oa_rpg3dm2.bsp assets/arena.pk3` and replay a seeded match with `cargo run --release --example replay`.
 
-With the release server running, use `bun install --frozen-lockfile`, then `npm run test:browser`, `node tests/import.mjs`, `node tests/route.mjs` and `MATCHES=6 node tests/match.mjs`. Set `HEADLESS=1` for a headless hardware run. The match driver uses real keyboard and relative mouse input. Set `TEMBLOR_URL` to test another static deployment. Build output hashes are in [release/build.json](release/build.json). Package provenance and source revisions are in [notices/ENGINE.md](notices/ENGINE.md).
+With the release server running, use `bun install --frozen-lockfile`, then `npm run test:browser`, `node tests/import.mjs`, `node tests/route.mjs`, `node tests/detail.mjs` and `RENDER_MODE=performance MATCHES=6 node tests/match.mjs`. The detail check uses FFmpeg to encode the combat sequence. Set `BASELINE_URL` to a server running the previous release for paired camera captures. Set `HEADLESS=1` for a headless hardware match. The match driver uses real keyboard and relative mouse input. Set `TEMBLOR_URL` to test another static deployment. Build output hashes are in [release/build.json](release/build.json). Package provenance and source revisions are in [notices/ENGINE.md](notices/ENGINE.md).
 
 Simulation runs in 8 ms steps, with 320 units/s ground speed, gravity 800, friction 6, ground acceleration 10 and air acceleration 1. The host consumes timestamped input at step boundaries, interpolates actor positions and caps accumulated frame debt at 120 ms. Focus loss clears controls and freezes simulation time. Tests exercise the same command interface as the player and bot.
 
-Original project code is GPL-2.0-or-later. The **Licenses** and **Corresponding source** links on the launch screen accompany the exact deployed Wasm.
+Original project code is GPL-2.0-or-later. For an older release, use the repository revision containing the matching Wasm SHA-256 in `release/build.json`.

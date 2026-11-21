@@ -1,6 +1,6 @@
 # 002 — Character, weapon and rendering detail
 
-**Status** Proposed
+**Status** Implemented in the shipping browser build. macOS hardware checks passed. Linux hardware, retail-map gameplay and human visual acceptance remain open. [Verification and captures](../evidence/README.md#character-weapon-and-resolution-checks)
 
 Improve the visual fidelity of a normal match in the bundled OpenArena level *Trial by Error* (`oa_rpg3dm2`). The player should be able to recognize the opponent’s pose and equipment across a corridor, see surface detail on the weapon held in front of the camera, and use the resolution of a Linux or macOS display. Use Quake III Arena gameplay as the visual reference. Keep the existing level so before-and-after captures show what the renderer and assets contribute. This proposal extends the [original engine specification](001-quake3-engine.md).
 

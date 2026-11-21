@@ -60,6 +60,8 @@ pub struct Actor {
     pub ready: u32,
     pub respawn: u32,
     pub shot: u32,
+    pub shot_gun: usize,
+    pub spawned: u32,
     pub pain: u32,
     pub pad: u32,
 }
@@ -82,6 +84,8 @@ impl Actor {
             ready: 0,
             respawn: 0,
             shot: 0,
+            shot_gun: 0,
+            spawned: 0,
             pain: 0,
             pad: 0,
         }
@@ -100,6 +104,7 @@ pub struct Missile {
     pub end: u32,
 }
 pub struct Effect {
+    pub owner: usize,
     pub a: Vec3,
     pub b: Vec3,
     pub end: u32,
@@ -307,6 +312,7 @@ impl Game {
         let ix = (self.random() * (choices.len() / 2).max(1) as f32) as usize;
         let (p, y) = choices[ix];
         self.actors[i] = Actor::spawn(p, y, self.actors[i].score);
+        self.actors[i].spawned = self.time;
         if i == 1 {
             self.route.clear();
             self.plan_at = 0;
@@ -692,6 +698,7 @@ impl Game {
         }
         a.ready = self.time + INTERVAL[g];
         a.shot = self.time;
+        a.shot_gun = g;
         self.event("shot", i, p, NAMES[g]);
         if matches!(g, 4 | 5 | 8 | 9) {
             self.missiles.push(Missile {
@@ -730,6 +737,7 @@ impl Game {
             let (v, h) = self.ray(i, p, q, Vec3::ZERO);
             let end = p.lerp(q, h.fraction);
             self.effects.push(Effect {
+                owner: i,
                 a: p,
                 b: end,
                 end: self.time + 64,
@@ -840,6 +848,7 @@ impl Game {
                 }
             }
             self.effects.push(Effect {
+                owner: m.owner,
                 a: p,
                 b: p,
                 end: self.time + 180,
