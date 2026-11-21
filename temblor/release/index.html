@@ -34,7 +34,18 @@
         <div class="actions">
           <button id="play" class="primary" disabled>
             Play <i aria-hidden="true"></i></button
-          ><button id="import">Load local game files</button
+          >
+          <label class="lobby-level">Bot level
+            <select id="lobbyLevel" autocomplete="off">
+              <option value="0">0 · Explore</option>
+              <option value="1">1 · Rookie</option>
+              <option value="2">2 · Easy</option>
+              <option value="3" selected>3 · Standard</option>
+              <option value="4">4 · Veteran</option>
+              <option value="5">5 · Expert</option>
+            </select>
+          </label>
+          <button id="import">Load local game files</button
           ><button id="help">Controls</button
           ><button id="details" hidden>Map details</button>
         </div>
@@ -53,6 +64,9 @@
         <h2>Controls</h2>
         <button class="close" aria-label="Close">×</button>
       </form>
+      <label for="controlsLevel">Bot level
+        <select id="controlsLevel" autocomplete="off"></select>
+      </label>
       <dl>
         <dt>Move</dt>
         <dd>W A S D</dd>
@@ -65,6 +79,7 @@
         <dt>Scores / pause</dt>
         <dd>Tab / Esc</dd>
       </dl>
+      <button id="peekButton" type="button" disabled>Peek <kbd>P</kbd></button>
       <label>Render resolution<select id="resolution"><option value="native">Native</option><option value="performance">Performance</option></select></label>
       <label
         >Mouse sensitivity
@@ -79,6 +94,18 @@
         >Volume
         <input id="volume" type="range" min="0" max="1" step="0.05" value="0.5"
       /></label>
+    </dialog>
+    <dialog id="peek" aria-labelledby="peekTitle" aria-describedby="peekGuide">
+      <div class="peek-heading">
+        <h2 id="peekTitle">Peek</h2><span id="peekMapName"></span>
+        <button id="closePeek" class="close" aria-label="Close Peek">×</button>
+      </div>
+      <div class="peek-viewport">
+        <canvas id="peekCanvas" tabindex="0" aria-label="3D arena map. Arrow keys orbit. Plus and minus zoom."></canvas>
+        <span id="peekYou" class="map-marker"><i></i><b>You</b></span>
+        <span id="peekBot" class="map-marker"><i></i><b>Bot</b></span>
+      </div>
+      <p id="peekGuide"><span>Drag to orbit</span><span>Scroll to zoom</span><span><kbd>P</kbd> to close</span><span><kbd>WASD</kbd> to move after closing</span></p>
     </dialog>
     <dialog id="inventory">
       <form method="dialog">

@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 //! Local FFA, using id's base-game item and weapon tables.
 use crate::{
+    bot::{choose_weapon, pickup_goal, Skill, Tracking},
     bsp::{origin, Brush, Map},
     collision::{box_brush, clip, Hit, Space, World, PLAYER, SHOT},
     movement::{direction, Body, Cmd, DT},
@@ -136,6 +137,8 @@ pub struct Game {
     triggers: Vec<Trigger>,
     rng: u32,
     seed: u32,
+    bot_level: u8,
+    tracking: Tracking,
     route: Vec<Vec3>,
     plan_at: u32,
     seen: u32,
@@ -146,7 +149,7 @@ pub struct Game {
     fixed: Vec<Brush>,
     pub offsets: Vec<[f32; 4]>,
 }
-fn weapon(s: &str) -> Option<usize> {
+pub(crate) fn weapon(s: &str) -> Option<usize> {
     WEAPONS
         .iter()
         .position(|w| Some(*w) == s.strip_prefix("weapon_"))
@@ -246,6 +249,8 @@ impl Game {
             triggers,
             rng: seed,
             seed,
+            bot_level: 3,
+            tracking: Tracking::default(),
             route: vec![],
             plan_at: 0,
             seen: 0,
@@ -267,7 +272,21 @@ impl Game {
         self.rng = x;
         (x >> 8) as f32 / 16777216.
     }
+    pub fn set_bot_level(&mut self, level: u8) {
+        let level = level.min(5);
+        if self.bot_level != level {
+            self.bot_level = level;
+            self.seen = 0;
+            self.tracking = Tracking::default();
+            self.plan_at = 0;
+            self.route.clear();
+            self.goal_item = None;
+            self.recover_until = 0;
+            self.stuck = 0;
+        }
+    }
     pub fn reset(&mut self) {
+        self.tracking = Tracking::default();
         self.time = 0;
         for m in &mut self.moving {
             m.frac = 0.;
@@ -313,6 +332,7 @@ impl Game {
         let (p, y) = choices[ix];
         self.actors[i] = Actor::spawn(p, y, self.actors[i].score);
         self.actors[i].spawned = self.time;
+        self.tracking = Tracking::default();
         if i == 1 {
             self.route.clear();
             self.plan_at = 0;
@@ -331,18 +351,51 @@ impl Game {
         let bot = &self.actors[1];
         let b = bot.body;
         let human = &self.actors[0];
-        let dest = human.body.pos;
+        let level = self.bot_level;
+        let skill = Skill::for_level(level);
         let live = human.hp > 0;
         let delta = human.body.eye() - b.eye();
         let dist = delta.length();
         let visible = live && self.sight(b.eye(), human.body.eye());
+        let known_range = if level >= 4 && !visible {
+            self.tracking
+                .last_eye
+                .map_or(600., |eye| eye.distance(b.eye()))
+        } else {
+            dist
+        };
+        let best = choose_weapon(bot, known_range, level);
+        let mut target_delta = delta;
+        if skill.sample_ms != 0 {
+            if visible {
+                self.tracking
+                    .observe(self.time, human.body.eye(), skill.sample_ms);
+                target_delta = self.tracking.aim(b.eye(), best, level, self.time);
+            } else {
+                self.tracking.lose_sight();
+            }
+        }
+        const PATROL_MS: u32 = 14_000;
+        let since_contact = self.time - self.tracking.last_seen_ms;
+        let dest = if level >= 4 && !visible {
+            // Search the last sighting briefly, then sweep known arena starts.
+            let patrol =
+                (self.time / PATROL_MS).wrapping_add(self.seed) as usize % self.spawns.len();
+            self.tracking
+                .last_eye
+                .filter(|_| since_contact < 3600)
+                .map(|eye| eye - Vec3::Z * 26.)
+                .unwrap_or(self.spawns[patrol].0)
+        } else {
+            human.body.pos
+        };
         if !visible {
             self.seen = 0
         } else if self.seen == 0 {
             self.seen = self.time
         }
         if self.time >= self.plan_at {
-            self.plan_at = self.time + 680;
+            self.plan_at = self.time + skill.plan_ms;
             if b.pos.distance(self.last_plan_pos) < 24. && !visible {
                 self.stuck += 1
             } else {
@@ -356,24 +409,32 @@ impl Game {
                 self.recover_until = self.time + 2800;
                 self.stuck = 0;
             }
-            let need = self
-                .items
-                .iter()
-                .enumerate()
-                .filter(|(_, i)| {
-                    i.next <= self.time
-                        && ((weapon(&i.class).is_some_and(|w| !bot.owned[w]))
-                            || (bot.hp < 90 && i.class.starts_with("item_health"))
-                            || (bot.armor < 40 && i.class.starts_with("item_armor")))
-                })
-                .min_by(|(_, a), (_, c)| {
-                    a.pos
-                        .distance_squared(b.pos)
-                        .total_cmp(&c.pos.distance_squared(b.pos))
-                });
-            self.goal_item = need
-                .filter(|(_, it)| it.pos.distance(b.pos) < if visible { 210. } else { 560. })
-                .map(|(i, _)| i);
+            self.goal_item = if level >= 4 {
+                // Commit to the search long enough to leave a repeating pickup circuit.
+                if !visible && since_contact > 3600 && self.time % PATROL_MS > 3000 {
+                    None
+                } else {
+                    pickup_goal(bot, &self.items, self.time, visible, level)
+                }
+            } else {
+                let need = self
+                    .items
+                    .iter()
+                    .enumerate()
+                    .filter(|(_, i)| {
+                        i.next <= self.time
+                            && ((weapon(&i.class).is_some_and(|w| !bot.owned[w]))
+                                || (bot.hp < 90 && i.class.starts_with("item_health"))
+                                || (bot.armor < 40 && i.class.starts_with("item_armor")))
+                    })
+                    .min_by(|(_, a), (_, c)| {
+                        a.pos
+                            .distance_squared(b.pos)
+                            .total_cmp(&c.pos.distance_squared(b.pos))
+                    });
+                need.filter(|(_, it)| it.pos.distance(b.pos) < if visible { 210. } else { 560. })
+                    .map(|(i, _)| i)
+            };
             let mut firing = dest;
             if !visible && self.goal_item.is_none() {
                 let mut choices: Vec<_> = self
@@ -386,10 +447,16 @@ impl Game {
                     p.distance_squared(b.pos)
                         .total_cmp(&q.distance_squared(b.pos))
                 });
-                if let Some(p) = choices
-                    .into_iter()
-                    .find(|p| self.sight(**p + Vec3::Z * 26., human.body.eye()))
-                {
+                if let Some(p) = choices.into_iter().find(|p| {
+                    self.sight(
+                        **p + Vec3::Z * 26.,
+                        if level >= 4 {
+                            dest + Vec3::Z * 26.
+                        } else {
+                            human.body.eye()
+                        },
+                    )
+                }) {
                     firing = *p
                 }
             }
@@ -411,23 +478,40 @@ impl Game {
         }) {
             self.route.remove(0);
         }
-        let next = self.route.first().copied().unwrap_or(dest);
-        let travel = next - b.pos;
+        let fallback = if level >= 4 {
+            self.goal_item.map(|i| self.items[i].pos).unwrap_or(dest)
+        } else {
+            dest
+        };
+        let next = self.route.first().copied().unwrap_or(fallback);
+        let close_for_gauntlet = level >= 4 && best == 1 && visible && self.goal_item.is_none();
+        let travel = if close_for_gauntlet { dest } else { next } - b.pos;
         let t = self.time as f32 * 0.001;
-        let strafing = visible && dist < 560. && self.goal_item.is_none();
-        let target = if visible { delta } else { travel };
-        let aim = target.y.atan2(target.x) + if visible { 0.056 * (t * 2.7).sin() } else { 0. };
-        let yaw = b.yaw + angle(aim - b.yaw).clamp(-0.030, 0.030);
+        let strafing = visible && dist < 560. && self.goal_item.is_none() && !close_for_gauntlet;
+        let target = if visible { target_delta } else { travel };
+        let aim = target.y.atan2(target.x)
+            + if visible {
+                skill.sway * (t * 2.7).sin()
+            } else {
+                0.
+            };
+        let yaw = b.yaw + angle(aim - b.yaw).clamp(-skill.turn, skill.turn);
         let tilt = if visible {
-            delta.z.atan2(delta.truncate().length()) + 0.027 * (t * 3.1).sin()
+            target_delta.z.atan2(target_delta.truncate().length())
+                + skill.pitch_sway * (t * 3.1).sin()
         } else {
             0.
         };
-        let pitch = b.pitch + (tilt - b.pitch).clamp(-0.021, 0.021);
+        let pitch = b.pitch + (tilt - b.pitch).clamp(-skill.pitch_step, skill.pitch_step);
         let front = direction(yaw, 0.);
         let right = front.cross(Vec3::Z);
         let walk = if strafing {
-            right * (t * 1.9).sin() * 0.7
+            let dodge = if level >= 4 {
+                (t * 2.6 + (t * 1.45 + self.seed as f32).sin() * 1.8).sin()
+            } else {
+                (t * 1.9).sin()
+            };
+            right * dodge * if level >= 4 { 1.0 } else { 0.7 }
                 + front
                     * if dist > 380. {
                         0.4
@@ -439,15 +523,11 @@ impl Game {
         } else {
             travel.truncate().extend(0.).normalize_or_zero()
         };
-        let best = [5, 6, 3, 7, 8, 2, 4, 1]
-            .into_iter()
-            .find(|&g| {
-                bot.owned[g]
-                    && (g == 1 || bot.ammo[g] > 0)
-                    && !(g == 5 && dist < 95.)
-                    && !(g == 6 && dist > 750.)
-            })
-            .unwrap_or(1);
+        let burst_time = if level == 3 {
+            t
+        } else {
+            (self.time - self.seen).saturating_sub(skill.reaction_ms) as f32 * 0.001
+        };
         Cmd {
             yaw,
             pitch,
@@ -457,10 +537,11 @@ impl Game {
                 && travel.z > 14.
                 && ((b.grounded && !b.held_jump)
                     || self.world.trace(b.pos, b.pos, Vec3::ZERO, 32).inside),
-            fire: visible
-                && self.time - self.seen > 360
+            fire: level != 0
+                && visible
+                && self.time - self.seen > skill.reaction_ms
                 && angle(aim - yaw).abs() < 0.15
-                && t % 2.3 < 1.75,
+                && burst_time % skill.cycle < skill.burst,
             weapon: best,
             ..Cmd::default()
         }
@@ -862,7 +943,7 @@ impl Game {
     }
     pub fn snapshot(&self) -> Value {
         let a = &self.actors[0];
-        json!({"ms":self.time,"health":a.hp.max(0),"armor":a.armor,"ammo":a.ammo[a.gun],"gun":a.gun,"weapon":NAMES[a.gun],"owned":a.owned,"scores":[a.score,self.actors[1].score],"winner":self.winner,"pos":a.body.pos.to_array(),"yaw":a.body.yaw,"pitch":a.body.pitch,"bot":self.actors[1].body.pos.to_array(),"botHealth":self.actors[1].hp.max(0),"pain":a.pain,"visible":self.sight(a.body.eye(),self.actors[1].body.eye())})
+        json!({"botLevel": self.bot_level, "ms":self.time,"health":a.hp.max(0),"armor":a.armor,"ammo":a.ammo[a.gun],"gun":a.gun,"weapon":NAMES[a.gun],"owned":a.owned,"scores":[a.score,self.actors[1].score],"winner":self.winner,"pos":a.body.pos.to_array(),"yaw":a.body.yaw,"pitch":a.body.pitch,"bot":self.actors[1].body.pos.to_array(),"botHealth":self.actors[1].hp.max(0),"pain":a.pain,"visible":self.sight(a.body.eye(),self.actors[1].body.eye())})
     }
 }
 pub fn angle(v: f32) -> f32 {
@@ -968,5 +1049,206 @@ mod rules_tests {
         g.events.clear();
         g.shoot(0);
         assert!(g.events.is_empty());
+    }
+    #[test]
+    fn explore_is_passive_through_respawn_and_level_changes() {
+        let mut g = duel();
+        g.spawns = vec![
+            (Vec3::new(0., 0., 24.125), 0.),
+            (Vec3::new(45., 0., 24.125), std::f32::consts::PI),
+        ];
+        g.nav.points.clear();
+        g.set_bot_level(5);
+        for _ in 0..100 {
+            g.tick(Cmd::default());
+        }
+        assert!(g
+            .events
+            .iter()
+            .any(|e| e["actor"] == 1 && e["kind"] == "shot"));
+        g.set_bot_level(0);
+        g.events.clear();
+        g.actors[1].ammo[2] = 0; // Force gauntlet in touching range.
+        let mut bot_moved = false;
+        let start = g.actors[1].body.pos;
+        for _ in 0..15000 {
+            let d = g.actors[1].body.eye() - g.actors[0].body.eye();
+            g.tick(Cmd {
+                yaw: d.y.atan2(d.x),
+                pitch: d.z.atan2(d.truncate().length()),
+                forward: if d.length() > 70. { 1. } else { 0. },
+                fire: true,
+                weapon: if d.length() < 42. || g.actors[0].ammo[2] == 0 {
+                    1
+                } else {
+                    2
+                },
+                ..Cmd::default()
+            });
+            bot_moved |= g.actors[1].body.pos.distance(start) > 12.;
+            if g.winner.is_some() {
+                break;
+            }
+        }
+        assert!(bot_moved);
+        assert_eq!(g.winner, Some(0));
+        assert_eq!(g.actors[0].score, 5);
+        assert!(g
+            .events
+            .iter()
+            .any(|e| e["actor"] == 0 && e["kind"] == "shot"));
+        assert!(g
+            .events
+            .iter()
+            .all(|e| e["actor"] != 1 || e["kind"] != "shot"));
+        g.reset();
+        assert_eq!(g.bot_level, 0);
+    }
+
+    #[test]
+    fn crossing_cover_and_pickup_contest_by_level() {
+        let mut first_shots = Vec::new();
+        let mut hits = Vec::new();
+        for level in 1..=5 {
+            let mut g = duel();
+            g.nav.points.clear();
+            g.set_bot_level(level);
+            g.actors[1].body.pos.x = 360.;
+            g.actors[1].body.yaw = std::f32::consts::PI;
+            // Strafe back and forth across a corridor for two seconds.
+            for n in 0..250 {
+                g.tick(Cmd {
+                    side: if (n / 60) % 2 == 0 { 1. } else { -1. },
+                    ..Cmd::default()
+                });
+            }
+            let first = g
+                .events
+                .iter()
+                .find(|e| e["kind"] == "shot" && e["actor"] == 1)
+                .unwrap()["ms"]
+                .as_u64()
+                .unwrap();
+            let damage = g
+                .events
+                .iter()
+                .filter(|e| e["kind"] == "pain" && e["actor"] == 0)
+                .count();
+            first_shots.push(first);
+            hits.push(damage);
+
+            // Start behind a pillar, then strafe past it and measure reacquisition.
+            let mut cover = duel();
+            cover.nav.points.clear();
+            cover.set_bot_level(level);
+            cover.actors[1].body.pos.x = 360.;
+            cover.actors[1].body.yaw = std::f32::consts::PI;
+            cover.world = World::new(vec![
+                box_brush(
+                    Vec3::new(-2000., -2000., -64.),
+                    Vec3::new(2000., 2000., 0.),
+                    1,
+                ),
+                box_brush(Vec3::new(140., -90., 0.), Vec3::new(205., 90., 200.), 1),
+            ]);
+            for _ in 0..60 {
+                cover.tick(Cmd::default());
+            }
+            assert!(cover.events.iter().all(|e| e["kind"] != "shot"));
+            let mut reveal = None;
+            for _ in 0..600 {
+                let visible = cover.sight(cover.actors[1].body.eye(), cover.actors[0].body.eye());
+                if visible && reveal.is_none() {
+                    reveal = Some(cover.time);
+                }
+                cover.tick(Cmd {
+                    side: if cover.actors[0].body.pos.y > -290. {
+                        1.
+                    } else {
+                        0.
+                    },
+                    ..Cmd::default()
+                });
+                if cover.events.iter().any(|e| e["kind"] == "shot") {
+                    break;
+                }
+            }
+            let reacquire = cover.time - reveal.expect("player passed the pillar");
+            assert!(cover.events.iter().any(|e| e["kind"] == "shot"));
+            assert!(reacquire >= Skill::for_level(level).reaction_ms);
+
+            let mut race = duel();
+            race.nav.points.clear();
+            race.set_bot_level(level);
+            race.actors[1].body.pos.x = 510.;
+            race.actors[1].body.yaw = std::f32::consts::PI;
+            race.items.push(Item {
+                class: "weapon_rocketlauncher".into(),
+                pos: Vec3::new(275., 60., 24.),
+                next: 0,
+            });
+            for _ in 0..400 {
+                let d = race.items[0].pos - race.actors[0].body.pos;
+                race.tick(Cmd {
+                    forward: 1.,
+                    yaw: d.y.atan2(d.x),
+                    ..Cmd::default()
+                });
+                if race.items[0].next > 0 {
+                    break;
+                }
+            }
+            let picked = race.events.iter().find(|e| e["kind"] == "pickup").unwrap();
+            println!("level {level}: first shot {first} ms, {damage} hits, cover {reacquire} ms, rocket actor {} at {} ms",picked["actor"],picked["ms"]);
+            assert_eq!(picked["actor"], if level >= 4 { 1 } else { 0 });
+        }
+        assert!(
+            first_shots.windows(2).all(|v| v[0] > v[1]),
+            "{first_shots:?}"
+        );
+        assert!(hits.windows(2).all(|v| v[0] < v[1]), "{hits:?}");
+    }
+
+    #[test]
+    fn rockets_lead_a_steady_strafe_and_can_be_dodged() {
+        for level in [4, 5] {
+            let encounter = |reverse: bool| {
+                let mut g = duel();
+                g.nav.points.clear();
+                g.set_bot_level(level);
+                g.actors[0].body.pos = Vec3::new(420., -48., 24.125);
+                g.actors[1].body = Body::new(Vec3::new(0., 0., 24.125), 0.);
+                g.actors[1].owned[5] = true;
+                g.actors[1].ammo[5] = 1;
+                g.actors[1].gun = 5;
+                let mut shot = None;
+                for _ in 0..220 {
+                    g.tick(Cmd {
+                        side: if reverse && shot.is_some() { 1. } else { -1. },
+                        ..Cmd::default()
+                    });
+                    if shot.is_none() && !g.missiles.is_empty() {
+                        let rocket = &g.missiles[0];
+                        let target = g.actors[0].body.eye() - rocket.pos;
+                        let lead =
+                            angle(rocket.vel.y.atan2(rocket.vel.x) - target.y.atan2(target.x));
+                        assert!(lead > 0.12, "level {level}, lead {lead}");
+                        shot = Some(g.time);
+                        g.actors[1].ammo.fill(0); // Measure only this rocket.
+                    }
+                    if shot.is_some_and(|t| g.time - t > 850) {
+                        break;
+                    }
+                }
+                assert!(shot.is_some());
+                g.actors[0].hp
+            };
+            let steady = encounter(false);
+            let dodge = encounter(true);
+            println!(
+                "level {level}: target health after one rocket, steady {steady}, dodge {dodge}"
+            );
+            assert!(steady < 100 && dodge >= 120);
+        }
     }
 }

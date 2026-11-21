@@ -39,7 +39,7 @@ button:disabled {
   opacity: 0.55;
   cursor: wait;
 }
-canvas,
+#arena,
 #hud,
 #menu {
   position: fixed;
@@ -409,4 +409,89 @@ select {
   overflow-wrap: anywhere;
   max-height: 60vh;
   overflow: auto;
+}
+
+.lobby-level {
+  margin: 0;
+  padding: 4px 5px 4px 12px;
+  background: var(--panel);
+  border: 1px solid #6b716a;
+  border-radius: 2px;
+  font-size: 14px;
+}
+.lobby-level select, #controlsLevel {
+  color: var(--ink);
+  background: #222924;
+  border: 1px solid #606860;
+  border-radius: 2px;
+}
+#peekButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#peekButton:disabled { cursor: default; }
+kbd {
+  padding: 2px 5px;
+  border: 1px solid #606860;
+  border-radius: 2px;
+  color: var(--ink);
+  font: 600 0.85em/1.2 monospace;
+}
+#peek {
+  width: min(1040px, 95vw);
+  padding: 0;
+  overflow: auto;
+}
+.peek-heading, #peekGuide {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+}
+#peekMapName { color: var(--muted); }
+#closePeek { margin-left: auto; }
+.peek-viewport {
+  position: relative;
+  overflow: hidden;
+  height: clamp(155px, 62vh, 670px);
+  background: #101715;
+  border-block: 1px solid #454d46;
+}
+#peekCanvas { width: 100%; height: 100%; touch-action: none; cursor: grab; }
+#peekCanvas:active { cursor: grabbing; }
+#peekCanvas:focus-visible { outline: 2px solid var(--burn); outline-offset: -3px; }
+.map-marker {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  color: #ffab76;
+}
+.map-marker i {
+  position: absolute;
+  left: -9px;
+  top: -9px;
+  width: 18px;
+  height: 18px;
+  background: currentColor;
+  filter: drop-shadow(0 1px 2px #000);
+}
+#peekYou i { clip-path: polygon(100% 50%, 0 0, 22% 50%, 0 100%); }
+#peekBot { color: #83e2e8; }
+#peekBot i { width: 12px; height: 12px; left: -6px; top: -6px; transform: rotate(45deg); }
+.map-marker b {
+  position: absolute;
+  left: 12px;
+  top: -12px;
+  background: #101715ed;
+  padding: 3px 6px;
+  font-size: 13px;
+}
+#peekGuide {
+  gap: 8px 20px;
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-size: 13px;
 }

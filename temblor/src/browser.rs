@@ -169,6 +169,23 @@ impl Engine {
             player.body.held_jump = false;
         }
     }
+    pub fn set_bot_level(&mut self, level: u8) {
+        if let Some((_, game)) = &mut self.session {
+            game.set_bot_level(level);
+        }
+    }
+    pub fn peek_geometry(&self) -> Vec<f32> {
+        self.session
+            .as_ref()
+            .map(|(scene, _)| scene.peek_mesh.clone())
+            .unwrap_or_default()
+    }
+    pub fn peek_offsets(&self) -> Vec<f32> {
+        self.session
+            .as_ref()
+            .map(|(_, g)| g.offsets.concat())
+            .unwrap_or_default()
+    }
     pub fn rematch(&mut self) {
         if let Some((_, g)) = &mut self.session {
             g.reset()

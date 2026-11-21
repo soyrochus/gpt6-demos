@@ -1,9 +1,20 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 import init, { Engine, Packages } from "./pkg/temblor.js";
+import { PeekMap } from "./peek.js";
 import { ArenaAudio } from "./audio.js";
 const $ = (id) => document.getElementById(id),
   canvas = $("arena"),
-  audio = new ArenaAudio();
+  audio = new ArenaAudio(),
+  peek = new PeekMap($("peekCanvas"), $("peekYou"), $("peekBot"));
+let resumeAfterPeek = false;
+const lobbyLevel = $("lobbyLevel"), controlsLevel = $("controlsLevel");
+controlsLevel.replaceChildren(...Array.from(lobbyLevel.options, option => option.cloneNode(true)));
+lobbyLevel.value = controlsLevel.value = "3";
+for (const select of [lobbyLevel, controlsLevel]) {
+  select.addEventListener("change", () => {
+    lobbyLevel.value = controlsLevel.value = select.value;
+  });
+}
 let engine,
   actorPack,
   hasMap = false,
@@ -119,6 +130,7 @@ function resetPresentation() {
   $("reticle").classList.remove("hit");
 }
 function begin() {
+  engine.set_bot_level(Number(lobbyLevel.value));
   active = true;
   clearInput();
   last = simWall = performance.now();
@@ -165,6 +177,8 @@ async function play(local = false) {
       const sounds = await audio.prepare(speakers, pack);
       info = JSON.parse(engine.load(pack, await actors(), name, seed));
       info.speakers = speakers;
+      peek.clear();
+      $("peekButton").disabled = false;
       $("details").hidden = false;
       audio.replace(sounds);
       hasMap = true;
@@ -200,6 +214,32 @@ $("details").onclick = () => {
 };
 $("play").onclick = () => play();
 $("help").onclick = () => $("controls").showModal();
+function openPeek() {
+  if (!hasMap || $("peek").open) return;
+  resumeAfterPeek = active;
+  if (active) pause();
+  $("peekMapName").textContent = named();
+  $("peek").showModal();
+  peek.open(engine, JSON.parse(engine.snapshot()));
+  $("peekCanvas").focus();
+}
+function closePeek() {
+  if (!$("peek").open) return;
+  $("peek").close();
+  if (resumeAfterPeek) {
+    resumeAfterPeek = false;
+    // Request mouse capture inside the closing key or button gesture.
+    void play();
+  } else {
+    $("peekButton").focus();
+  }
+}
+$("peekButton").onclick = openPeek;
+$("closePeek").onclick = closePeek;
+$("peek").addEventListener("cancel", e => {
+  e.preventDefault();
+  closePeek();
+});
 $("import").onclick = () => $("files").showModal();
 $("enter").onclick = () => play(true);
 $("archives").onchange = async (e) => {
@@ -272,6 +312,14 @@ function input(e) {
   if (active) queue.push({ t: performance.now(), ...e });
 }
 addEventListener("keydown", (e) => {
+  if (e.code === "KeyP" && hasMap && (active || $("peek").open || $("controls").open)) {
+    e.preventDefault();
+    if (!e.repeat) {
+      if ($("peek").open) closePeek();
+      else openPeek();
+    }
+    return;
+  }
   if (!active) return;
   if (
     ["Space", "Tab", "Escape", "KeyW", "KeyA", "KeyS", "KeyD", "KeyC"].includes(

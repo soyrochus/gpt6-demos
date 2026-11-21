@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 os.chdir(ROOT)
 RELEASE = Path("release")
 SOURCE_URL = "https://github.com/soyrochus/gpt6-demos/tree/main/temblor"
-HOST = ["index.html", "arena.css", "host.js", "audio.js"]
+HOST = ["index.html", "arena.css", "host.js", "audio.js", "peek.js"]
 NOTICES = [Path("COPYING"), Path("notices/ENGINE.md"), Path("assets/manifest.json"),
            Path("assets/source/editable/rpg3dm2source.txt")]
 for package in ("maps", "misc", "textures", "data", "players"):

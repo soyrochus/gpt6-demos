@@ -50,7 +50,7 @@ The target covers local free-for-all on the supported maps. Input code accepts a
 
 ## Character, weapon and resolution checks
 
-The shipping revision is `94cf0912733dab7694051f9fde0d4cddb7b77e0eab3ca40acead8f0c16a266f4`. The map package is byte-identical to the previous release. Camera-matched comparisons use seed 1813, a 76° vertical field of view and a 1280 × 720 GPU surface. The replay drives the shipping Wasm with fixed 8 ms gameplay commands. It records eye position, yaw, pitch and time for each capture and checks that each before/after pair agrees. The public Play and local import checks also exercise the normal host and pointer-lock controls. [Camera, texture and display records](detail/observations.json)
+The character and resolution measurements below used revision `94cf0912733dab7694051f9fde0d4cddb7b77e0eab3ca40acead8f0c16a266f4`. The map package is byte-identical to the previous release. Camera-matched comparisons use seed 1813, a 76° vertical field of view and a 1280 × 720 GPU surface. The replay drives the shipping Wasm with fixed 8 ms gameplay commands. It records eye position, yaw, pitch and time for each capture and checks that each before/after pair agrees. The public Play and local import checks also exercise the normal host and pointer-lock controls. [Camera, texture and display records](detail/observations.json)
 
 | Capture | Previous build | Revised build |
 | --- | --- | --- |
@@ -84,3 +84,23 @@ The close combat capture shows Major’s face, armor and held shotgun. The firin
 Human playtest feedback is pending for pose readability, foot contact and distant filtering during play. Linux hardware WebGPU and a licensed retail q3dm1 fixture were unavailable for this revision. Their acceptance checks remain open.
 
 To reproduce, serve the static release and set `TEMBLOR_URL` to its origin. Run `node tests/detail.mjs` with FFmpeg installed, optionally setting `BASELINE_URL` to the previous build. For the match measurements use `HEADLESS=1 MATCHES=6 RENDER_MODE=performance node tests/match.mjs`. Repeat with `RENDER_MODE=native VIEW_WIDTH=1920 VIEW_HEIGHT=1080 EVIDENCE_DIR=evidence/detail/native`. Run `scripts/summarize.py` with the host's machine and OS and the matching evidence directory.
+
+## Bot levels and Peek
+
+The level and Peek checks used release `64fbbb55ab6e65be0694987b1458d8f0d29b9a7e16d382b25b5380b9eff42e3a`. Two complete matches from the previous shipping Wasm were recorded before tuning. The comparison hashes both positions, player aim, health, armor, weapons, ammunition, scores and the complete event stream at every 8 ms step. Standard reproduced both hashes, including a 0–5 idle match and a 2–5 match in which the player returned fire. Run `node tests/standard.mjs` against the current release. [Original release ID, seeds, counts and hashes](standard-replays.json)
+
+The native encounter fixture runs the same inputs across levels. In the crossing test the player reverses strafe every 480 ms for two seconds. The cover test measures the time from first sight past a pillar to the bot’s first shot. In the pickup race both actors can reach the same rocket launcher.
+
+| Level | First shot | Hits on crossing player | Shot after clearing pillar | First to rocket |
+| --- | ---: | ---: | ---: | --- |
+| Rookie | 1,064 ms | 1 | 1,064 ms | Player |
+| Easy | 696 ms | 3 | 696 ms | Player |
+| Standard | 376 ms | 11 | 376 ms | Player |
+| Veteran | 264 ms | 14 | 528 ms | Bot |
+| Expert | 176 ms | 16 | 400 ms | Bot |
+
+In a separate rocket encounter, Veteran and Expert each hit a steady strafe for 100 damage. Reversing just after launch avoided the hit at both levels. The Explore test switches from Expert at close range, exhausts the bot’s machinegun ammunition, and lets the player finish five frags across bot respawns. It checks that the bot moves and issues zero attacks. Reproduce with `cargo test --release --locked --lib -- --nocapture`.
+
+`node tests/peek.mjs` checks keyboard level selection, the paused clock and pose, drag, zoom, held P, movement after closing, level changes, rematch and local PK3 import. It opens the map from both play and paused Controls. The import uses the bundled OpenArena fixture through the file picker. [Peek in Trial by Error](peek.png)
+
+Human tuning remains open. First-time players should try Rookie and Easy. For experienced Quake duelists, alternate Standard, Veteran and Expert after a warm-up and keep each measured match at one level. Record final scores and which mistakes were punished. The Veteran target is 40–60% wins against this group, with Expert winning more often. Licensed retail map verification also remains open.

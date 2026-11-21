@@ -38,6 +38,21 @@ If the picker reports **No supported map found**, the selected archives contain 
 
 Fight one bot to five frags in **Trial by Error**. Move with WASD, aim with the mouse, fire with the primary button, jump with Space and crouch with C. Switch weapons with the number row or wheel, hold Tab for scores and press Escape to pause. In **Controls**, choose **Native** (the default) for the display’s physical resolution, or **Performance** to cap rendering at 1,280 pixels wide. Mouse sensitivity and HUD size are the same in both modes. Collect the rocket launcher near the starting corridor and use the pillars for cover. Both actors respawn after a frag. Click **Rematch** on the final score.
 
+### Bot level and Peek
+
+Choose **Bot level** beside **Play** or at the top of **Controls**. A fresh visit starts at **3 · Standard**. Change the level on pause to continue the same score on Resume. Rematches and imported maps keep the current selection.
+
+| Level | What to expect |
+| --- | --- |
+| 0 · Explore | The bot moves and collects items without attacking while you explore or practice. You can still score five frags. |
+| 1 · Rookie | Slow reactions and short bursts give you time to find the opponent. |
+| 2 · Easy | A faster response, with time to dodge or reach cover. |
+| 3 · Standard | The original duel opponent. |
+| 4 · Veteran | Leads rockets against a steady strafe, varies its dodge and contests armor and weapons. |
+| 5 · Expert | Tracks direction changes more quickly and changes weapons with engagement distance. |
+
+Press **P** during a match to pause and open **Peek**. The orange arrow marks your position and facing. The cyan diamond marks the bot. Drag to orbit the wireframe and scroll to zoom, or use the arrow keys and **+**/**−** while the map has focus. Press **P** again to resume. Opening Peek from **Controls** returns you there when it closes. [Peek screenshot](evidence/peek.png)
+
 | Content | Runtime coverage |
 | --- | --- |
 | OpenArena `maps/oa_rpg3dm2.bsp` | Real BSP and AAS, four starts, one inline jump pad, shallow and deep water, health, armor, ammunition and spatial ambient speakers. Gauntlet, machinegun, shotgun, grenade launcher, rocket launcher and lightning gun. |
@@ -64,7 +79,7 @@ cargo install wasm-bindgen-cli --version 0.2.114 --locked
 
 `WASM_BINDGEN=/path/to/wasm-bindgen` selects an existing matching CLI. If the system Python predates 3.11, set `PYTHON=python3.14` or another installed 3.11+ interpreter. The build checks every content input in `assets/manifest.json`, packages the static application and records the source URL and checksum for each Rust dependency. For native development run `cargo test --release --locked`. Inspect the map with `cargo run --release --example inspect -- maps/oa_rpg3dm2.bsp assets/arena.pk3` and replay a seeded match with `cargo run --release --example replay`.
 
-With the release server running, use `bun install --frozen-lockfile`, then `npm run test:browser`, `node tests/import.mjs`, `node tests/route.mjs`, `node tests/detail.mjs` and `RENDER_MODE=performance MATCHES=6 node tests/match.mjs`. The detail check uses FFmpeg to encode the combat sequence. Set `BASELINE_URL` to a server running the previous release for paired camera captures. Set `HEADLESS=1` for a headless hardware match. The match driver uses real keyboard and relative mouse input. Set `TEMBLOR_URL` to test another static deployment. Build output hashes are in [release/build.json](release/build.json). Package provenance and source revisions are in [notices/ENGINE.md](notices/ENGINE.md).
+With the release server running, use `bun install --frozen-lockfile`, then `npm run test:browser`, `node tests/import.mjs`, `node tests/route.mjs`, `node tests/standard.mjs`, `node tests/peek.mjs`, `node tests/detail.mjs` and `RENDER_MODE=performance MATCHES=6 node tests/match.mjs`. The detail check uses FFmpeg to encode the combat sequence. Set `BASELINE_URL` to a server running the previous release for paired camera captures. Set `HEADLESS=1` for a headless hardware match. The match driver uses real keyboard and relative mouse input. Set `TEMBLOR_URL` to test another static deployment. Build output hashes are in [release/build.json](release/build.json). Package provenance and source revisions are in [notices/ENGINE.md](notices/ENGINE.md).
 
 Simulation runs in 8 ms steps, with 320 units/s ground speed, gravity 800, friction 6, ground acceleration 10 and air acceleration 1. The host consumes timestamped input at step boundaries, interpolates actor positions and caps accumulated frame debt at 120 ms. Focus loss clears controls and freezes simulation time. Tests exercise the same command interface as the player and bot.
 

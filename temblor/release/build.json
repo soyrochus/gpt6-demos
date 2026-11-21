@@ -1,6 +1,6 @@
 {
   "engine": "Temblor 0.1.0",
-  "sourceRevision": "5b7ca674d62930286c2756fdd15f0dc144d2e90adc9abdd56c36aba7cf1593d8",
+  "sourceRevision": "64fbbb55ab6e65be0694987b1458d8f0d29b9a7e16d382b25b5380b9eff42e3a",
   "rustc": "rustc 1.100.0 (0ef1bc386 2026-11-09)",
   "bindgen": "0.2.114",
   "files": {
@@ -9,8 +9,8 @@
       "sha256": "57e76a0a60fcddae4488141f4317c8a8d5fe1e77907556c2d472edad68e2db9b"
     },
     "arena.css": {
-      "bytes": 6343,
-      "sha256": "122b71b4726c11e610bb3e71dfd7472a79cdcb48df46862d6c7f02cd1dc8968f"
+      "bytes": 8200,
+      "sha256": "8bdac3d7cfec179d922036c0e9bb0dd4512765736402c44395089d5f113a871a"
     },
     "arena.jpg": {
       "bytes": 14075,
@@ -29,12 +29,12 @@
       "sha256": "450b49f6a63e0ecb8427581ff4067223fd44022550f81f65f73358ad4881914e"
     },
     "host.js": {
-      "bytes": 13604,
-      "sha256": "c8342939c7666cc0aa1d1a670f6378331bc99a8b54a4c46f750cdc29574277b9"
+      "bytes": 15128,
+      "sha256": "7722a3b102ad6d433be2cce16fd07cab68a04747946ba8ec7f9c73d43f497819"
     },
     "index.html": {
-      "bytes": 4525,
-      "sha256": "403470a84d68a79d5e08b746cfacf6f64203040cc9d691eb8f9f3a3afe4df46a"
+      "bytes": 5975,
+      "sha256": "17a7d37aec65b8360fb9ed51f79891bbc8bf746bc458bd2abd695b7fe38a9005"
     },
     "licenses/COPYING": {
       "bytes": 15148,
@@ -132,13 +132,17 @@
       "bytes": 2468,
       "sha256": "8bc24671138364cab7393e3260e73779439e29e647a5f220a25c7356a2be5d10"
     },
+    "peek.js": {
+      "bytes": 8939,
+      "sha256": "c8218b4086f659b926d283aca2958c708119dcf97d39b52ce0ecd3f01680fcc1"
+    },
     "pkg/temblor.js": {
-      "bytes": 73247,
-      "sha256": "c9ff31e13a76a00d94bd0da1aa57974f4377d98f4f0a20b9852989e25be90f1c"
+      "bytes": 75018,
+      "sha256": "68760f68619a43115688dcf44b070500272f034a3238f71b456cd53c7b49a767"
     },
     "pkg/temblor_bg.wasm": {
-      "bytes": 897111,
-      "sha256": "24a8c2d06b7140b55a31c208bcd99fa563f04c51202d30d91fa070b5486a7587"
+      "bytes": 908925,
+      "sha256": "20cf2e049d94997cf19c2745bcd4da731fa663d7cf9631b4ab9104f581a17b00"
     }
   }
 }

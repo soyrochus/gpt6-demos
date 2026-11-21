@@ -24,6 +24,7 @@ pub struct Renderer {
     capacity: u64,
 }
 pub struct Scene {
+    pub peek_mesh: Vec<f32>,
     actors: crate::models::Actors,
     lighting: crate::models::LightGrid,
     bind: wgpu::BindGroup,
@@ -394,6 +395,7 @@ impl Renderer {
             return Err("No drawable map surfaces".into());
         }
         Ok(Scene {
+            peek_mesh: crate::peek::mesh(m, &models),
             actors,
             lighting: crate::models::LightGrid::new(m),
             bind,

@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 pub mod aas;
+mod bot;
 #[cfg(target_arch = "wasm32")]
 mod browser;
 pub mod bsp;
@@ -14,5 +15,7 @@ pub mod models;
 pub mod movement;
 pub mod mover;
 pub mod nav;
+#[cfg(target_arch = "wasm32")]
+mod peek;
 #[cfg(target_arch = "wasm32")]
 mod renderer;

@@ -156,6 +156,23 @@ fn seeded_bot_five_frags_and_rematch() {
 }
 
 #[test]
+fn veteran_and_expert_find_an_idle_opponent_after_respawn() {
+    let m = Map::parse(BSP).unwrap();
+    for level in [4, 5] {
+        let mut g = Game::new(&m, 1813).unwrap();
+        g.areas = Some(Areas::parse(AAS).unwrap());
+        g.set_bot_level(level);
+        for _ in 0..75000 {
+            g.tick(Cmd::default());
+            if g.winner.is_some() {
+                break;
+            }
+        }
+        assert_eq!(g.winner, Some(1), "level {level}: {}", g.snapshot());
+    }
+}
+
+#[test]
 fn low_ceiling_blocks_jump_and_standing_up() {
     let floor = box_brush(Vec3::new(-600., -200., -60.), Vec3::new(600., 200., 0.), 1);
     let ceiling = box_brush(Vec3::new(90., -160., 43.), Vec3::new(240., 160., 100.), 1);
